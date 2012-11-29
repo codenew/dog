@@ -18,7 +18,7 @@
         <script src="js/lib/typedarray.js"></script>
         <script src="js/lib/pomeloclient.js"></script>
         <script src="js/lib/bootstrap.js"></script>
-  		<script src="js/index.js"></script>
+  		<script src="js/login.js"></script>
     	<link type="text/css" rel="stylesheet" href="css/base.css" />
     	<link type="text/css" rel="stylesheet" href="css/bootstrap.css" />
     	<link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.css" />
@@ -28,24 +28,26 @@
     		<div class="navbar-inner">
     			<a class="brand" href="#">DOG</a>
     			<ul class="nav">
-    				<li class="active"><a href="#">home</a></li>
-    				<li class=""><a href="#">login</a></li>
-    				<li class=""><a href="#">fight</a></li>
+    				<li class="active"><a href="lostpass.html">找回密码</a></li>
     			</ul>
     		</div>
     	</div>
-      <div class="g-doc">
-         <div class="g-bd">
-			<div class="g-banner" style = "border:none">
-               	<div class="logo"><div class="img"></div></div>
-           	</div>
-            <div class="g-background">
-                <div class="g-content">Welcome to Pomelo</div>
-			</div>
-			<div class="g-button"><input id="test" type="button" value="Test Game Server"/></div>
-      		<button id="add_log">AddLog</button>
-          </div>
-       </div>
+    	<div class="container">
+    	<form id="login">
+  <fieldset>
+    <legend>登陆</legend>
+    <label>用户名</label>
+    <input name="username" type="text" placeholder="用户名">
+    <label>密码</label>
+    <input name="password" type="password" placeholder="密码">
+    <label class="checkbox">
+      <input type="checkbox">记住我
+    </label>
+    <button type="submit" class="btn btn-primary">登陆</button>
+    <button class="btn">注册</button>
+  </fieldset>
+</form>
+    	</div>
       <div id="log"></log>
     </body>
 </html>
