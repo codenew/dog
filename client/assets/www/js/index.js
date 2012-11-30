@@ -7,7 +7,8 @@
     	$('#log').prepend($('<p>').text(info));
     }
     var show = function(){log('not ready!');}
-    pomelo.init({host: host, port: port, log: true}, function() {
+
+	pomelo.init({host: host, port: port, log: true}, function() {
     	log('ready!');
     	show = function() {
     		var t0 = new Date().getTime();
@@ -18,6 +19,7 @@
         	log('sent.');
       	};
     });
+    
     $(function(){
     	$('#add_log').click(function(){
     		log('log add.');
@@ -33,7 +35,8 @@
 	document.addEventListener("deviceready", onDeviceReady, false);
 
 	// PhoneGap加载完毕，可以安全调用PhoneGap方法
-	function onDeviceReady() { 
+	function onDeviceReady() {
+		log('device ready!');
 		checkConnection(); 
 		//	获取位置信息成功时调用的回调函数
 		//	该方法接受一个“Position”对象，包含当前GPS坐标信息
@@ -72,5 +75,9 @@
 
 		log('Connection type: ' + states[networkState]); 
 	}
+	
+	$("a[href]").click(function(){
+		$.mobile.changePage($(this).attr('href'));
+	});
     
 })(jQuery);

@@ -10,30 +10,31 @@
         <meta name="version" content="1.0" />
         <meta name="keywords" content="pomelo" />
 		<script src="js/lib/underscore.js"></script>
-		<script src="js/lib/backbone.js"></script>
+		<script src="js/lib/backbone-min.js"></script>
 		<script src="js/lib/jquery-1.8.3.min.js"></script>
+		<script src="js/lib/jquery.mobile-1.2.0.js"></script>
 		<script src="js/lib/phonegap.js"></script>
 	    <!-- <script src="js/lib/websocket.js"></script> -->
         <script src="js/lib/socket.io.js"></script>
         <script src="js/lib/typedarray.js"></script>
         <script src="js/lib/pomeloclient.js"></script>
+        <!--
         <script src="js/lib/bootstrap.js"></script>
+        -->
+  		<script src="js/config.js"></script>
   		<script src="js/index.js"></script>
+    	<link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.2.0.css" />
     	<link type="text/css" rel="stylesheet" href="css/base.css" />
+    	<!-- 
     	<link type="text/css" rel="stylesheet" href="css/bootstrap.css" />
     	<link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.css" />
+    	-->
     </head>
     <body>
-    	<div class="navbar">
-    		<div class="navbar-inner">
-    			<a class="brand" href="#">DOG</a>
-    			<ul class="nav">
-    				<li class="active"><a href="#">home</a></li>
-    				<li class=""><a href="#">login</a></li>
-    				<li class=""><a href="#">fight</a></li>
-    			</ul>
-    		</div>
-    	</div>
+    <div data-role="header">
+		<h1>DOG</h1>
+		<a href="login.html" data-ajax="false"  data-icon="check">登录</a>
+	</div>
       <div class="g-doc">
          <div class="g-bd">
 			<div class="g-banner" style = "border:none">
