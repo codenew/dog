@@ -21,3 +21,6 @@ local.properties
 
 # temp files in windows
 Thumbs.db
+
+# node dependencis
+node_modules

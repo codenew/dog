@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <body>
-    	
-    	<div class="navbar"><script src="js/login.js"></script>
-    		<div class="navbar-inner">
-    			<a class="brand" href="#">DOG</a>
-    			<ul class="nav">
-    				<li class="active"><a href="lostpass.html">找回密码</a></li>
-    			</ul>
-    		</div>
-    	</div>
-    	<div class="container">
-    	<form id="login">
-  <fieldset>
-    <legend>登陆</legend>
-    <label>用户名</label>
-    <input name="username" type="text" placeholder="用户名">
-    <label>密码</label>
-    <input name="password" type="password" placeholder="密码">
-    <label class="checkbox">
-      <input type="checkbox">记住我
-    </label>
-    <button type="submit" class="btn btn-primary">登陆</button>
-    <button class="btn" id="register">注册</button>
-  </fieldset>
-</form>
-    	</div>
-      <div id="log">this is log area</log>
-    </body>
+  <body>
+    <div  data-role="page" id="loginPage">
+      <div data-role="header">
+    	<h1>登陆</h1>
+	<a href="lostpass.html">找回密码</a>
+      </div>
+      <div data-role="content">
+	<form id="login">
+	  <fieldset>
+	    <label>用户名</label>
+	    <input id="username" name="username" type="text" placeholder="用户名">
+	    <label>密码</label>
+	    <input id="password" name="password" type="password" placeholder="密码">
+	    <label class="checkbox">
+	    <input type="checkbox">记住我
+	    </label>
+	    <button type="submit" class="btn btn-primary">登陆</button>
+	    <button class="btn" id="register">注册</button>
+	  </fieldset>
+	</form>
+      </div>
+      <div id="log">this is log area</div>
+    </div>
+  </body>
 </html>
