@@ -21,11 +21,9 @@ define(function(require, exports, module) {
 
 			    });
 		    });
-		
 		$("#register").click(function(e){
 			e.stopPropagation();
 			
-			log([data.msg, 'takes', t1-t0, 'ms'].join(' '));
 		    });
 		log('sent.');
 	    });
