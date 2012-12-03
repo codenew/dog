@@ -19,6 +19,8 @@ app.configure(function(){
   app.engine('html', require('ejs').renderFile);
   app.use(express.favicon());
   app.use(express.logger('dev'));
+  app.use(express.cookieParser());
+  app.use(express.cookieSession({secret: 'dog.1'}));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
@@ -33,6 +35,8 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/user/login', user.login);
 app.get('/user/logout', user.logout);
+app.get('/user/userinfo', user.userinfo);
+
 app.get('/position', position.list);
 app.get('/position/:id/take', position.take);
 app.get('/pet/adopt', pet.adopt);

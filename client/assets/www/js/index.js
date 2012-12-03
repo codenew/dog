@@ -19,7 +19,9 @@ define(function(require, exports, module) {
 	    , _ = require('underscore')
 	    , backbone = require('backbone')
 	    , phonegap = require('phonegap')
-	    , login = require('app/login')
+	    , login = require('app/pages/login')
+	    , main = require('app/pages/main')
+	    , user = require('app/models/user')
 	    , config = require('app/config');
 	
 	var host = config.host;
