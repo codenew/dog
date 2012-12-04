@@ -11,6 +11,19 @@ var express = require('express')
   , path = require('path');
 
 var app = express();
+var mysqlPool = require("./lib/mysql").createPool({
+	name: 'mysql.game',
+	mysql:{
+		host:'127.0.0.1',
+		user:'root',
+		password: '000000',
+		database: 'game'
+	},
+	maxConnection: 10,
+	idleTimeoutMillis: 300000,
+	log: false,
+	syslog: true
+});
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
