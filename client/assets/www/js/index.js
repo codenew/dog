@@ -8,10 +8,14 @@ requirejs.config({
 	//never includes a ".js" extension since
 	//the paths config could be for a directory.
 	paths: {
-	    app: '../app',
-      	}
-    });
-requirejs([], function(){
+		app: '../app',
+		},
+	shim: {
+		underscore: {exports: '_'},
+		backbone: {deps:["underscore", "jquery"], exports: "Backbone"},
+		}
+	});
+requirejs(['underscore'], function(_){
     });
 define(function(require, exports, module) {
 	var $ = require('jquery')
