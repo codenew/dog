@@ -10,6 +10,15 @@ requirejs.config({
     paths: {
 	app: '../app',
     },
+	map:{
+		"*": {
+				'easeljs': 'easeljs-0.5.0.min',
+				'preloadjs': 'preloadjs-0.2.0.min',
+				'soundjs': 'soundjs-0.3.0.min',
+				'soundjs.flashplugin': 'soundjs.flashplugin-0.3.0.min',
+				'tweenjs': 'tweenjs-0.3.0.min',
+			},
+		},
     shim: {
 	underscore: {exports: '_'},
 	backbone: {deps:["underscore", "jquery"], exports: "Backbone"},
@@ -98,4 +107,5 @@ define(function(require, exports, module) {
 	$.mobile.changePage($(this).attr('href'));
     });
     
+
 });

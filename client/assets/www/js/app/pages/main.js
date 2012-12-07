@@ -35,5 +35,4 @@ define(function(require, exports, module) {
 	    context.drawImage(bodyImg, 0,0, bodyImg.width, bodyImg.height);
 	}
     });
-
 });
