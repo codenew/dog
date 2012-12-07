@@ -8,7 +8,12 @@ var express = require('express')
   , position = require('./routes/position')
   , pet = require('./routes/pet')
   , http = require('http')
+  , log = require('./lib/log')
   , path = require('path');
+
+process.on("uncaughtException", function(err){
+	log.error(null, 'uncaughtException:' + err.stack);
+});
 
 var app = express();
 var mysqlPool = require("./lib/mysql").createPool({
