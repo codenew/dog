@@ -22,13 +22,15 @@ var mysqlPool = require("./lib/mysql").createPool({
 		host:'127.0.0.1',
 		user:'root',
 		password: '000000',
-		database: 'game'
+		database: 'db_dog'
 	},
 	maxConnection: 10,
 	idleTimeoutMillis: 300000,
 	log: false,
 	syslog: true
 });
+
+require('./models/user').init(mysqlPool);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
