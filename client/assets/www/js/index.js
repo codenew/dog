@@ -37,7 +37,7 @@ define(function(require, exports, module) {
 		$('#add_log').click(function(){
 			log('log add.');
 		    });
-		$('#test').click(function(){show();});
+		//$('#test').click(function(){show();});
 		if ('undefined' != typeof WebSocketFactory){
 		    log('exist');
 		}else{
