@@ -7,14 +7,17 @@ define(function(require, exports, module) {
 	$("form#login").submit(function(e){
 	    e.preventDefault();
 	    e.stopPropagation();
-	    user.login($("#username", this).val(), $("#password", this).val(), function(err){
-		if (err){
-		    //$("#messageWindow #messageString").text('login failed');
-		    //$("#messageWindow").popup("open");
-		}else{
-		    $.mobile.changePage('index.html');
-		}
-	    })
+	    user.login(
+		$("#username", this).val(),
+		$("#password", this).val(),
+		function(err){
+		    if (err){
+			//$("#messageWindow #messageString").text('login failed');
+			//$("#messageWindow").popup("open");
+		    }else{
+			$.mobile.changePage('index.html');
+		    }
+		});
 	});
 	$("#register").click(function(e){
 	    e.stopPropagation();
