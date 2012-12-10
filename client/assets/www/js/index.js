@@ -10,15 +10,15 @@ requirejs.config({
     paths: {
 	app: '../app',
     },
-	map:{
-		"*": {
-				'easeljs': 'easeljs-0.5.0.min',
-				'preloadjs': 'preloadjs-0.2.0.min',
-				'soundjs': 'soundjs-0.3.0.min',
-				'soundjs.flashplugin': 'soundjs.flashplugin-0.3.0.min',
-				'tweenjs': 'tweenjs-0.3.0.min',
-			},
-		},
+    map:{
+	"*": {
+	    'easeljs': 'easeljs-0.5.0.min',
+	    'preloadjs': 'preloadjs-0.2.0.min',
+	    'soundjs': 'soundjs-0.3.0.min',
+	    'soundjs.flashplugin': 'soundjs.flashplugin-0.3.0.min',
+	    'tweenjs': 'tweenjs-0.3.0.min',
+	},
+    },
     shim: {
 	underscore: {exports: '_'},
 	backbone: {deps:["underscore", "jquery"], exports: "Backbone"},
@@ -34,7 +34,7 @@ requirejs(['underscore'], function(_){
 });
 define(function(require, exports, module) {
     var $ = require('jquery')
-     , _ = require('underscore')
+    , _ = require('underscore')
     , backbone = require('backbone')
     , phonegap = require('phonegap')
     , login = require('app/pages/login')
@@ -42,11 +42,12 @@ define(function(require, exports, module) {
     , user = require('app/models/user')
     , jmobile = require('jquery.mobile') 
     , config = require('app/config');
-    
+   // $.support.cors = true;
     var host = config.host;
     var port = config.port; 
     function log(info){
-	$('#log').prepend($('<p>').text(info));
+	//$('#log').prepend($('<p>').text(info));
+	console.log(info);
     }
     $(function(){
 	$('#add_log').click(function(){
@@ -103,9 +104,9 @@ define(function(require, exports, module) {
 	log('Connection type: ' + states[networkState]); 
     }
     
-    $("a[href]").click(function(){
-	$.mobile.changePage($(this).attr('href'));
-    });
+    //$("a[href]").click(function(){
+    //$.mobile.changePage($(this).attr('href'));
+    //});
     
 
 });
