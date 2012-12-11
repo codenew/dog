@@ -30,3 +30,6 @@ node_modules
 # temp files
 server/accesslog.txt
 server/errorlog.txt
+*.*#
+.#*.*
+
