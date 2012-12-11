@@ -26,6 +26,7 @@ requirejs.config({
 	    deps:[
 		"app/pages/main",
 		"app/pages/login",
+		"app/pages/options"
 	    ],
 	}
     }
@@ -41,7 +42,8 @@ define(function(require, exports, module) {
     , main = require('app/pages/main')
     , user = require('app/models/user')
     , jmobile = require('jquery.mobile') 
-    , config = require('app/config');
+    , config = require('app/config'),
+	, options = require('app/pages/options');
    // $.support.cors = true;
     var host = config.host;
     var port = config.port; 
