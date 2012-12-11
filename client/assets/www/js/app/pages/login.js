@@ -5,12 +5,14 @@ define(function(require, exports, module) {
     $(document).delegate("#loginPage", "pageinit", function(){
 	console.log('login pageinit');
 	$("form#login").submit(function(e){
+	    console.log('submit');
 	    e.preventDefault();
 	    e.stopPropagation();
 	    user.login(
 		$("#username", this).val(),
 		$("#password", this).val(),
 		function(err){
+		    console.log('user.login with:' + err);
 		    if (err){
 			//$("#messageWindow #messageString").text('login failed');
 			//$("#messageWindow").popup("open");

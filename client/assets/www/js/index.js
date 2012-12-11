@@ -45,6 +45,7 @@ define(function(require, exports, module) {
     , config = require('app/config')
 	, options = require('app/pages/options');
    // $.support.cors = true;
+    $.mobile.transitionFallbacks.slideout = "none";
     var host = config.host;
     var port = config.port; 
     function log(info){
