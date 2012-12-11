@@ -4,23 +4,40 @@ var mysql = null;
 
 var users = {};
 
-function User(userid, name){
+function User(userid, name, nickname){
     this.userid = userid;
     this.name = name;
+	this.nickname = nickname;
 
 }
 
 _.extend(exports, {
 	GetUser: function(userid, next){
-	    if (!(userid in users)){
+	    if (!(userid in users))
+		{
 		// load from mysql
-		users[userid] = new User(userid, 'kaikai');
+		var req = null;
+		mysql.query(req,'select  a.accountid,a.accountname, b.roleid, b.rolename '+
+						'from account a, role b '+
+						'where a.accountid = b.accountid and a.accountid = ?',
+						[userid],
+						function(err, results, fields)
+						{
+							if (results.length = 1)
+							{
+								users[userid] = new User(userid, results[0].accountname, results[0].rolename);								
+							}
+						}
+					);
 	    }
 	    
-	    if (!(userid in users)){
-		next('no such user');
-	    }else{
-		next(null, users[userid]);
+	    if (!(userid in users))
+		{
+			next('no such user');
+	    }
+		else
+		{
+			next(null, users[userid]);
 	    }
 	},
 	    Register: function(username, password, next){
@@ -42,7 +59,7 @@ _.extend(exports, {
 		next(null, 1);
 	    }else{
 		var req = null;
-		mysql.query(req, 'select password from user where name=?', [username], function(err, results, fields){
+		mysql.query(req, 'select password from account where accountname=?', [username], function(err, results, fields){
 			if (err){
 			    next(err);
 			}else{

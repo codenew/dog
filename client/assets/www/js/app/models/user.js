@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 	var DogServer = require('../api').DogServer;
     var userid = null;
     var user = null;
+	var nickname = null;
     exports.SetLocalUser = function(_userid, _user){
         
         user = _user;
@@ -24,7 +25,7 @@ define(function(require, exports, module) {
 	            }
 	        });
         }
-        return {userid: userid, user: user};
+       next(user);
     };
     exports.login = function(username, password, next){
         userid = null;
@@ -44,4 +45,5 @@ define(function(require, exports, module) {
         user = null;
         next(null);
     };
+	
 });
