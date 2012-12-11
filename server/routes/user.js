@@ -7,8 +7,10 @@ var user = require('../models/user');
 exports.login = function(req, res){
     //res.send("respond with a resource");
     var username = req.param('username')
-      , password = req.param('password');
-      console.log()
+      , password = req.param('password')
+	  ,checkcode=req.param('checkcode');
+	  console.log(username,password,checkcode);
+      console.log()	  
     user.Auth(username, password, function(err, userid){
         if (err){
             res.json({result: 'failed', err: err});

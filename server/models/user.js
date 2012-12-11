@@ -42,19 +42,23 @@ _.extend(exports, {
 		next(null, 1);
 	    }else{
 		var req = null;
-		mysql.query(req, 'select password from user where username=?', [username], function(err, results, fields){
+		mysql.query(req, 'select password from user where name=?', [username], function(err, results, fields){
 			if (err){
 			    next(err);
 			}else{
+				console.log(results.length);
+				console.log(results[0].password);
 			    if (results.length == 1 && results[0].password == password){
-				next(null, 1);
+				console.log('run here');
+				next(null, 1);				
+				
 			    }else{
 				next('password mismatch');
 			    }
 			}
 
 		    });
-		next('no such user');
+		//next('no such user');
 	    }
 	},
 	    Logout: function(userid, logoutTime){
