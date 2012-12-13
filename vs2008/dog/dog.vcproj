@@ -301,6 +301,10 @@
 							>
 						</File>
 						<File
+							RelativePath="..\..\client\assets\www\js\app\pages\myposition.js"
+							>
+						</File>
+						<File
 							RelativePath="..\..\client\assets\www\js\app\pages\options.js"
 							>
 						</File>

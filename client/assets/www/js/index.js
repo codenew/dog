@@ -26,12 +26,15 @@ requirejs.config({
 	    deps:[
 		"app/pages/main",
 		"app/pages/login",
-		"app/pages/options"
+		"app/pages/options",
+		"app/pages/myposition"
 	    ],
 	}
     }
 });
 requirejs(['underscore'], function(_){
+});
+requirejs(['smart-2.9.min'], function(_){
 });
 define(function(require, exports, module) {
     var $ = require('jquery')
@@ -43,7 +46,8 @@ define(function(require, exports, module) {
     , user = require('app/models/user')
     , jmobile = require('jquery.mobile') 
     , config = require('app/config')
-	, options = require('app/pages/options');
+	, options = require('app/pages/options')
+	, mypositions = require('app/pages/myposition');
    // $.support.cors = true;
     $.mobile.transitionFallbacks.slideout = "none";
     var host = config.host;

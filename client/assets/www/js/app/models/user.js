@@ -1,4 +1,5 @@
-define(function(require, exports, module) {
+define(function(require, exports, module) 
+{
     var DogServer = require('../api').DogServer;
     var userid = null;
     var user = null;
@@ -45,5 +46,25 @@ define(function(require, exports, module) {
         user = null;
         next(null);
     };
+    
+    //get user's positions
+    exports.getmyposition = function(userid, next)
+    {        
+         function myposition_callback(data)
+         {
+            if (data.result == 'ok'){		                        
+                next(data);
+            }
+            else
+            {
+                console.log('get myposition failed.', data);
+            }
+         };
+	     DogServer.rpc('position', 
+	                   {userid:userid}, 
+	                   myposition_callback
+                      );
+     };
+     
     
 });

@@ -58,6 +58,7 @@ app.get('/user/logout', user.logout);
 app.get('/user/userinfo', user.userinfo);
 
 app.get('/position', position.list);
+app.get('/position/:userid', position.list);
 app.get('/position/:id/take', position.take);
 app.get('/pet/adopt', pet.adopt);
 app.get('/pet/:id/feed', pet.feed);

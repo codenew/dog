@@ -80,5 +80,17 @@
 
 <!-- end page login -->
 
+
+<script id="position_tpl" type="text/x-jsmart-tmpl"> 
+       {foreach $data as $i => $position}
+          <div style="background-color: {cycle values="cyan,yellow"};">
+             [{$i+1}] {$position.name}                                            
+          </div>
+       {foreachelse}
+          No data
+       {/foreach}
+       
+</script>
+
   </body>
 </html>
