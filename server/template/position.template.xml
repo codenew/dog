@@ -1,0 +1,7 @@
+ {foreach $data as $i => $position}
+    <div style="background-color: {cycle values="cyan,yellow"};">
+       [{$i+1}] {$position.name}                                            
+    </div>
+ {foreachelse}
+    No data
+ {/foreach}

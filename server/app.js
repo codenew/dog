@@ -9,7 +9,8 @@ var express = require('express')
   , pet = require('./routes/pet')
   , http = require('http')
   , log = require('./lib/log')
-  , path = require('path');
+  , path = require('path')
+  , template = require('./template/template');
 
 process.on("uncaughtException", function(err){
 	log.error(null, 'uncaughtException:' + err.stack);
@@ -63,6 +64,7 @@ app.get('/position/:id/take', position.take);
 app.get('/pet/adopt', pet.adopt);
 app.get('/pet/:id/feed', pet.feed);
 app.get('/pet/:id/walk/:posid', pet.walk);
+app.get('/template', template.load);
 
 
 http.createServer(app).listen(app.get('port'), function(){

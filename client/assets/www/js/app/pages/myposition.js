@@ -2,7 +2,7 @@
 	var $ = require('jquery');
 	var DogServer = require('../api').DogServer;
 	var user = require('../models/user');
-	
+	var templateloader = require('../models/template');
 
 	
 	function log(info){
@@ -11,9 +11,15 @@
 	
 	function myposition_getpositionlist(data)
     {
-        var tpl = new jSmart($('#position_tpl').text());
-	    var res = tpl.fetch(data);
-	    $('#mypositioncontent').html(res);
+        templateloader.LoadTemplate(
+            'position',
+            function (templatetext)
+            {
+                    var tpl = new jSmart(templatetext);
+	                var res = tpl.fetch(data);
+	                $('#mypositioncontent').html(res);
+            }
+        );
         return ;        
     };
 	
