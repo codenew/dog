@@ -17,6 +17,7 @@ requirejs.config({
 	    'soundjs': 'soundjs-0.3.0.min',
 	    'soundjs.flashplugin': 'soundjs.flashplugin-0.3.0.min',
 	    'tweenjs': 'tweenjs-0.3.0.min',
+	    'googlemap': 'https://maps.google.com/maps/api/js?sensor=false',
 	},
     },
     shim: {
@@ -27,9 +28,13 @@ requirejs.config({
 		"app/pages/main",
 		"app/pages/login",
 		"app/pages/options",
-		"app/pages/myposition"
+		"app/pages/myposition",
+		"app/pages/position",
 	    ],
-	}
+	},
+	"googlemap":{
+	    exports: "google"
+	},
     }
 });
 requirejs(['underscore'], function(_){
@@ -41,14 +46,17 @@ define(function(require, exports, module) {
     , _ = require('underscore')
     , backbone = require('backbone')
     , phonegap = require('phonegap')
-    , login = require('app/pages/login')
-    , main = require('app/pages/main')
-    , user = require('app/models/user')
     , jmobile = require('jquery.mobile') 
     , config = require('app/config')
-	, options = require('app/pages/options')
-	, mypositions = require('app/pages/myposition');
-   // $.support.cors = true;
+    , pages = {
+	main: require('app/pages/main'),
+	user: require('app/models/user'),
+	options: require('app/pages/options'),
+	login: require('app/pages/login'),
+	mypositions: require('app/pages/myposition'),
+    };
+    
+    // $.support.cors = true;
     $.mobile.transitionFallbacks.slideout = "none";
     var host = config.host;
     var port = config.port; 
