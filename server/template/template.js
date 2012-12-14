@@ -14,7 +14,7 @@ var fs = require('fs');
                     }else{                        
                         //res.header('Content-Type','text/x-jsmart-tmpl');
                         res.json({result:"ok", data:data.toString()});
-                        console.log("Load template ok"+err); 
+                        console.log("Load template ok"); 
                     }//else
                 });                              
         }

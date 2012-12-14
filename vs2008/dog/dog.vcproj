@@ -282,6 +282,22 @@
 			<Filter
 				Name="css"
 				>
+				<File
+					RelativePath="..\..\client\assets\www\css\base.css"
+					>
+				</File>
+				<File
+					RelativePath="..\..\client\assets\www\css\bootstrap-responsive.css"
+					>
+				</File>
+				<File
+					RelativePath="..\..\client\assets\www\css\bootstrap.css"
+					>
+				</File>
+				<File
+					RelativePath="..\..\client\assets\www\css\jquery.mobile-1.2.0.css"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="js"
@@ -318,6 +334,10 @@
 						</File>
 						<File
 							RelativePath="..\..\client\assets\www\js\app\pages\options.js"
+							>
+						</File>
+						<File
+							RelativePath="..\..\client\assets\www\js\app\pages\position.js"
 							>
 						</File>
 					</Filter>

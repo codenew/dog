@@ -27,7 +27,8 @@ requirejs.config({
 		"app/pages/main",
 		"app/pages/login",
 		"app/pages/options",
-		"app/pages/myposition"
+		"app/pages/myposition",
+		"app/pages/position"
 	    ],
 	}
     }
@@ -47,7 +48,8 @@ define(function(require, exports, module) {
     , jmobile = require('jquery.mobile') 
     , config = require('app/config')
 	, options = require('app/pages/options')
-	, mypositions = require('app/pages/myposition');
+	, mypositions = require('app/pages/myposition')
+	, positions = require('app/pages/position');
    // $.support.cors = true;
     $.mobile.transitionFallbacks.slideout = "none";
     var host = config.host;

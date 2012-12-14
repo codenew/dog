@@ -32,4 +32,7 @@ server/accesslog.txt
 server/errorlog.txt
 *.*#
 .#*.*
-
+*.suo
+*.ncb
+*.user
+*BuildLog.htm
