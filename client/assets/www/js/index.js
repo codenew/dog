@@ -9,6 +9,7 @@ requirejs.config({
     //the paths config could be for a directory.
     paths: {
 	app: '../app',
+	async: 'require.async',
     },
     map:{
 	"*": {
@@ -17,6 +18,7 @@ requirejs.config({
 	    'soundjs': 'soundjs-0.3.0.min',
 	    'soundjs.flashplugin': 'soundjs.flashplugin-0.3.0.min',
 	    'tweenjs': 'tweenjs-0.3.0.min',
+            'googlemap': 'async!https://maps.google.com/maps/api/js?sensor=false',
 	},
     },
     shim: {
