@@ -1,21 +1,16 @@
 <!doctype html>
 <html>
-<body >
-  
-  
-  
-  <div data-role="page"  id="mappage">
-      <div data-role="header">
+  <body >
+    <div data-role="page" id="mappage" style="position:absolute; bottom: 0px;">
+      <div data-role="header" data-position="fixed">
         <h1>圈子</h1>
         <a href="myposition.html" data-ajax="true"  data-icon="check">我的圈子</a>    
       </div>
-      <div data-role="content">
-        <div style="position:static; width:512px; height:480px;">
-          <div id="mapcontent" style="position:absolute; width:100%; height:100%;">
-          </div>
-		  <canvas id="mapOverlay" style="position:absolute; left:0px; right:0px; top:0px; bottom: 0px;"></canvas>
-         </div>
+      <div data-role="content" style="position:absolute; left:0px; right: 0px; top: 2em; bottom: 0px; padding: 0px;">
+        <div id="mapcontent" style="position:absolute; width:100%; height:100%;">
+        </div>
+	<!-- <canvas id="mapOverlay" style="position:absolute; left:0px; right:0px; top:0px; bottom: 0px;"></canvas> -->
       </div>
-  </div>
-</body>
+    </div>
+  </body>
 </html>
