@@ -21,17 +21,20 @@
 
     function myposition_getlocaluser(userinfo) {				
         console.log('local user getted');
-	if (null == userinfo){
+/*	if (null == userinfo){
 	    // auto switch to login page
 	    $.mobile.changePage('login.html');
 	    return;
 	} else {
+*/	
 	    //get positions for the user						
-	    user.getmyposition(userinfo.userid,
+	    user.getmyposition(/*userinfo.userid,*/1,
     			       myposition_getpositionlist
 			      );
-    	    
+
+/*    	    
 	}	
+*/
     };
 
     function myposition_pageinit(){

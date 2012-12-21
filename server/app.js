@@ -60,7 +60,7 @@ app.get('/user/userinfo', user.userinfo);
 
 app.get('/position', position.list);
 app.get('/position/:userid', position.list);
-app.get('/position/:id/take', position.take);
+app.get('/position/:id/take', position.list);
 app.get('/pet/adopt', pet.adopt);
 app.get('/pet/:id/feed', pet.feed);
 app.get('/pet/:id/walk/:posid', pet.walk);
