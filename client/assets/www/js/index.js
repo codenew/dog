@@ -9,6 +9,8 @@ requirejs.config({
     //the paths config could be for a directory.
     paths: {
 	app: '../app',
+	view: '../view',
+	model: '../model',
 	async: 'require.async',
     },
     map:{
@@ -49,10 +51,10 @@ define(function(require, exports, module) {
     , user = require('app/models/user')
     , jmobile = require('jquery.mobile') 
     , config = require('app/config')
-	, options = require('app/pages/options')
-	, mypositions = require('app/pages/myposition')
-	, positions = require('app/pages/position');
-   // $.support.cors = true;
+    , options = require('app/pages/options')
+    , mypositions = require('app/pages/myposition')
+    , positions = require('app/pages/position');
+    // $.support.cors = true;
     $.mobile.transitionFallbacks.slideout = "none";
     var host = config.host;
     var port = config.port; 
