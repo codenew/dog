@@ -16,44 +16,53 @@
       </div>
       
       <div data-role="content" style="position:absolute; left:0px; right: 0px; top: 2em; bottom: 2em; padding: 0px;">
-	<form class="">
-	  <!--	  <div class="" style="width:80%; display: inline;" data-inline="true"> -->
-	  <input type="search" id="search-address" name="search" value="" />
-	  <!-- </div>
-	       <button class="ui-btn-right" data-icon="search"></button> -->
-	</form>
-	<div id="mapview">
-          <div id="mapcontent" style="position:absolute; left:0px; right:0px; top:3em; bottom: 0em;">
-          </div>
-	  <div id="circling" style="width: 2.5em; position: absolute; right: 1em; top: 1em;">
-	    <div data-role="popup" id="confirmCreateCircle">
-	      
-	      <div data-role="header" data-theme="d">
-		<h1>提示</h1>
-	      </div>
+	<div id="myposition" class="viewtab">
+	  <form class="">
+	    <!--	  <div class="" style="width:80%; display: inline;" data-inline="true"> -->
+	    <input type="search" id="search-address" name="search" value="" />
+	    <!-- </div>
+		 <button class="ui-btn-right" data-icon="search"></button> -->
+	  </form>
+	  <div id="mapview">
+            <div id="mapcontent" style="position:absolute; left:0px; right:0px; top:3em; bottom: 0em;">
+            </div>
+	    <div id="circling" style="width: 2.5em; position: absolute; right: 1em; top: 1em;">
+	      <div data-role="popup" id="confirmCreateCircle">
+		
+		<div data-role="header" data-theme="d">
+		  <h1>提示</h1>
+		</div>
 
-	      <div data-role="content" data-theme="c">
-		<h1>提示</h1>
-		<p>当前圈地操作需要消耗xxx金币，是否继续？
-		</p>
-		<a href="#" id="confirm" data-inline="true" data-role="button" data-rel="back" data-theme="b">确定</a>
-		<a href="#" id="cancel" data-inline="true" data-role="button" data-rel="back" data-theme="c">取消</a>    
+		<div data-role="content" data-theme="c">
+		  <h1>提示</h1>
+		  <p>当前圈地操作需要消耗xxx金币，是否继续？
+		  </p>
+		  <a href="#" id="confirm" data-inline="true" data-role="button" data-rel="back" data-theme="b">确定</a>
+		  <a href="#" id="cancel" data-inline="true" data-role="button" data-rel="back" data-theme="c">取消</a>    
+		</div>
 	      </div>
+	      <a href="#confirmCreateCircle" data-role="button" data-position-to="mapview" id="createCircle" data-rel="popup">圈</a>
 	    </div>
-	    <a href="#confirmCreateCircle" data-role="button" data-position-to="mapview" id="createCircle" data-rel="popup">圈</a>
+	    <div id="userControls" data-role="controlgroup" style="width: 2.5em; position: absolute; right: 1em; bottom: 1em;">
+	      <a href="#" data-role="button" data-icon="plus" id="bigCircle" style="height: 1.5em"></a>
+	      <a href="#" data-role="button" data-icon="minus" id="smallCircle" style="height: 1.5em"></a>
+	      <a href="#" data-role="button" data-icon="plus" id="zoomIn" style="height: 1.5em"></a>
+	      <a href="#" data-role="button" data-icon="minus" id="zoomOut" style="height: 1.5em"></a>
+	      <a href="#" data-role="button" data-icon="star" id="backCurrentPos" style="height: 1.5em"></a>
+	    </div>
+	    <div id="currentRadius" style="position: absolute; left: 1em; bottom: 2em; background-color: blue; opacity: 0.3">
+	      圈子半径：<span id="radius_value"></span>
+	    </div>
 	  </div>
-	  <div id="userControls" data-role="controlgroup" style="width: 2.5em; position: absolute; right: 1em; bottom: 1em;">
-	    <a href="#" data-role="button" data-icon="plus" id="bigCircle" style="height: 1.5em"></a>
-	    <a href="#" data-role="button" data-icon="minus" id="smallCircle" style="height: 1.5em"></a>
-	    <a href="#" data-role="button" data-icon="plus" id="zoomIn" style="height: 1.5em"></a>
-	    <a href="#" data-role="button" data-icon="minus" id="zoomOut" style="height: 1.5em"></a>
-	    <a href="#" data-role="button" data-icon="star" id="backCurrentPos" style="height: 1.5em"></a>
-	  </div>
-	  <div id="currentRadius" style="position: absolute; left: 1em; bottom: 2em; background-color: blue; opacity: 0.3">
-	    圈子半径：<span id="radius_value"></span>
-	  </div>
+	  <!-- <canvas id="mapOverlay" style="position:absolute; left:0px; right:0px; top:0px; bottom: 0px;"></canvas> -->
 	</div>
-	<!-- <canvas id="mapOverlay" style="position:absolute; left:0px; right:0px; top:0px; bottom: 0px;"></canvas> -->
+
+	<div id="mycircle" class="viewtab">
+	    <input type="search" id="search-my-circle-filter" name="search" value="" />
+	    <div id="circleList">
+	    </div>
+	</div>
+
       </div>
       <div data-role="footer" data-id="foo1" data-position="fixed">
         <div data-role="navbar">

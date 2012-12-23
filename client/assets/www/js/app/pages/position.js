@@ -34,7 +34,7 @@ define(function(require, exports, module) {
 	    userSelf.set('location', coords);
 	    var circleManager = new CircleManager();
 	    var mapView = new MapView({
-		el: $('#mapview'),
+		el: $('#mappage #mapview'),
 		collection: circleManager,
 		model: userSelf
 	    });
@@ -44,8 +44,15 @@ define(function(require, exports, module) {
 		}, function(json){
 		});
 	    });
+	    var selfCircleManager = new CircleManager();
+	    var circleListView = new ListView({
+		el: $('#mappage #circleList'),
+		colection: selfCircleManager,
+	    });
+
+	    
 	});
-    };
+    }
     
     $(document).delegate("#mappage", "pageshow", initialize);
 });

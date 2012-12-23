@@ -21,6 +21,7 @@ requirejs.config({
 	    'soundjs.flashplugin': 'soundjs.flashplugin-0.3.0.min',
 	    'tweenjs': 'tweenjs-0.3.0.min',
             'googlemap': 'async!https://maps.google.com/maps/api/js?v=3&sensor=false',
+	    'smart': 'smart-2.9.min',
 	},
     },
     shim: {
