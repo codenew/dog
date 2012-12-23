@@ -7,6 +7,7 @@ var express = require('express')
 , position = require('./routes/position')
 , pet = require('./routes/pet')
 , chat = require('./routes/chat')
+, circle = require('./routes/circle')
 , http = require('http')
 , log = require('./lib/log')
 , path = require('path')
@@ -69,6 +70,9 @@ app.all('/position', position.rest);
 app.all('/pet', pet.rest);
 app.all('/chat', chat.rest);
 app.all('/chat/:id', chat.rest);
+
+app.all('/circle', circle.rest);
+app.all('/circle/:id', circle.rest);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

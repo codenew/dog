@@ -442,6 +442,10 @@
 					Name="model"
 					>
 					<File
+						RelativePath="..\..\client\assets\www\js\model\chat.js"
+						>
+					</File>
+					<File
 						RelativePath="..\..\client\assets\www\js\model\circle.js"
 						>
 					</File>

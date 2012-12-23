@@ -44,7 +44,14 @@ define(function(require, exports, module) {
 		}, function(json){
 		});
 	    });
-
+        circleManager.fetch({
+            success:function(collection, response, options){
+            
+            },
+            error:function (collection, xhr, options){
+            
+            },
+        });
 //	    var circleListView = new ListView({
 //		el: $('#mappage #circleList'),
 //		colection: selfCircleManager,
