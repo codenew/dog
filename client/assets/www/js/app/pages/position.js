@@ -44,12 +44,13 @@ define(function(require, exports, module) {
 		}, function(json){
 		});
 	    });
+	    /*
 	    var selfCircleManager = new CircleManager();
 	    var circleListView = new ListView({
 		el: $('#mappage #circleList'),
 		colection: selfCircleManager,
 		template: '',
-	    });
+	    });*/
 
 	    
 	});
