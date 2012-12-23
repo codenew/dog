@@ -16,6 +16,8 @@ define(function(require, exports, module) {
 	userCircle: null, // blue circle, for create circle
 	currentRadius: 10, // in meter
 	events:{
+//	    "click #confirm": "createCircle",
+//	    "click #createCircle": "createCircle",
 	    "click #bigCircle": "bigCircle",
 	    "click #smallCircle": "smallCircle",
 	    "click #zoomIn": "zoomIn",
@@ -143,7 +145,7 @@ define(function(require, exports, module) {
 		    self.markers[cid].setCenter(circle.get('location'));
 		    self.markers[cid].setRadius(circle.get('radius'));
 		}else{
-		    self.createCircle(circle, selfUserId);
+		    self.addCircle(circle, selfUserId);
 		}
 	    });
 	    _.each(this.markers, function(marker, cid){
@@ -153,7 +155,10 @@ define(function(require, exports, module) {
 		}
 	    });
 	},
-	createCircle: function(circle, selfUserId){
+	createCircle: function(){
+	    console.log('createcircle');
+	},
+	addCircle: function(circle, selfUserId){
 	    var color = '#ff0000';
 	    if (circle.get('owner') == selfUserId){
 		color = '#00ff00';
@@ -188,7 +193,7 @@ define(function(require, exports, module) {
 	    var selfUserId = this.model.get('userid');
 	    var self = this;
 	    this.collection.each(function(circle, index){
-		self.createCircle(circle, selfUserId);
+		self.addCircle(circle, selfUserId);
 	    });
 	}
     });

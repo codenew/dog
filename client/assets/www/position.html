@@ -25,6 +25,23 @@
 	<div id="mapview">
           <div id="mapcontent" style="position:absolute; left:0px; right:0px; top:3em; bottom: 0em;">
           </div>
+	  <div id="circling" style="width: 2.5em; position: absolute; right: 1em; top: 1em;">
+	    <div data-role="popup" id="confirmCreateCircle">
+	      
+	      <div data-role="header" data-theme="d">
+		<h1>提示</h1>
+	      </div>
+
+	      <div data-role="content" data-theme="c">
+		<h1>提示</h1>
+		<p>当前圈地操作需要消耗xxx金币，是否继续？
+		</p>
+		<a href="#" id="confirm" data-inline="true" data-role="button" data-rel="back" data-theme="b">确定</a>
+		<a href="#" id="cancel" data-inline="true" data-role="button" data-rel="back" data-theme="c">取消</a>    
+	      </div>
+	    </div>
+	    <a href="#confirmCreateCircle" data-role="button" data-position-to="mapview" id="createCircle" data-rel="popup">圈</a>
+	  </div>
 	  <div id="userControls" data-role="controlgroup" style="width: 2.5em; position: absolute; right: 1em; bottom: 1em;">
 	    <a href="#" data-role="button" data-icon="plus" id="bigCircle" style="height: 1.5em"></a>
 	    <a href="#" data-role="button" data-icon="minus" id="smallCircle" style="height: 1.5em"></a>
