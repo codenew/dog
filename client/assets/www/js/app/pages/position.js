@@ -48,6 +48,7 @@ define(function(require, exports, module) {
 	    var circleListView = new ListView({
 		el: $('#mappage #circleList'),
 		colection: selfCircleManager,
+		template: '',
 	    });
 
 	    

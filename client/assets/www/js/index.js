@@ -32,7 +32,7 @@ requirejs.config({
 		"app/pages/main",
 		"app/pages/login",
 		"app/pages/options",
-		"app/pages/myposition",
+		"app/pages/mycircle",
 		"app/pages/position"
 	    ],
 	}
@@ -53,7 +53,7 @@ define(function(require, exports, module) {
     , jmobile = require('jquery.mobile') 
     , config = require('app/config')
     , options = require('app/pages/options')
-    , mypositions = require('app/pages/myposition')
+    , mycircle = require('app/pages/mycircle')
     , positions = require('app/pages/position');
     // $.support.cors = true;
     $.mobile.transitionFallbacks.slideout = "none";
