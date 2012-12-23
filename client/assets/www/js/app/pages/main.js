@@ -15,11 +15,14 @@ define(function(require, exports, module) {
 	
     }).delegate("#mainPage", "pageshow", function(){
 	console.log('main page show');
-	user.GetLocalUser(function(userinfo){
-	    if (null == userinfo){
-		// auto switch to login page
-//		$.mobile.changePage('login.html');
-		return;
+	user.GetLocalUser(function(err, userinfo){
+	    if (err){
+	    }else{
+		if (null == userinfo){
+		    // auto switch to login page
+		    //		$.mobile.changePage('login.html');
+		    return;
+		}
 	    }
 	});
 	var canvas = document.getElementById('test');

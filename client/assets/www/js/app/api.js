@@ -5,7 +5,15 @@ define(function(require, exports, module) {
     }
     DogServer.prototype.rpc = function(name, param, callback){
 	console.log('rpc:' + config.server + name, param);
-	$.getJSON(config.server + name, param, callback);
+	var err = null;
+	var result = null;
+	$.getJSON(config.server + name, param, function(json){
+	    result = json;
+	}).error(function(e){
+	    err = e;
+	}).complete(function(){
+	    callback(err, result);
+	});
     };
     exports.DogServer = new DogServer();
 });

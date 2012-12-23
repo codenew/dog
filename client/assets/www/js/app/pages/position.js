@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     , Circle = require('model/circle').Circle
     , CircleManager = require('model/circle').CircleManager
     , User = require('model/user').User
+    , DogServer = require('../api').DogServer
     , googlemap = require('googlemap');
     var google = window.google;
     var map = null;
@@ -37,7 +38,12 @@ define(function(require, exports, module) {
 		collection: circleManager,
 		model: userSelf
 	    });
-
+	    $("#mappage").delegate("#confirm", "click", function(){
+		DogServer.rpc('addCircle', {
+		    location: userSelf.get('location')
+		}, function(json){
+		});
+	    });
 	});
     };
     

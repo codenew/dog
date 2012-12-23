@@ -11,30 +11,36 @@
     function myposition_getpositionlist(data){
         templateloader.LoadTemplate(
             'position',
-            function (templatetext){
-                var tpl = new jSmart(templatetext);
-	        var res = tpl.fetch(data);
-	        $('#mypositioncontent').html(res);
+            function (err, templatetext){
+		if (!err){
+                    var tpl = new jSmart(templatetext);
+	            var res = tpl.fetch(data);
+	            $('#mypositioncontent').html(res);
+		}
             }
         );
     };
 
-    function myposition_getlocaluser(userinfo) {				
-        console.log('local user getted');
-/*	if (null == userinfo){
-	    // auto switch to login page
-	    $.mobile.changePage('login.html');
+    function myposition_getlocaluser(err, userinfo) {
+	if (err){
+	    console.log(err);
 	    return;
+	}
+        console.log('local user getted');
+	/*	if (null == userinfo){
+	// auto switch to login page
+	$.mobile.changePage('login.html');
+	return;
 	} else {
-*/	
-	    //get positions for the user						
-	    user.getmyposition(/*userinfo.userid,*/1,
-    			       myposition_getpositionlist
-			      );
+	*/	
+	//get positions for the user						
+	user.getmyposition(/*userinfo.userid,*/1,
+    	    myposition_getpositionlist
+	);
 
-/*    	    
-	}	
-*/
+	/*    	    
+		    }	
+	*/
     };
 
     function myposition_pageinit(){
@@ -43,7 +49,7 @@
     };
 
     $(document).delegate("#mypositionPage", "pageshow", 
-	myposition_pageinit
-    );
+			 myposition_pageinit
+			);
 });
 
