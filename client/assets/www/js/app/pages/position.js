@@ -33,7 +33,7 @@ define(function(require, exports, module) {
 	    userSelf.set('location', coords);
 	    var circleManager = new CircleManager();
 	    var mapView = new MapView({
-		el: $('#mapcontent'),
+		el: $('#mapview'),
 		collection: circleManager,
 		model: userSelf
 	    });

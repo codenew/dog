@@ -8,10 +8,22 @@ define(function(require, exports, module) {
 
     exports.MapView = Backbone.View.extend({
 	el: null,
+	model: null,
+	collection: null,
 	map: null,
 	markers: {},
+	userSymbol: null, // blue arrow, current position
+	userCircle: null, // blue circle, for create circle
+	currentRadius: 10, // in meter
+	events:{
+	    "click #bigCircle": "bigCircle",
+	    "click #smallCircle": "smallCircle",
+	    "click #zoomIn": "zoomIn",
+	    "click #zoomOut": "zoomOut",
+	    "click #backCurrentPos": "backCurrentPos",
+	},
 	initialize: function(){
-	    this.listenTo(this.model, 'change', this.render);
+	    this.listenTo(this.model, 'change', this.refreshUser);
 	    this.listenTo(this.collection, 'change add remove', this.refreshMarkers);
 	    var coords = this.model.get('location');
             var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
@@ -19,10 +31,11 @@ define(function(require, exports, module) {
 		zoom: 16,
 		center: latlng,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		panControl: true,
-		zoomControl: true,
+		panControl: false,
+		zoomControl: false,
 		zoomControlOptions: {
 		    style: google.maps.ZoomControlStyle.DEFAULT,
+		    position: google.maps.ControlPosition.RIGHT_BOTTOM,
 		},
 		mapTypeControl:false,
 		scaleControl: true,
@@ -30,15 +43,82 @@ define(function(require, exports, module) {
 		overviewMapControl: false,
             };
 
-            var mapcontent = this.$el.get(0);
+            var mapcontent = this.$el.find('#mapcontent').get(0);
             this.map = new google.maps.Map(mapcontent,
 					   myOptions);
 	    var self = this;
-	    google.maps.event.addListener(this.map, 'click', function(event){
+	    /*google.maps.event.addListener(this.map, 'click', function(event){
 		self.addCircle(event.latLng, null);
-	    });
+	    });*/
+
 	    this.markers = {};
+	    var color = '#0000ff';
+	    this.userSymbol = new google.maps.Marker({
+		clickable: false,
+		draggable: false,
+		flat: false,
+		icon: {
+		    fillColor: '#0000ff',
+		    fillOpacity: 0.5,
+		    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+		    rotation: 0,
+		    scale: 10,
+		    strokeColor: '#0000ff',
+		    strokeOpacity: 0.8,
+		    strokeWeight: 1,
+		},
+		title: 'I\'m here',
+		map: this.map,
+	    });
+	    this.userCircle = new google.maps.Circle({
+		clickable: true,
+		strokeColor: color,
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: color,
+		fillOpacity: 0.35,
+		map: this.map,
+		center: this.getUserLocation(),
+		radius: this.currentRadius,
+	    });
+	    this.refreshUser();
 	    this.render();
+	},
+	getUserLocation: function(){
+	    var coords = this.model.get('location');
+            var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+	    return latlng;
+	},
+	bigCircle: function(){
+	    if (this.currentRadius < 1000){
+		this.currentRadius += 30;
+		this.refreshUser();
+	    }
+	},
+	smallCircle: function(){
+	    if (this.currentRadius > 30){
+		this.currentRadius -= 30;
+		this.refreshUser();
+	    }
+	},
+	zoomIn: function(){
+	    if (this.map.getZoom() < 20){
+		this.map.setZoom(this.map.getZoom() + 1);
+	    }
+	},
+	zoomOut: function(){
+	    if (this.map.getZoom() > 8){
+		this.map.setZoom(this.map.getZoom() - 1);
+	    }
+	},
+	backCurrentPos: function(){
+	    this.map.panTo(this.getUserLocation());
+	},
+	refreshUser: function(){
+	    var latlng = this.getUserLocation();
+	    this.userSymbol.setPosition(latlng);
+	    this.userCircle.setCenter(latlng);
+	    this.userCircle.setRadius(this.currentRadius);
 	},
 	addCircle: function(latLng, id){
 	    // this should be some where like a controller
@@ -47,7 +127,9 @@ define(function(require, exports, module) {
 	},
 	deleteMarkers: function(){
 	    for (var cid in this.markers){
-		this.markers[cid].setMap(null);
+		var circle = this.markers[cid];
+		google.maps.event.clearListeners(circle, 'click');
+		circle.setMap(null);
 	    }
 	    this.markers = {};
 	},
@@ -65,6 +147,7 @@ define(function(require, exports, module) {
 	    });
 	    _.each(this.markers, function(marker, cid){
 		if (!self.collection.get(cid)){
+		    google.maps.event.clearListeners(marker, 'click');
 		    marker.setMap(null);
 		}
 	    });
@@ -75,6 +158,7 @@ define(function(require, exports, module) {
 		color = '#00ff00';
 	    }
 	    var options = {
+		clickable: true,
 		strokeColor: color,
 		strokeOpacity: 0.8,
 		strokeWeight: 2,
@@ -86,14 +170,19 @@ define(function(require, exports, module) {
 	    };
 	    var cid = circle.cid;
 	    if (cid in this.markers){
+		google.maps.event.clearListener(this.markers[cid], 'click');
 		this.markers[cid].setMap(null);
 	    }
-	    this.markers[cid] = new google.maps.Circle(options);
+	    var circle = new google.maps.Circle(options);
+	    this.markers[cid] = circle;
+	    var self = this;
+	    google.maps.event.addListener(circle, 'click', function(event){
+//		self.collection.get(cid).trigger
+		console.log(event, circle, cid);
+	    });
 	},
 	render:function(){
-	    var coords = this.model.get('location');
-            var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-	    this.map.panTo(latlng);
+	    this.map.panTo(this.getUserLocation());
 	    this.deleteMarkers();
 	    var selfUserId = this.model.get('userid');
 	    var self = this;

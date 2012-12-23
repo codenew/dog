@@ -3,14 +3,52 @@
   <body >
     <div data-role="page" id="mappage" style="position:absolute; bottom: 0px;">
       <div data-role="header" data-position="fixed">
-        <h1>圈子</h1>
-        <a href="myposition.html" data-ajax="true"  data-icon="check">我的圈子</a>    
+	<h1>
+          <a href="#menuPosition" data-rel="popup">我的圈子</a>[切换]
+	  <div data-role="popup" id="menuPosition">
+	    <ul data-role="listview">
+	      <li><a href="#mycircle">我的圈子</a></li>
+	      <li><a href="#myroute">我的足迹</a></li>
+	      <li><a href="#myposition">我的位置</a></li>
+	    </ul>
+	  </div>
+	</h1>
       </div>
-      <div data-role="content" style="position:absolute; left:0px; right: 0px; top: 2em; bottom: 0px; padding: 0px;">
-        <div id="mapcontent" style="position:absolute; width:100%; height:100%;">
-        </div>
+      
+      <div data-role="content" style="position:absolute; left:0px; right: 0px; top: 2em; bottom: 2em; padding: 0px;">
+	<form class="">
+	  <!--	  <div class="" style="width:80%; display: inline;" data-inline="true"> -->
+	  <input type="search" id="search-address" name="search" value="" />
+	  <!-- </div>
+	       <button class="ui-btn-right" data-icon="search"></button> -->
+	</form>
+	<div id="mapview">
+          <div id="mapcontent" style="position:absolute; left:0px; right:0px; top:3em; bottom: 0em;">
+          </div>
+	  <div id="userControls" data-role="controlgroup" style="width: 2.5em; position: absolute; right: 1em; bottom: 1em;">
+	    <a href="#" data-role="button" data-icon="plus" id="bigCircle" style="height: 1.5em"></a>
+	    <a href="#" data-role="button" data-icon="minus" id="smallCircle" style="height: 1.5em"></a>
+	    <a href="#" data-role="button" data-icon="plus" id="zoomIn" style="height: 1.5em"></a>
+	    <a href="#" data-role="button" data-icon="minus" id="zoomOut" style="height: 1.5em"></a>
+	    <a href="#" data-role="button" data-icon="star" id="backCurrentPos" style="height: 1.5em"></a>
+	  </div>
+	</div>
 	<!-- <canvas id="mapOverlay" style="position:absolute; left:0px; right:0px; top:0px; bottom: 0px;"></canvas> -->
       </div>
+      <div data-role="footer" data-id="foo1" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="position.html">圈子</a></li>
+            <li><a href="pet.html">宠物</a></li>
+            <li><a href="chat.html">信息</a></li>
+            <li><a href="options.html">设置</a></li>
+          </ul>
+        </div>
+        <!-- /navbar -->
+      </div>
+      <!-- /footer -->
+
     </div>
   </body>
 </html>
