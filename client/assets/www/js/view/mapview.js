@@ -119,6 +119,7 @@ define(function(require, exports, module) {
 	    this.userSymbol.setPosition(latlng);
 	    this.userCircle.setCenter(latlng);
 	    this.userCircle.setRadius(this.currentRadius);
+	    this.$el.find('#radius_value').text(this.currentRadius + ' 米');
 	},
 	addCircle: function(latLng, id){
 	    // this should be some where like a controller
