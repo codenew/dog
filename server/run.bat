@@ -1,1 +1,1 @@
-npm install & node app
+npm install & node --debug app

@@ -260,7 +260,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\client\assets\www\myposition.html"
+				RelativePath="..\..\client\assets\www\mycircle.html"
 				>
 			</File>
 			<File
@@ -329,7 +329,7 @@
 							>
 						</File>
 						<File
-							RelativePath="..\..\client\assets\www\js\app\pages\myposition.js"
+							RelativePath="..\..\client\assets\www\js\app\pages\mycircle.js"
 							>
 						</File>
 						<File
@@ -423,6 +423,30 @@
 					</File>
 					<File
 						RelativePath="..\..\client\assets\www\js\lib\underscore.js"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="view"
+					>
+					<File
+						RelativePath="..\..\client\assets\www\js\view\listview.js"
+						>
+					</File>
+					<File
+						RelativePath="..\..\client\assets\www\js\view\mapview.js"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="model"
+					>
+					<File
+						RelativePath="..\..\client\assets\www\js\model\circle.js"
+						>
+					</File>
+					<File
+						RelativePath="..\..\client\assets\www\js\model\user.js"
 						>
 					</File>
 				</Filter>

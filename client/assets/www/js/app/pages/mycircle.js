@@ -48,7 +48,7 @@
 	user.GetLocalUser(myposition_getlocaluser);
     };
 
-    $(document).delegate("#mypositionPage", "pageshow", 
+    $(document).delegate("#myCirclePage", "pageshow", 
 			 myposition_pageinit
 			);
 });

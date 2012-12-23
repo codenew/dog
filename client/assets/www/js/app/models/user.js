@@ -7,6 +7,11 @@ define(function(require, exports, module) {
         user = _user;
     };
     exports.GetLocalUser = function(next){
+    //testmode
+        user ={userid:'1', username:'annyan'};
+        next(null,user);
+    //testmode 
+        
         if (userid == null){
             next('not login: userid is null');
         }else if (user == null){
@@ -56,7 +61,7 @@ define(function(require, exports, module) {
 
     //get user's positions
     exports.getmyposition = function(userid, next) {        
-	function myposition_callback(data) {
+	function myposition_callback(err,data) {
 	    if (data.result == 'ok'){		                        
 		next(data);
 }else{
