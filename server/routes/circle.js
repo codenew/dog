@@ -1,9 +1,10 @@
 var _ = require('underscore');
-
+var async = require("async");
+var mongodb = require("mongodb");
 var data = {
-    1: {id: 1 ,name: 'dsadas',   from: 1, to: 2, message: 'hi'},
-    2: {id: 2, name: 'dasdsada', to: 1, message: 'what'},
-    3: {id: 3, name: 'dasdsaf',  1, to: 2, message: 'just hi...'},
+    1: {id: 1, name: 'dsadas',   from: 1, to: 2, message: 'hi'},
+    2: {id: 2, name: 'dasdsada', from:1,to: 1, message: 'what'},
+    3: {id: 3, name: 'dasdsaf',  from:1, to: 2, message: 'just hi...'},
 };
 var lastid = 3;
 exports = _.extend(exports, {
@@ -26,7 +27,7 @@ exports = _.extend(exports, {
             },
             function(conn, callback){
                 connection = conn;
-                connection.collection('addr', callback);                
+                connection.collection('circles', callback);                
             },
             function(coll, callback){
                 // arg1 now equals 'three'
@@ -37,11 +38,11 @@ exports = _.extend(exports, {
                 for(var i = 0; i < docs.length; i ++){  
                     console.log(docs[i]);                        
                 }
-                res.json({result:'ok', data:docs});
+                res.json(docs);
              }  
              else{
                 console.log(err);
-                res.json({result:'fail', data:null});
+                res.json(null);
              }  
              if (connection != null){  
                 connection.close();         // 一定要记得关闭数据库连接                            

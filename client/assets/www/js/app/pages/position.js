@@ -24,6 +24,15 @@ define(function(require, exports, module) {
   //  });
 
     function initialize() {
+     var circleManager = new CircleManager();     
+     circleManager.fetch({
+        success:function(collection, response, options){
+            console.log("Fetch CirlesManager success!");
+        },
+        error:function (collection, xhr, options){
+            console.log("Fetch CirlesManager failed!");
+        },
+    });
 	device.getLocation(function(err, coords){
 	    if (err){
 		console.log(err);
@@ -32,7 +41,7 @@ define(function(require, exports, module) {
 //	    markerManager.map = map;
 	    var userSelf = new User();
 	    userSelf.set('location', coords);
-	    var circleManager = new CircleManager();
+	   
 	    var mapView = new MapView({
 		el: $('#mappage #mapview'),
 		collection: circleManager,
@@ -44,14 +53,7 @@ define(function(require, exports, module) {
 		}, function(json){
 		});
 	    });
-        circleManager.fetch({
-            success:function(collection, response, options){
-            
-            },
-            error:function (collection, xhr, options){
-            
-            },
-        });
+    
 //	    var circleListView = new ListView({
 //		el: $('#mappage #circleList'),
 //		colection: selfCircleManager,

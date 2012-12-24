@@ -1,1 +1,1 @@
-npm install & node --debug app
+npm install & node --debug app &pause

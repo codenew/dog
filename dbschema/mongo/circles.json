@@ -1,0 +1,2 @@
+{ "_id" : { "$oid" : "50d7c5138346aafd25bfd35b" }, "id" : "1", "name" : "ZhangJiang High-Tech", "user" : "yanhanning", "location" : { "latitude" : "1", "altitude" : "2" } }
+{ "_id" : { "$oid" : "50d7c5328346aafd25bfd35c" }, "id" : "2", "name" : "Snda Games", "user" : "yanhanning", "location" : { "latitude" : "2", "altitude" : "3" } }
