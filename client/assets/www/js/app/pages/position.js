@@ -3,6 +3,7 @@ define(function(require, exports, module) {
     , Backbone = require('backbone')
     , MapView = require('view/mapview').MapView
     , Circle = require('model/circle').Circle
+    , CircleMgr = require('model/circle')
     , CircleManager = require('model/circle').CircleManager
     , User = require('model/user').User
     , DogServer = require('../api').DogServer
@@ -27,6 +28,7 @@ define(function(require, exports, module) {
      var circleManager = new CircleManager();     
      circleManager.fetch({
         success:function(collection, response, options){
+            CircleMgr.setCircleManager(circleManager);
             console.log("Fetch CirlesManager success!");
         },
         error:function (collection, xhr, options){

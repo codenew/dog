@@ -3,7 +3,7 @@
     var DogServer = require('../api').DogServer;
     var user = require('../models/user');
     var templateloader = require('../models/template');
-
+    var circles =  require('model/circle');
     function log(info){
 	$('#log').prepend($('<p>').text(info));
     }
@@ -13,7 +13,7 @@
             'position',
             function (err, templatetext){
 		if (!err){
-                    var tpl = new jSmart(templatetext);
+                var tpl = new jSmart(templatetext);
 	            var res = tpl.fetch(data);
 	            $('#mypositioncontent').html(res);
 		}
@@ -22,7 +22,7 @@
     };
 
     function myposition_getlocaluser(err, userinfo) {
-	if (err){
+	if (err){ 
 	    console.log(err);
 	    return;
 	}
@@ -44,8 +44,12 @@
     };
 
     function myposition_pageinit(){
-	var user = require('../models/user');		
-	user.GetLocalUser(myposition_getlocaluser);
+	    //var user = require('../models/user');		
+	    //user.GetLocalUser(myposition_getlocaluser);
+	    circles.getCircleManager(function(circleManager){
+    	    var circle = circleManager.get(1);
+    	    console.log(circle.get('name'));    
+	    });	    
     };
 
     $(document).delegate("#myCirclePage", "pageshow", 

@@ -20,7 +20,7 @@ exports = _.extend(exports, {
     },
     
     get: function(req, res){
-        var connection = null;
+        var connection = null;        
         async.waterfall([
             function(callback){
                 mongodb.connect('mongodb://localhost:27017/dog', callback);

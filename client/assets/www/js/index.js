@@ -50,6 +50,7 @@ define(function(require, exports, module) {
     , login = require('app/pages/login')
     , main = require('app/pages/main')
     , user = require('app/models/user')
+    , circle = require('model/circle')
     , jmobile = require('jquery.mobile') 
     , config = require('app/config')
     , options = require('app/pages/options')
