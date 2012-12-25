@@ -25,44 +25,34 @@ define(function(require, exports, module) {
   //  });
 
     function initialize() {
-     var circleManager = new CircleManager();     
-     circleManager.fetch({
-        success:function(collection, response, options){
-            CircleMgr.setCircleManager(circleManager);
-            console.log("Fetch CirlesManager success!");
-        },
-        error:function (collection, xhr, options){
-            console.log("Fetch CirlesManager failed!");
-        },
-    });
-	device.getLocation(function(err, coords){
-	    if (err){
-		console.log(err);
-		return;
-	    }
-//	    markerManager.map = map;
-	    var userSelf = new User();
-	    userSelf.set('location', coords);
-	   
-	    var mapView = new MapView({
-		el: $('#mappage #mapview'),
-		collection: circleManager,
-		model: userSelf
-	    });
-	    $("#mappage").delegate("#confirm", "click", function(){
-		DogServer.rpc('addCircle', {
-		    location: userSelf.get('location')
-		}, function(json){
-		});
-	    });
     
-//	    var circleListView = new ListView({
-//		el: $('#mappage #circleList'),
-//		colection: selfCircleManager,
-//		template: '',
-//	    });
-	    
-	});
+    CircleMgr.getCircleManager(
+        function(circleManager)
+        {
+	        device.getLocation(function(err, coords){
+	            if (err){
+		        console.log(err);
+		        return;
+	            }
+        //	    markerManager.map = map;
+	            var userSelf = new User();
+	            userSelf.set('location', coords);
+        	   
+	            var mapView = new MapView({
+		        el: $('#mappage #mapview'),
+		        collection: circleManager,
+		        model: userSelf
+	            });
+	            $("#mappage").delegate("#confirm", "click", function(){
+		        DogServer.rpc('addCircle', {
+		            location: userSelf.get('location')
+		        }, function(json){
+		        });
+	            });
+            
+
+	        });
+	    });
     }
     
     $(document).delegate("#mappage", "pageshow", initialize);

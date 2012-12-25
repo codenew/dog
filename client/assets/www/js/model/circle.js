@@ -13,14 +13,28 @@ define(function(require, exports, module){
         url:'/circle',
 	    model: exports.Circle,
     });
-    exports.setCircleManager = function(new_circleManager)
-    {
-        local_circleManager = new_circleManager;
-    };
+//    exports.setCircleManager = function(new_circleManager)
+//    {
+//        local_circleManager = new_circleManager;
+//    };
     
     exports.getCircleManager = function(next)
     {
-        next(local_circleManager);
+        if (local_circleManager == null){ //Œ¥≥ı ºªØ
+            local_circleManager = new this.CircleManager();
+            local_circleManager.fetch({
+                success:function(collection, response, options){                                        
+                    console.log("Fetch CirlesManager success!");                    
+                },
+                error:function (collection, xhr, options){
+                    console.log("Fetch CirlesManager failed!");
+                    local_circleManager = null;
+                },
+             });       
+        }
+        else{
+            next(local_circleManager);
+        }
     };
 });
 

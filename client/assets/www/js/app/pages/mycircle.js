@@ -9,16 +9,7 @@
     }
     
     function myposition_getpositionlist(data){
-        templateloader.LoadTemplate(
-            'position',
-            function (err, templatetext){
-		if (!err){
-                var tpl = new jSmart(templatetext);
-	            var res = tpl.fetch(data);
-	            $('#mypositioncontent').html(res);
-		}
-            }
-        );
+  
     };
 
     function myposition_getlocaluser(err, userinfo) {
@@ -47,9 +38,18 @@
 	    //var user = require('../models/user');		
 	    //user.GetLocalUser(myposition_getlocaluser);
 	    circles.getCircleManager(function(circleManager){
-    	    var circle = circleManager.get(1);
-    	    console.log(circle.get('name'));    
+        templateloader.LoadTemplate(
+                'position',
+                function (err, templatetext){
+                    if (!err){
+                            var tpl = new jSmart(templatetext);
+                            var res = tpl.fetch({data:circleManager});
+                            $('#mypositioncontent').html(res);
+                    }
+                }
+            );	 
 	    });	    
+	    
     };
 
     $(document).delegate("#myCirclePage", "pageshow", 
