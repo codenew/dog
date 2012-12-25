@@ -21,38 +21,49 @@ define(function(require, exports, module) {
         },
     });
     var device = new Device;
-//    Device.on('ready', function(){
-  //  });
+    //    Device.on('ready', function(){
+    //  });
 
-    function initialize() {
-    
-    CircleMgr.getCircleManager(
-        function(circleManager)
-        {
-	        device.getLocation(function(err, coords){
-	            if (err){
-		        console.log(err);
-		        return;
-	            }
-        //	    markerManager.map = map;
-	            var userSelf = new User();
-	            userSelf.set('location', coords);
-        	   
-	            var mapView = new MapView({
-		        el: $('#mappage #mapview'),
-		        collection: circleManager,
-		        model: userSelf
-	            });
-	            $("#mappage").delegate("#confirm", "click", function(){
-		        DogServer.rpc('addCircle', {
-		            location: userSelf.get('location')
-		        }, function(json){
-		        });
-	            });
-            
-
-	        });
+    function initialize() {	
+	CircleMgr.getCircleManager(function(circleManager){
+	    var userSelf = new User();
+	    userSelf.set('location', {latitude: 31, longitude: 121});
+	    var mapView = new MapView({
+		el: $('#mappage #mapview'),
+		collection: circleManager,
+		model: userSelf
 	    });
+	    $("#mappage").delegate("#confirm", "click", function(){
+		var newCircle = new Circle({
+		    location: userSelf.get('location'),
+		    radius: mapView.currentRadius,
+		    owner: userSelf.get('id')
+		});
+		newCircle.save({}, {
+		    success: function(model, response, options){
+			console.log(response);
+			circleManager.push(newCircle);
+		    },
+		    error: function(model, xhr, options){
+			console.log(xhr);
+		    },
+		});
+		/*DogServer.rpc('addCircle', {
+		  location: userSelf.get('location')
+		  }, function(json){
+		  });*/
+	    });
+	    device.getLocation(function(err, coords){
+	        if (err){
+		    console.log(err);
+		    return;
+	        }
+		userSelf.set('location', {
+		    latitude: coords.latitude,
+		    longitude: coords.longitude
+		});
+	    });
+	});
     }
     
     $(document).delegate("#mappage", "pageshow", initialize);
