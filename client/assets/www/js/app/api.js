@@ -4,10 +4,11 @@ define(function(require, exports, module) {
     function DogServer(){
     }
     DogServer.prototype.rpc = function(name, param, callback){
-	console.log('rpc:' + config.server + name, param);
+	var url = [config.server, name].join('/');
+	console.log('rpc:' + url, param);
 	var err = null;
 	var result = null;
-	$.getJSON(config.server + name, param, function(json){
+	$.getJSON(url, param, function(json){
 	    result = json;
 	}).error(function(e){
 	    err = e;
