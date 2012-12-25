@@ -7,7 +7,7 @@ var fs = require('fs');
         var id = req.param("templateid");
         if (id)
         {
-            fs.readFile('.\\template\\'+id+'.template.xml', function(err,data){
+            fs.readFile('./template/'+id+'.template.xml', function(err,data){
                     if (err){
                         res.json({result:"failed"});
                         console.log("Load template failed"+err);
