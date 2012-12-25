@@ -20,7 +20,7 @@ requirejs.config({
 	    'soundjs': 'soundjs-0.3.0.min',
 	    'soundjs.flashplugin': 'soundjs.flashplugin-0.3.0.min',
 	    'tweenjs': 'tweenjs-0.3.0.min',
-            'googlemap': 'async!https://maps.google.com/maps/api/js?v=3&sensor=false',
+            'googlemap': 'async!https://maps.google.com/maps/api/js?v=3&sensor=false',//key=AIzaSyC9b9WVCC9ML8FRXdb3GZC-LSzaGupBCr4&
 	    'smart': 'smart-2.9.min',
 	},
     },
