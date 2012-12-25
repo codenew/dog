@@ -4,6 +4,7 @@
     var user = require('../models/user');
     var templateloader = require('../models/template');
     var circles =  require('model/circle');
+    var board = require('model/board');
     function log(info){
 	$('#log').prepend($('<p>').text(info));
     }
@@ -44,7 +45,8 @@
                     if (!err){
                             var tpl = new jSmart(templatetext);
                             var res = tpl.fetch({data:circleManager});
-                            $('#mypositioncontent').html(res);
+                            $('#positionlist').html(res);
+                            $('#positionlist').listview('refresh');  
                     }
                 }
             );	 
@@ -55,5 +57,9 @@
     $(document).delegate("#myCirclePage", "pageshow", 
 			 myposition_pageinit
 			);
+			
+    $(document).delegate("a[circle_id]", "click", function(){
+        board.setboardid(+$(this).attr('circle_id'));
+    });			
 });
 
