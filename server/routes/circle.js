@@ -1,6 +1,7 @@
 var _ = require('underscore');
 var async = require("async");
 var mongodb = require("mongodb");
+var globaldata = require('../globaldata');
 var data = {
     1: {id: 1, name: 'dsadas',   from: 1, to: 2, message: 'hi'},
     2: {id: 2, name: 'dasdsada', from:1,to: 1, message: 'what'},
@@ -54,13 +55,31 @@ exports = _.extend(exports, {
     
     post: function(req, res){
 	var newData = {
-	    id: ++lastid,
 	    from: req.param('from') || 1,
 	    to: req.param('to') || 2,
 	    message: req.param('message') || '',
 	};
-	data[newData.id] = newData;
-	res.json({result: 'ok', id: newData.id});
+	globaldata.get('mongoPool').acquire(req, 'circle', function(err, collection, release){
+	    if (err){
+		res.send(404, err);
+		return;
+	    }
+	    collection.insert(newData, function(err, r){
+		if (err){
+		    res.send(404, err);
+		    release();
+		    return;
+		}
+		console.log(r);
+		if (r.length != 1){
+		    res.json(404, 'length not 1');
+		    release();
+		    return;
+		}
+		res.json({id: r[0]._id});
+		release();
+	    });
+	});
     },
     delete: function(req, res){
 	var id = req.param('id');
