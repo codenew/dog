@@ -18,6 +18,7 @@ process.on("uncaughtException", function(err){
 });
 
 var app = express();
+/*
 var mysqlPool = require("./lib/mysql").createPool({
     name: 'mysql.game',
     mysql:{
@@ -33,6 +34,20 @@ var mysqlPool = require("./lib/mysql").createPool({
 });
 
 require('./models/user').init(mysqlPool);
+*/
+var mongoPool = require('./lib/mongodb').createPool({
+    name: 'mongo.dog',
+    mongodb: {
+	host: '127.0.0.1',
+	port: 27017,
+	database: 'dog',
+    },
+    maxConnection: 10,
+    idleTimeoutMllis: 5 * 60 * 1000,
+    log: false,
+    syslog: true
+});
+require('./globaldata').set('mongoPool', mongoPool);
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
