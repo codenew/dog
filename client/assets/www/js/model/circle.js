@@ -23,10 +23,16 @@ define(function(require, exports, module){
     //        local_circleManager = new_circleManager;
     //    };
     
-    exports.getCircleManager = function(next){
+    exports.getCircleManager = function(location, next){
+	if (typeof next != "function" && typeof location == "function"){
+	    next = location;
+	    location = {longitude: 121, latitude: 31};
+	}
+
         if (local_circleManager == null){ //Œ¥≥ı ºªØ
             local_circleManager = new this.CircleManager();
             local_circleManager.fetch({
+		location: location,
                 success:function(collection, response, options){                                        
                     console.log("Fetch CirlesManager success!");                    
 		    next(local_circleManager);
