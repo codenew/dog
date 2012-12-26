@@ -87,8 +87,12 @@ define(function(require, exports, module) {
 	    this.render();
 	},
 	getLocation: function(coords){
-            var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-	    return latlng;
+	    if (coords && typeof coords.latitude == "number" && typeof coords.longitude == "number"){
+		var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+		return latlng;		
+	    }else{
+		return null;
+	    }
 	},
 	getUserLocation: function(){
 	    var coords = this.model.get('location');
@@ -145,7 +149,7 @@ define(function(require, exports, module) {
 	    this.collection.each(function(circle, index){
 		var cid = circle.cid;
 		if (cid in self.markers){
-		    self.markers[cid].setCenter(this.getLocation(circle.get('location')));
+		    self.markers[cid].setCenter(self.getLocation(circle.get('location')));
 		    self.markers[cid].setRadius(circle.get('radius'));
 		}else{
 		    self.addCircle(circle, selfUserId);
