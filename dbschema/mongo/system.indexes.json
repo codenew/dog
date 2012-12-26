@@ -1,0 +1,3 @@
+{ "v" : 1, "key" : { "_id" : 1 }, "ns" : "dog.circles", "name" : "_id_" }
+{ "v" : 1, "key" : { "_id" : 1 }, "ns" : "dog.users", "name" : "_id_" }
+{ "v" : 1, "key" : { "_id" : 1 }, "ns" : "dog.threads", "name" : "_id_" }

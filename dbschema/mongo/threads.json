@@ -1,0 +1,2 @@
+{ "_id" : { "$oid" : "50d977fcc225433c58e5f55b" }, "boardid" : 1, "id" : 1, "authorid" : 1, "authorname" : "ann", "publishtime" : 111, "content" : "hello world!", "commentnumber" : 0 }
+{ "_id" : { "$oid" : "50d97827c225433c58e5f55c" }, "boardid" : 1, "id" : 2, "authorid" : 2, "authorname" : "kaikai", "publishtime" : 222, "content" : "hello, i am kaikai!", "commentnumber" : 1 }
