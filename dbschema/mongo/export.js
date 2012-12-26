@@ -1,5 +1,5 @@
 var a = db.getCollectionNames() ;
 for (var i=0, l=a.length; i<l; i++){
 	
-	print("mongoexport.exe -d dog  -c "+a[i]+">>"+a[i]+".json");
+	print("mongoexport.exe -d dog  -c "+a[i]+">>..\\backup\\"+a[i]);
 }
