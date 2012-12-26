@@ -37,3 +37,5 @@ server/errorlog.txt
 *.user
 *BuildLog.htm
 npm-debug.log
+
+/vs2008/dog/Debug
