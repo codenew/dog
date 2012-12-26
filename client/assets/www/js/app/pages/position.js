@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     , Circle = require('model/circle').Circle
     , CircleMgr = require('model/circle')
     , CircleManager = require('model/circle').CircleManager
-    , User = require('model/user').User
+    , User = require('model/user')
     , DogServer = require('../api').DogServer
     , googlemap = require('googlemap');
     var google = window.google;
@@ -23,11 +23,20 @@ define(function(require, exports, module) {
     var device = new Device;
     //    Device.on('ready', function(){
     //  });
+    device.getLocation(function(err, coords){
+	if (err){
+	    console.log(err);
+	    return;
+	}
+	User.getSelf().set('location', {
+	    latitude: coords.latitude,
+	    longitude: coords.longitude
+	});
+    });
 
     function initialize() {	
-	CircleMgr.getCircleManager(function(circleManager){
-	    var userSelf = new User();
-	    userSelf.set('location', {latitude: 31, longitude: 121});
+	var userSelf = User.getSelf();
+	CircleMgr.getCircleManager(userSelf.get('location'), function(circleManager){
 	    var mapView = new MapView({
 		el: $('#mappage #mapview'),
 		collection: circleManager,
@@ -52,16 +61,6 @@ define(function(require, exports, module) {
 		  location: userSelf.get('location')
 		  }, function(json){
 		  });*/
-	    });
-	    device.getLocation(function(err, coords){
-	        if (err){
-		    console.log(err);
-		    return;
-	        }
-		userSelf.set('location', {
-		    latitude: coords.latitude,
-		    longitude: coords.longitude
-		});
 	    });
 	});
     }
