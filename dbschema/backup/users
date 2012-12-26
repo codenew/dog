@@ -1,2 +1,2 @@
-{ "_id" : { "$oid" : "50d7c5638346aafd25bfd35d" }, "name" : "yanhanning", "password" : "1234", "nickname" : "Ann" }
-{ "_id" : { "$oid" : "50d7c5778346aafd25bfd35e" }, "name" : "zhangzikai", "password" : "1234", "nickname" : "kaikai" }
+{ "_id" : { "$oid" : "50d7c5638346aafd25bfd35d" },"id":1, "name" : "yanhanning", "password" : "1234", "nickname" : "Ann" }
+{ "_id" : { "$oid" : "50d7c5778346aafd25bfd35e" },"id":2, "name" : "zhangzikai", "password" : "1234", "nickname" : "kaikai" }

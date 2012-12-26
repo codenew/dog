@@ -8,8 +8,8 @@ define(function(require, exports, module) {
     };
     exports.GetLocalUser = function(next){
     //testmode
-        user ={userid:'1', username:'annyan'};
-        next(null,user);
+        //user ={userid:'1', username:'annyan'};
+        //next(null,user);
     //testmode 
         
         if (userid == null){

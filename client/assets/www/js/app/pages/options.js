@@ -20,6 +20,7 @@
 		return;
 	    }else{
 		//get nickname for the user
+		console.log(userinfo);
 		$("#nickname").val(userinfo.nickname);
 		return ;
 	    }					
