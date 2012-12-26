@@ -86,10 +86,13 @@ define(function(require, exports, module) {
 	    this.refreshUser();
 	    this.render();
 	},
-	getUserLocation: function(){
-	    var coords = this.model.get('location');
+	getLocation: function(coords){
             var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
 	    return latlng;
+	},
+	getUserLocation: function(){
+	    var coords = this.model.get('location');
+	    return this.getLocation(coords);
 	},
 	bigCircle: function(){
 	    if (this.currentRadius < 1000){
@@ -142,7 +145,7 @@ define(function(require, exports, module) {
 	    this.collection.each(function(circle, index){
 		var cid = circle.cid;
 		if (cid in self.markers){
-		    self.markers[cid].setCenter(circle.get('location'));
+		    self.markers[cid].setCenter(this.getLocation(circle.get('location')));
 		    self.markers[cid].setRadius(circle.get('radius'));
 		}else{
 		    self.addCircle(circle, selfUserId);
@@ -171,7 +174,7 @@ define(function(require, exports, module) {
 		fillColor: color,
 		fillOpacity: 0.35,
 		map: this.map,
-		center: circle.get('location'),
+		center: this.getLocation(circle.get('location')),
 		radius: circle.get('radius')
 	    };
 	    var cid = circle.cid;

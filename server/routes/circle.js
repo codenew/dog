@@ -21,43 +21,44 @@ exports = _.extend(exports, {
     },
     
     get: function(req, res){
-        var connection = null;        
-        async.waterfall([
-            function(callback){
-                mongodb.connect('mongodb://localhost:27017/dog', callback);
-            },
-            function(conn, callback){
-                connection = conn;
-                connection.collection('circles', callback);                
-            },
-            function(coll, callback){
-                // arg1 now equals 'three'
-                coll.find().toArray(callback);
-            }
-        ], function (err, docs) {
-             if(!err){                       
-                for(var i = 0; i < docs.length; i ++){  
-                    console.log(docs[i]);                        
-                }
-                res.json(docs);
-             }  
-             else{
-                console.log(err);
-                res.json(null);
-             }  
-             if (connection != null){  
-                connection.close();         // 一定要记得关闭数据库连接                            
-             }
+	var location = req.param('location') || {latitude: 31, longitude:121};
+
+
+	globaldata.get('mongoPool').acquire(req, 'circle', function(err, collection, release){
+	    if (err){
+		res.send(404, err);
+		return;
+	    }
+	    // NOTE: mongo use [long,lat] pair
+	    collection.geoNear(location.longitude, location.latitude, {
+		num: 100, 
+		maxDistance: 6,
+		spherical: true,
+	    }, function(err, docs){
+		if (err){
+		    res.send(404, err);
+		}else{
+		    console.log(docs);
+                    for(var i = 0; i < docs.results.length; i ++){
+			console.log(docs.results[i]);
+                    }
+		    res.json(docs.results);
+		}
+		release();
+	    });
         });        
 	console.log("get list");
     },
     
     
     post: function(req, res){
+	var location = req.param('location') || {latitude: 31, longitude:121};
 	var newData = {
 	    from: req.param('from') || 1,
 	    to: req.param('to') || 2,
 	    message: req.param('message') || '',
+	    location: location,
+	    loc: [location.longitude, location.latitude], // NOTE: mongo use [long,lat] pair
 	};
 	globaldata.get('mongoPool').acquire(req, 'circle', function(err, collection, release){
 	    if (err){
