@@ -23,6 +23,7 @@ local.properties
 Thumbs.db
 ~*.~*
 *.bak
+*.*~
 
 # node dependencis
 node_modules
