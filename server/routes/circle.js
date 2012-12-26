@@ -39,10 +39,12 @@ exports = _.extend(exports, {
 		    res.send(404, err);
 		}else{
 		    console.log(docs);
+		    var ret = [];
                     for(var i = 0; i < docs.results.length; i ++){
+			ret.push(docs.results[i].obj);
 			console.log(docs.results[i]);
                     }
-		    res.json(docs.results);
+		    res.json(ret);
 		}
 		release();
 	    });
@@ -59,6 +61,7 @@ exports = _.extend(exports, {
 	    message: req.param('message') || '',
 	    location: location,
 	    loc: [location.longitude, location.latitude], // NOTE: mongo use [long,lat] pair
+	    radius: req.param('radius') || 10, // in meter
 	};
 	globaldata.get('mongoPool').acquire(req, 'circle', function(err, collection, release){
 	    if (err){
