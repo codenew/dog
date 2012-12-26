@@ -6,4 +6,11 @@ define(function(require, exports, module){
     });
 
     exports.User = User;
+
+    var user = new User({
+	location: {latitude: 31, longitude: 121},
+    });
+    exports.getSelf = function(){
+	return user;
+    };
 });
