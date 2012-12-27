@@ -72,7 +72,7 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/user/login', user.login);
 app.get('/user/logout', user.logout);
-app.get('/user/userinfo', user.userinfo);
+app.get('/user', user.rest);
 
 //app.get('/position', position.list);
 //app.get('/position/:userid', position.list);

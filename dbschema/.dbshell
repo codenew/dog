@@ -1,0 +1,34 @@
+use dog
+db.circle.ensureIndex({loc: "2d"})
+db.system.index.find()
+show collections
+db.system.indexes.find()
+db.circles.find()
+show collections;
+db.circle.find();
+show collections;
+db.circle.find();
+db.circles.find();
+;
+db.circles.find();
+db.circlrs.delete({"name":""});
+db.circlrs.drop({"name":""});
+db.circlrs.remove({"name":""});
+db.circles.find();
+db.circlrs.remove({"name":""});
+db.circles.find();
+db.circlrs.remove({name:""});
+db.circles.find();
+db.circlrs.remove({name:null});
+db.circles.find();
+db.circlrs.remove({name:""});
+db.circles.find();
+db.circlrs.remove({from:1});
+db.circles.find();
+db.usres.find();
+use dog
+db.usres.find();
+show collections;
+db.usres.find();
+db.users.find();
+db.users.drop();

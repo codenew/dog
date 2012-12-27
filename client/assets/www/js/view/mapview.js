@@ -132,7 +132,7 @@ define(function(require, exports, module) {
 	},
 	addCircle: function(latLng, id){
 	    // this should be some where like a controller
-	    var c = new Circle({id: id, location: latLng, radius: 100, owner: 0});
+	    var c = new Circle({id: id, location: latLng, radius: 100, user: "yanhanning",name:"tempname", userid:1});	    
 	    this.collection.push(c);
 	},
 	deleteMarkers: function(){

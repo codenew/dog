@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     var $ = require('jquery');
     var DogServer = require('../api').DogServer;
-    var user = require('../models/user');
+    var user = require('model/user');
     $(document).delegate("#loginPage", "pageinit", function(){
 	console.log('login pageinit');
 	$("form#login").submit(function(e){

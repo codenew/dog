@@ -59,11 +59,14 @@ exports = _.extend(exports, {
 	    from: req.param('from') || 1,
 	    to: req.param('to') || 2,
 	    message: req.param('message') || '',
-	    location: location,
+	    name:req.param('name')||'',
+	    user:req.param('user')||'',
+	    userid:req.param('userid')||'',
+	    location: location,	    
 	    loc: [location.longitude, location.latitude], // NOTE: mongo use [long,lat] pair
 	    radius: req.param('radius') || 10, // in meter
 	};
-	globaldata.get('mongoPool').acquire(req, 'circle', function(err, collection, release){
+	globaldata.get('mongoPool').acquire(req, 'circles', function(err, collection, release){
 	    if (err){
 		res.send(404, err);
 		return;

@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     var $ = require('jquery');
     var DogServer = require('../api').DogServer;
-    var user = require('../models/user');
+    var user = require('model/user');
     //	var preloadjs = require('preloadjs');
     
     $(document).delegate("#mainPage", "pageinit", function(){
@@ -15,7 +15,7 @@ define(function(require, exports, module) {
 	
     }).delegate("#mainPage", "pageshow", function(){
 	console.log('main page show');
-	user.GetLocalUser(function(err, userinfo){
+	user.getuserinfo(function(err, userinfo){
 	    if (err){
 	    }else{
 		if (null == userinfo){

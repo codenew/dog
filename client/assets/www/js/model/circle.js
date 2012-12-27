@@ -7,9 +7,11 @@ define(function(require, exports, module){
 	    return config.server + '/circle';
 	},
         idAttribute: 'id',
-	location: null,
-	radius: null,
-	owner: 0,
+	    location: null,
+	    radius: null,	    
+	    name:null,
+	    user:null,
+	    userid:0	    
     });
     
     exports.CircleManager = Backbone.Collection.extend({

@@ -46,7 +46,8 @@ define(function(require, exports, module) {
 		var newCircle = new Circle({
 		    location: userSelf.get('location'),
 		    radius: mapView.currentRadius,
-		    owner: userSelf.get('id')
+		    userid: userSelf.get('id'),
+		    username:userSelf.get('name')
 		});
 		newCircle.save({}, {
 		    success: function(model, response, options){

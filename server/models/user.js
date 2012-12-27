@@ -55,6 +55,7 @@ _.extend(exports, {
         });
 
     },
+    
     Register: function(username, password, next){
 	var req = null;
 	mysql.query(req,
@@ -73,52 +74,52 @@ _.extend(exports, {
     },
 
     Auth: function (username, password, next){
-	if (username == 'kaikai'){
-	    next(null, 1);
-	}else{
-	    var req = null;
-	    async.waterfall([
-            function(callback){
-                mongodb.connect('mongodb://localhost:27017/dog', callback);
-            },
-            function(conn, callback){
-                connection = conn;
-                connection.collection('users', callback);                
-            },
-            function(coll, callback){
-                // arg1 now equals 'three'
-                coll.find({"name":username}).toArray(callback);
-            }
-        ], function (err, docs) {
-             if(!err){                       
-                if (docs.length==1 && docs[0].password == password){                    
-                   next(null,1);
-                   console.log('password matched');
-                   console.log(docs[0]);
+	    if (username == 'kaikai'){
+	        next(null, 1);
+	    }else{
+	        var req = null;
+	        async.waterfall([
+                function(callback){
+                    mongodb.connect('mongodb://localhost:27017/dog', callback);
+                },
+                function(conn, callback){
+                    connection = conn;
+                    connection.collection('users', callback);                
+                },
+                function(coll, callback){
+                    // arg1 now equals 'three'
+                    coll.find({"name":username}).toArray(callback);
                 }
-                else{
-                    next('password mismatch');
-                }
-             }  
-             else{
-                console.log(err);
-                next(err);
-             }  
-             
-             if (connection != null){  
-                connection.close();         // 一定要记得关闭数据库连接                            
-             }
-        });		    
-	    //next('no such user');
-	}
+            ], function (err, docs) {
+                 if(!err){                       
+                    if (docs.length==1 && docs[0].password == password){                    
+                       next(null,1);
+                       console.log('password matched');
+                       console.log(docs[0]);
+                    }
+                    else{
+                        next('password mismatch');
+                    }
+                 }  
+                 else{
+                    console.log(err);
+                    next(err);
+                 }  
+                 
+                 if (connection != null){  
+                    connection.close();         // 一定要记得关闭数据库连接                            
+                 }
+            });		    
+	        //next('no such user');
+	    }
     },
+    
     Logout: function(userid, logoutTime){
-	delete users[userid];
-    },
-    init: function(mysqlPool){
-	mysql = mysqlPool;
+	    delete users[userid];
+        },
+        init: function(mysqlPool){
+	    mysql = mysqlPool;
     }
-
-
+ 
 
 });
