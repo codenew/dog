@@ -34,7 +34,9 @@ define(function(require, exports, module){
         if (local_circleManager == null){ //Œ¥≥ı ºªØ
             local_circleManager = new this.CircleManager();
             local_circleManager.fetch({
-		location: location,
+		data:{
+		    location: location,
+		},
                 success:function(collection, response, options){                                        
                     console.log("Fetch CirlesManager success!");                    
 		    next(local_circleManager);
