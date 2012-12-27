@@ -33,7 +33,8 @@ requirejs.config({
 		"app/pages/login",
 		"app/pages/options",
 		"app/pages/mycircle",
-		"app/pages/position"
+		"app/pages/position",
+		"app/pages/boardpage"
 	    ],
 	}
     }
@@ -56,7 +57,9 @@ define(function(require, exports, module) {
     , config = require('app/config')
     , options = require('app/pages/options')
     , mycircle = require('app/pages/mycircle')
-    , positions = require('app/pages/position');
+    , positions = require('app/pages/position')
+    , boardpage = require('app/pages/boardpage');
+    
     // $.support.cors = true;
     $.mobile.transitionFallbacks.slideout = "none";
     var host = config.host;

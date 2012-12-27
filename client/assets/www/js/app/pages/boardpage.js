@@ -16,7 +16,7 @@
 		        {
 		            console.log(thread_set.models);
 		        }
-		    });//get_thread_set
+		    })//get_thread_set
 	);
 			
    
