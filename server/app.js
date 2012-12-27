@@ -10,6 +10,7 @@ var express = require('express')
 , circle = require('./routes/circle')
 , http = require('http')
 , log = require('./lib/log')
+, restful = require('./lib/restful')
 , path = require('path')
 , template = require('./template/template');
 
@@ -70,26 +71,21 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+
+restful.route(app, '/circle', require('./routes/circle'));
+restful.route(app, '/pet', require('./routes/pet'));
+restful.route(app, '/user', require('./routes/user'));
+
 app.get('/user/login', user.login);
 app.get('/user/logout', user.logout);
-app.get('/user', user.rest);
-
-//app.get('/position', position.list);
-//app.get('/position/:userid', position.list);
-//app.get('/position/:id/take', position.list);
-app.get('/pet/adopt', pet.adopt);
-app.get('/pet/:id/feed', pet.feed);
-app.get('/pet/:id/walk/:posid', pet.walk);
 app.get('/template', template.load);
 app.all('/position', position.rest);
 app.all('/pet', pet.rest);
 app.all('/chat', chat.rest);
 app.all('/chat/:id', chat.rest);
 
-app.all('/circle', circle.rest);
-app.all('/circle/:id', circle.rest);
-
 app.all('/board/:id', circle.rest);
+
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

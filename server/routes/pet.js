@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-exports = _.extend(exports, {
+_.extend(exports, {
     adopt: function(req, res){
 	res.json({result:'ok'});
     },
@@ -9,5 +9,20 @@ exports = _.extend(exports, {
     },
     walk: function(req, res){
 	res.json({result:'ok'});
-    }
+    },
+    get_one: function(id, req, res){
+	res.send(404);
+    },
+    put_one: function(id, req, res){
+	res.send(404);
+    },
+    post_one: function(req, res){
+	res.send(404);
+    },
+    delete_one: function(id, req, res){
+	res.send(404);
+    },
+    get_all: function(req, res){
+	res.send(404);
+    },
 });

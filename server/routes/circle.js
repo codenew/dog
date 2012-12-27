@@ -1,17 +1,15 @@
-var _ = require('underscore');
-var async = require("async");
-var mongodb = require("mongodb");
-var globaldata = require('../globaldata');
+var _ = require('underscore')
+, async = require("async")
+, globaldata = require('../globaldata');
 var data = {
     1: {id: 1, name: 'dsadas',   from: 1, to: 2, message: 'hi'},
     2: {id: 2, name: 'dasdsada', from:1,to: 1, message: 'what'},
     3: {id: 3, name: 'dasdsaf',  from:1, to: 2, message: 'just hi...'},
 };
 var lastid = 3;
-exports = _.extend(exports, {
+_.extend(exports, {
     
-    put: function(req, res){
-	var id = req.param('id');
+    put_one: function(id, req, res){
 	_.each(data, function(c){
 	    if (c.id == id){
 		c.message = req.param('message') || '';
@@ -19,14 +17,17 @@ exports = _.extend(exports, {
 	});
 	res.json({result: 'ok'});
     },
-    
-    get: function(req, res){
+    get_all: function(req, res){
 	var location = req.param('location') || {latitude: 31, longitude:121};
-
-
-	globaldata.get('mongoPool').acquire(req, 'circle', function(err, collection, release){
+	location = {
+	    longitude: +location.longitude, 
+	    latitude: +location.latitude,
+	};
+	console.log('circle.get_all@', location);
+	globaldata.get('mongoPool').acquire(req, 'circles', function(err, collection, release){
 	    if (err){
-		res.send(404, err);
+		console.log(err);
+		res.send(500, err);
 		return;
 	    }
 	    // NOTE: mongo use [long,lat] pair
@@ -36,11 +37,15 @@ exports = _.extend(exports, {
 		spherical: true,
 	    }, function(err, docs){
 		if (err){
-		    res.send(404, err);
+		    console.log(err);
+		    res.send(500, err);
+		}else if (!(docs.results instanceof Array)){
+		    console.log(docs);
+		    res.send(500, docs.errmsg);
 		}else{
 		    console.log(docs);
 		    var ret = [];
-                    for(var i = 0; i < docs.results.length; i ++){
+                    for(var i = 0; i < docs.results.length; i++){
 			ret.push(docs.results[i].obj);
 			console.log(docs.results[i]);
                     }
@@ -51,9 +56,26 @@ exports = _.extend(exports, {
         });        
 	console.log("get list");
     },
-    
-    
-    post: function(req, res){
+    get_one: function(id, req, res){
+	globaldata.get('mongoPool').acquire(req, 'circles', function(err, collection, release){
+	    if (err){
+		res.send(500, err);
+		return;
+	    }
+	    
+	    collection.find({_id: id}, function(err, r){
+		if (err){
+		    res.send(500, err);
+		}else if (r.length != 1){
+		    res.send(500, 'length not 1');
+		}else{
+		    res.json({id: r[0]._id});
+		}
+		release();
+	    });
+	});
+    },    
+    post_one: function(req, res){
 	var location = req.param('location') || {latitude: 31, longitude:121};
 	var newData = {
 	    from: req.param('from') || 1,
@@ -68,18 +90,18 @@ exports = _.extend(exports, {
 	};
 	globaldata.get('mongoPool').acquire(req, 'circles', function(err, collection, release){
 	    if (err){
-		res.send(404, err);
+		res.send(500, err);
 		return;
 	    }
 	    collection.insert(newData, function(err, r){
 		if (err){
-		    res.send(404, err);
+		    res.send(500, err);
 		    release();
 		    return;
 		}
 		console.log(r);
 		if (r.length != 1){
-		    res.json(404, 'length not 1');
+		    res.send(500, 'length not 1');
 		    release();
 		    return;
 		}
@@ -88,22 +110,8 @@ exports = _.extend(exports, {
 	    });
 	});
     },
-    delete: function(req, res){
-	var id = req.param('id');
+    delete_one: function(id, req, res){
 	delete data[id];
 	res.json({result: 'ok'});
     },
-    rest: function(req, res){
-	if (req.method == 'GET'){
-	    exports.get(req, res);
-	}else if (req.method == 'PUT'){
-	    exports.put(req, res);
-	}else if (req.method == 'POST'){
-	    exports.post(req, res);
-	}else if (req.method == 'DELETE'){
-	    exports.delete(req, res);
-	}else{
-	    res.send('bad method', 404);
-	}
-    }
 });
