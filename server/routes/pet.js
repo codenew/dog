@@ -1,7 +1,28 @@
-var _ = require('underscore');
+var _ = require('underscore')
+, mongodb = require('mongodb')
+, globaldata = require('../globaldata');
+
+var ObjectID = mongodb.ObjectID;
 
 _.extend(exports, {
     adopt: function(req, res){
+        
+        globaldata.get('mongoPool').acquire(req, 'pets', function(err, collection, release){
+            if (err){
+	        res.send(500, err);
+                return;
+            }
+            
+            collection.insert({owner: new ObjectID(userid)}, function(err, docs){
+                if (err){
+                    res.send(404, err);
+                }else{
+                    res.json(docs);
+                }
+                release();
+            });
+        });
+
 	res.json({result:'ok'});
     },
     feed: function(req, res){
@@ -23,6 +44,25 @@ _.extend(exports, {
 	res.send(404);
     },
     get_all: function(req, res){
-	res.send(404);
+        var userid = req.param('user') || null;
+        
+        globaldata.get('mongoPool').acquire(req, 'pets', function(err, collection, release){
+            if (err){
+	        res.send(500, err);
+                return;
+            }
+
+            console.log(userid);
+            collection.find({owner: new ObjectID(userid)}).toArray(function(err, docs){
+                if (err){
+                    res.send(404, err);
+                }else{
+                    res.json(docs);
+                }
+                release();
+            });
+        });
+
+
     },
 });
