@@ -11,10 +11,10 @@ exports.login = function(req, res){
     //res.send("respond with a resource");
     var username = req.param('username')
     , password = req.param('password')
-    , checkcode=req.param('checkcode');
+    , checkcode = req.param('checkcode');
     console.log(username,password,checkcode);
     //console.log()	  
-    user.Auth(username, password, function(err, userid){
+    user.Auth(req, username, password, function(err, userid){
         if (err){
             res.json({result: 'failed', err: err});
         }else{
@@ -27,7 +27,7 @@ exports.login = function(req, res){
 exports.logout = function(req, res){
     var userid = req.session && req.session.userid || null;
     req.session = null;
-    user.Logout(userid, new Date().getTime());
+    user.Logout(req, userid, new Date().getTime());
     res.json({result:'ok'});
 };
 
@@ -35,7 +35,7 @@ exports.userinfo = function(req, res){
     //var userid = req.session && req.session.userid || null;    
     var userid = req.param('id') || null;  
     console.log('userinfo of', userid);
-    user.GetUser(userid, function(err, user){
+    user.GetUser(req, userid, function(err, user){
         if (err){
             req.session = null;
             res.json({result: 'failed', err: err});
@@ -47,27 +47,20 @@ exports.userinfo = function(req, res){
 
 _.extend(exports, {
     get_one: function(id, req, res){
-	globaldata.get('mongoPool').acquire(req, 'users', function(err, collection, release){
-	    collection.find({id:id}, function(err, docs){
-		if (err){
-		    console.log(err);
-		    res.send(500, err);
-		}else if(docs.length == 1){           
-		    console.log(docs[0]);
-		    res.json(docs[0]);
-		}else{
-		    console.log('not found');
-		    res.json(null);
-		}
-		release();
-	    });
-	});
+        user.GetUser(req, id, function(err, doc){
+            if (err){
+                console.log(err);
+		res.send(500, err);
+            }else{
+                res.json(doc);
+            }
+        });
 	console.log("get userinfo from mongodb,id is "+id);
     },
     put_one: function(id, req, res){
 	res.send(404);
     },
-    post_one: function(req, res){
+    post_one: function(zreq, res){
 	res.send(404);
     },
     delete_one: function(id, req, res){

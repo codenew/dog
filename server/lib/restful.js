@@ -6,13 +6,13 @@ exports.route = function(app, basePath, module){
 	    if (typeof module.get_one != "function"){
 		break;
 	    }
-	    module.get_one(req.id, req, res)
+	    module.get_one(req.param('id'), req, res)
 	    return;
 	case 'PUT':  // update id
 	    if (typeof module.put_one != "function"){
 		break;
 	    }
-	    module.put_one(req.id, req, res);
+	    module.put_one(req.param('id'), req, res);
 	    return;
 	case 'POST': // create id
 	    break;
@@ -20,7 +20,7 @@ exports.route = function(app, basePath, module){
 	    if (typeof module.delete_one != "function"){
 		break;
 	    }
-	    module.delete_one(req.id, req, res);
+	    module.delete_one(req.param('id'), req, res);
 	    return;
 	default:
 	}

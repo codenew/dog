@@ -72,12 +72,13 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 
+app.get('/user/login', user.login);
+app.get('/user/logout', user.logout);
+
 restful.route(app, '/circle', require('./routes/circle'));
 restful.route(app, '/pet', require('./routes/pet'));
 restful.route(app, '/user', require('./routes/user'));
 
-app.get('/user/login', user.login);
-app.get('/user/logout', user.logout);
 app.get('/template', template.load);
 app.all('/position', position.rest);
 app.all('/pet', pet.rest);
