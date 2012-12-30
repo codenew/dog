@@ -1,8 +1,8 @@
 define(function(require, exports, module) {
     var Backbone = require('backbone')
     , $ = require('jquery')
-    , _ = require('underscore')
-    , jSmart = require('smart');
+    , _ = require('underscore');
+
     exports.ListView = Backbone.View.extend({
 	el: null,
 	collection: null,

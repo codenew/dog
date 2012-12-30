@@ -4,9 +4,12 @@ define(function(require, exports, module){
 
     exports.Pet = Backbone.Model.extend({
         url:function(){
+            if (this.id){
+                return config.server + '/pet/' + this.id;
+            }
             return config.server + '/pet';
         },
-        idAttribute: 'id',
+        idAttribute: '_id',
         location: null,
         radius: null,	    
         name:null,
@@ -23,10 +26,10 @@ define(function(require, exports, module){
 
     exports.getPetManager = function(user){
         var petManager = new exports.PetManager();
-        console.log(user.get('id'));
+        console.log(user.id);
         petManager.fetch({
             data:{
-                user: user.get('id')
+                user: user.id
             },
             success:function(collection, response, options){
             },

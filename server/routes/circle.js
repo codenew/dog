@@ -43,12 +43,7 @@ _.extend(exports, {
 		    console.log(docs);
 		    res.send(500, docs.errmsg);
 		}else{
-		    console.log(docs);
-		    var ret = [];
-                    for(var i = 0; i < docs.results.length; i++){
-			ret.push(docs.results[i].obj);
-			console.log(docs.results[i]);
-                    }
+		    var ret = _.map(docs.results, function(item){return item.obj;});
 		    res.json(ret);
 		}
 		release();

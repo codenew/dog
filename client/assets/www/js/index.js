@@ -41,9 +41,7 @@ requirejs.config({
 	}
     }
 });
-requirejs(['underscore'], function(_){
-});
-requirejs(['smart-2.9.min'], function(_){
+requirejs(['underscore', 'smart-2.9.min'], function(_,s){
 });
 define(function(require, exports, module) {
     var $ = require('jquery')

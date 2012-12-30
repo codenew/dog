@@ -6,9 +6,7 @@ define(function(require, exports, module) {
     , CircleMgr = require('model/circle')
     , CircleManager = require('model/circle').CircleManager
     , User = require('model/user')
-    , DogServer = require('../api').DogServer
-    , googlemap = require('googlemap');
-    var google = window.google;
+    , DogServer = require('../api').DogServer;
     var map = null;
 
     var Device = Backbone.Model.extend({
