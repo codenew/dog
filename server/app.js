@@ -75,13 +75,22 @@ app.get('/', routes.index);
 app.get('/user/login', user.login);
 app.get('/user/logout', user.logout);
 
-restful.route(app, '/circle', require('./routes/circle'));
-restful.route(app, '/pet', require('./routes/pet'));
-restful.route(app, '/user', require('./routes/user'));
+function checkAuth(req, res, next){
+    console.log('checkAuth', req.session);
+    if (typeof req.session.userid == 'string'){
+        next();
+    }else{
+        res.send(403);
+    }
+}
+
+restful.route(app, '/circle', [checkAuth], require('./routes/circle'));
+restful.route(app, '/pet', [checkAuth], require('./routes/pet'));
+restful.route(app, '/user', [checkAuth], require('./routes/user'));
+
 
 app.get('/template', template.load);
 app.all('/position', position.rest);
-app.all('/pet', pet.rest);
 app.all('/chat', chat.rest);
 app.all('/chat/:id', chat.rest);
 

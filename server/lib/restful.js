@@ -1,6 +1,6 @@
 
-exports.route = function(app, basePath, module){
-    app.all(basePath + '/:id', function(req, res){
+exports.route = function(app, basePath, middleware, module){
+    app.all(basePath + '/:id', middleware, function(req, res){
 	switch(req.method){
 	case 'GET':  // fetch id
 	    if (typeof module.get_one != "function"){
@@ -26,7 +26,7 @@ exports.route = function(app, basePath, module){
 	}
 	res.send(404, 'invalid method');
     });
-    app.all(basePath, function(req, res){
+    app.all(basePath, middleware, function(req, res){
 	switch(req.method){
 	case 'GET': // fetch all
 	    if (typeof module.get_all != "function"){
