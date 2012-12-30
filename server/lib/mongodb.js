@@ -45,9 +45,11 @@ function MongoObj(config){
 		if (acquireTimeEnd - acquireTimeBegin > queryTimeLimit){
 		    slowLog(req, 'acquire time', caller, acquireTimeEnd - acquireTimeBegin);
 		}
-		if (err || !db){
+		if (err){
+                    next(err);
+                }else if(!db){
 		    pool.release(db);
-		    next(err || "mongo db not connected");
+		    next("mongo db not connected");
 		}else{
 		    var collection = db.collection(collectionName);
 		    var beginTime = new Date().getTime();
