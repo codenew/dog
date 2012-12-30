@@ -58,7 +58,23 @@ _.extend(exports, {
     },
     
     Logout: function(userid, logoutTime){
-	delete users[userid];
+        globaldata.get('mongoPool').acquire(req, 'users', function(err, collection, release){
+            collection.update({
+                _id: new ObjectID(userid),
+            }, {
+                $set: {
+                    lastLogoutTime: logoutTime,
+                },
+            }, function(err, modifiedCount){
+                if (err){
+                    console.log('logout failed:', err);
+                }else{
+                    console.log('logout:', modifiedCount);
+                }
+                release();
+            });
+        });
+        
     },
     init: function(mysqlPool){
 	mysql = mysqlPool;

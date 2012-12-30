@@ -66,6 +66,8 @@ define(function(require, exports, module){
     //µÇ³ö
     exports.logout = function(next){
 	local_user.set('_id', null);
+        DogServer.rpc('user/logout', {}, function(err, json){
+        });
 	next(null);
     };
 });

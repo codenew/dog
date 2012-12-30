@@ -27,7 +27,8 @@ exports.login = function(req, res){
 exports.logout = function(req, res){
     var userid = req.session && req.session.userid || null;
     req.session = null;
-    user.Logout(req, userid, new Date().getTime());
+    console.log('logout:', req.session);
+    user.Logout(req, userid, new Date());
     res.json({result:'ok'});
 };
 
