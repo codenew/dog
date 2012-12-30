@@ -1,7 +1,7 @@
 ﻿define(function(require, exports, module) {
     var $ = require('jquery');
     var DogServer = require('../api').DogServer;
-    var user = require('../models/user');
+    var user = require('model/user');
     var templateloader = require('../models/template');
     var circles =  require('model/circle');
     var board = require('model/board');
