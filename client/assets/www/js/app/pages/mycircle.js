@@ -10,7 +10,7 @@
     }
     
     function myposition_getpositionlist(data){
-  
+        
     };
 
     function myposition_getlocaluser(err, userinfo) {
@@ -36,28 +36,26 @@
     };
 
     function myposition_pageinit(){
-	    //var user = require('../models/user');		
-	    //user.GetLocalUser(myposition_getlocaluser);
-	    circles.getCircleManager(function(circleManager){
-        templateloader.LoadTemplate(
+	circles.getCircleManager(function(circleManager){
+            templateloader.LoadTemplate(
                 'position',
                 function (err, templatetext){
                     if (!err){
-                            var tpl = new jSmart(templatetext);
-                            var res = tpl.fetch({data:circleManager});
-                            $('#positionlist').html(res);
-                            $('#positionlist').listview('refresh');  
+                        var tpl = new jSmart(templatetext);
+                        var res = tpl.fetch({data:circleManager});
+                        $('#positionlist').html(res);
+                        $('#positionlist').listview('refresh');  
                     }
                 }
             );	 
-	    });	    
-	    
+	});	    
+	
     };
 
     $(document).delegate("#myCirclePage", "pageshow", 
 			 myposition_pageinit
 			);
-			
+    
     $(document).delegate("a[circle_id]", "click", function(){
         board.setboardid(+$(this).attr('circle_id'));
     });			

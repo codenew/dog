@@ -50,7 +50,6 @@ define(function(require, exports, module) {
     , _ = require('underscore')
     , backbone = require('backbone')
     , phonegap = require('phonegap')
-    , user = require('app/models/user')
     , board = require('model/board')
     , circle = require('model/circle')
     , jmobile = require('jquery.mobile') 
