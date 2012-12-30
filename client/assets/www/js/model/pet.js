@@ -28,10 +28,15 @@ define(function(require, exports, module){
         var petManager = new exports.PetManager();
         console.log(user.id);
         petManager.fetch({
+            add:true,
+            update:true,
+            remove:true,
             data:{
-                user: user.id
+                // user: user.id // no need to send current userid, since server could use session.userid
             },
             success:function(collection, response, options){
+                //collection.trigger('change');
+                console.log('petmanager fetched', collection.length);
             },
             error:function(collection, xhr, options){
                 console.log('failed to fetch pet for user', user, xhr);
