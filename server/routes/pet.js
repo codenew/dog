@@ -6,7 +6,8 @@ var ObjectID = mongodb.ObjectID;
 
 _.extend(exports, {
     adopt: function(req, res){
-        
+        var userid = req.session.userid;
+
         globaldata.get('mongoPool').acquire(req, 'pets', function(err, collection, release){
             if (err){
 	        res.send(500, err);
@@ -44,7 +45,8 @@ _.extend(exports, {
 	res.send(404);
     },
     get_all: function(req, res){
-        var userid = req.param('user') || null;
+        
+        var userid = req.session.userid;
         
         globaldata.get('mongoPool').acquire(req, 'pets', function(err, collection, release){
             if (err){

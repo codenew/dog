@@ -72,8 +72,6 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 
-app.get('/user/login', user.login);
-app.get('/user/logout', user.logout);
 
 function checkAuth(req, res, next){
     console.log('checkAuth', req.session);
@@ -84,9 +82,18 @@ function checkAuth(req, res, next){
     }
 }
 
-restful.route(app, '/circle', [checkAuth], require('./routes/circle'));
-restful.route(app, '/pet', [checkAuth], require('./routes/pet'));
+// user routers
+app.get('/user/login', user.login);
+app.get('/user/logout', user.logout);
 restful.route(app, '/user', [checkAuth], require('./routes/user'));
+
+// circle routers
+restful.route(app, '/circle', [checkAuth], require('./routes/circle'));
+
+// pet routers
+app.get('/pet/adopt', [checkAuth], require('./routes/pet').adopt);
+restful.route(app, '/pet', [checkAuth], require('./routes/pet'));
+
 
 
 app.get('/template', template.load);

@@ -20,7 +20,7 @@ define(function(require, exports, module) {
 	    }else{
 		if (null == userinfo){
 		    // auto switch to login page
-		    //		$.mobile.changePage('login.html');
+		    $.mobile.changePage('login.html');
 		    return;
 		}
 	    }
