@@ -12,6 +12,7 @@ requirejs.config({
 	view: '../view',
 	model: '../model',
 	async: 'require.async',
+        template: '../../template',
     },
     map:{
 	"*": {
@@ -34,7 +35,8 @@ requirejs.config({
 		"app/pages/options",
 		"app/pages/mycircle",
 		"app/pages/position",
-		"app/pages/boardpage"
+                "app/pages/boardpage",
+                "app/pages/pet",
 	    ],
 	}
     }
@@ -48,18 +50,12 @@ define(function(require, exports, module) {
     , _ = require('underscore')
     , backbone = require('backbone')
     , phonegap = require('phonegap')
-    , login = require('app/pages/login')
-    , main = require('app/pages/main')
     , user = require('app/models/user')
     , board = require('model/board')
     , circle = require('model/circle')
     , jmobile = require('jquery.mobile') 
-    , config = require('app/config')
-    , options = require('app/pages/options')
-    , mycircle = require('app/pages/mycircle')
-    , positions = require('app/pages/position')
-    , boardpage = require('app/pages/boardpage');
-    
+    , config = require('app/config');
+
     // $.support.cors = true;
     $.mobile.transitionFallbacks.slideout = "none";
     var host = config.host;
@@ -129,3 +125,4 @@ define(function(require, exports, module) {
     
 
 });
+
