@@ -26,7 +26,9 @@ define(function(require, exports, module) {
 	},
 	initialize: function(){
 	    this.listenTo(this.model, 'change', this.refreshUser);
-	    this.listenTo(this.collection, 'change add remove', this.refreshMarkers);
+            if (this.collection){
+	        this.listenTo(this.collection, 'change add remove', this.refreshMarkers);
+            }
 	    var coords = this.model.get('location');
             var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
             var myOptions = {
@@ -83,6 +85,15 @@ define(function(require, exports, module) {
 		center: this.getUserLocation(),
 		radius: this.currentRadius,
 	    });
+            this.collection.fetch({
+                add: true,
+                remove: true,
+                update: true,
+                data:{
+                    location: this.model.get('location')
+                },
+            });
+	
 	    this.refreshUser();
 	    this.render();
 	},

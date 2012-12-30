@@ -3,8 +3,9 @@
     var DogServer = require('../api').DogServer;
     var user = require('model/user');
     var templateloader = require('../models/template');
-    var circles =  require('model/circle');
+    var CircleManager =  require('model/circle').CircleManager;
     var board = require('model/board');
+    var template = require('text!template/position.tpl');
     function log(info){
 	$('#log').prepend($('<p>').text(info));
     }
@@ -36,20 +37,15 @@
     };
 
     function myposition_pageinit(){
-	circles.getCircleManager(function(circleManager){
-            templateloader.LoadTemplate(
-                'position',
-                function (err, templatetext){
-                    if (!err){
-                        var tpl = new jSmart(templatetext);
-                        var res = tpl.fetch({data:circleManager});
-                        $('#positionlist').html(res);
-                        $('#positionlist').listview('refresh');  
-                    }
-                }
-            );	 
-	});	    
-	
+        var circleManager = CircleManager.getSingleton();
+        circleManager.fetch({
+            success: function(){
+                var tpl = new jSmart(template);
+                var res = tpl.fetch({data:circleManager});
+                $('#positionlist').html(res);
+                $('#positionlist').listview('refresh');
+            }
+        });
     };
 
     $(document).delegate("#myCirclePage", "pageshow", 

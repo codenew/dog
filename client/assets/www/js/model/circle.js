@@ -4,21 +4,31 @@ define(function(require, exports, module){
     var local_circleManager = null;
     exports.Circle = Backbone.Model.extend({
         url:function(){
-	    return config.server + '/circle';
-	},
-        idAttribute: 'id',
-	    location: null,
-	    radius: null,	    
-	    name:null,
-	    user:null,
-	    userid:0	    
+            if (this.id){
+                return config.server + '/circle/' + id;
+            }
+            return config.server + '/circle';
+        },
+        idAttribute: '_id',
+        location: null,
+        radius: null,
+        name:null,
+        user:null,
+        userid:0	    
     });
     
     exports.CircleManager = Backbone.Collection.extend({
         url:function(){
-	    return config.server + '/circle';
-	},
-	model: exports.Circle,
+            return config.server + '/circle';
+        },
+        model: exports.Circle,
+    }, {
+        getSingleton: function(){
+            if (!local_circleManager){
+                local_circleManager = new exports.CircleManager();
+            }
+            return local_circleManager;
+        }
     });
     //    exports.setCircleManager = function(new_circleManager)
     //    {
@@ -26,25 +36,25 @@ define(function(require, exports, module){
     //    };
     
     exports.getCircleManager = function(location, next){
-	if (typeof next != "function" && typeof location == "function"){
-	    next = location;
-	    location = {longitude: 121, latitude: 31};
-	}
+        if (typeof next != "function" && typeof location == "function"){
+            next = location;
+            location = {longitude: 121, latitude: 31};
+        }
 
         if (local_circleManager == null){ //Œ¥≥ı ºªØ
             local_circleManager = new this.CircleManager();
             local_circleManager.fetch({
-		data:{
-		    location: location,
-		},
-                success:function(collection, response, options){                                        
-                    console.log("Fetch CirlesManager success!");                    
-		    next(local_circleManager);
-		},
+                data:{
+                    location: location,
+                },
+                success:function(collection, response, options){
+                    console.log("Fetch CirlesManager success!");
+	            next(local_circleManager);
+                },
                 error:function (collection, xhr, options){
                     console.log("Fetch CirlesManager failed!");
                     local_circleManager = null;
-		    next(null);
+                    next(null);
                 },
             });
         } else{
@@ -52,5 +62,3 @@ define(function(require, exports, module){
         }
     };
 });
-
-
