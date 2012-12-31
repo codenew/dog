@@ -35,21 +35,21 @@ requirejs.config({
 		"app/pages/options",
 		"app/pages/mycircle",
 		"app/pages/position",
-                "app/pages/boardpage",
+                "app/pages/circle",
                 "app/pages/pet",
 	    ],
 	}
     }
 });
 requirejs(['underscore', 'smart-2.9.min'], function(_,s){
+    console.log('undersocre loaded');
+    console.log('smart loaded');
 });
 define(function(require, exports, module) {
     var $ = require('jquery')
     , _ = require('underscore')
     , backbone = require('backbone')
     , phonegap = require('phonegap')
-    , board = require('model/board')
-    , circle = require('model/circle')
     , jmobile = require('jquery.mobile') 
     , config = require('app/config');
 

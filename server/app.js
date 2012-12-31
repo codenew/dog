@@ -12,7 +12,6 @@ var express = require('express')
 , log = require('./lib/log')
 , restful = require('./lib/restful')
 , path = require('path')
-, template = require('./template/template')
 , board = require ('./routes/board_route');
 
 
@@ -99,7 +98,7 @@ restful.route(app, '/pet', [checkAuth], require('./routes/pet'));
 
 
 
-app.get('/template', template.load);
+
 app.all('/position', position.rest);
 app.all('/chat', chat.rest);
 app.all('/chat/:id', chat.rest);

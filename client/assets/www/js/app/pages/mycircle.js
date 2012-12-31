@@ -2,13 +2,9 @@
     var $ = require('jquery');
     var DogServer = require('../api').DogServer;
     var user = require('model/user');
-    var templateloader = require('../models/template');
     var CircleManager =  require('model/circle').CircleManager;
     var board = require('model/board');
     var template = require('text!template/position.tpl');
-    function log(info){
-	$('#log').prepend($('<p>').text(info));
-    }
     
     function myposition_getpositionlist(data){
         
@@ -31,7 +27,7 @@
     	    myposition_getpositionlist
 	);
 
-	/*    	    
+	/*
 		    }	
 	*/
     };
