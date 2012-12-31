@@ -1,7 +1,0 @@
-users.find();
-db.users.find();
-use dog;
-db.users.find();
-db.users.drop();
-use dog
-db.users.find();
