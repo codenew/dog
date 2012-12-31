@@ -52,8 +52,8 @@
 			 myposition_pageinit
 			);
     
-    $(document).delegate("a[circle_id]", "click", function(){
-        board.setboardid(+$(this).attr('circle_id'));
+    $(document).delegate("a[circle_id]", "click", function(){       
+        board.setboardid($(this).attr('circle_id'));
     });			
 });
 

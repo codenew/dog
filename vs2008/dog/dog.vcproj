@@ -187,7 +187,11 @@
 				Name="routes"
 				>
 				<File
-					RelativePath="..\..\server\routes\board.js"
+					RelativePath="..\..\server\routes\board_route.js"
+					>
+				</File>
+				<File
+					RelativePath="..\..\server\routes\chat.js"
 					>
 				</File>
 				<File
@@ -238,6 +242,10 @@
 					RelativePath="..\..\server\lib\mysql.js"
 					>
 				</File>
+				<File
+					RelativePath="..\..\server\lib\restful.js"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="templates"
@@ -264,6 +272,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\client\assets\www\circle.html"
+				>
+			</File>
+			<File
+				RelativePath="..\..\client\assets\www\editcircle.html"
+				>
+			</File>
+			<File
+				RelativePath="..\..\client\assets\www\fight.html"
+				>
+			</File>
+			<File
 				RelativePath="..\..\client\assets\www\index.html"
 				>
 			</File>
@@ -272,7 +292,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\client\assets\www\managetopic.html"
+				>
+			</File>
+			<File
 				RelativePath="..\..\client\assets\www\mycircle.html"
+				>
+			</File>
+			<File
+				RelativePath="..\..\client\assets\www\myroute.html"
 				>
 			</File>
 			<File
@@ -285,6 +313,18 @@
 			</File>
 			<File
 				RelativePath="..\..\client\assets\www\position.html"
+				>
+			</File>
+			<File
+				RelativePath="..\..\client\assets\www\register.html"
+				>
+			</File>
+			<File
+				RelativePath="..\..\client\assets\www\singlechat.html"
+				>
+			</File>
+			<File
+				RelativePath="..\..\client\assets\www\userlist.html"
 				>
 			</File>
 			<File
@@ -474,6 +514,22 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="template"
+				>
+				<File
+					RelativePath="..\..\client\assets\www\template\board.tpl"
+					>
+				</File>
+				<File
+					RelativePath="..\..\client\assets\www\template\petview.tpl"
+					>
+				</File>
+				<File
+					RelativePath="..\..\client\assets\www\template\position.tpl"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

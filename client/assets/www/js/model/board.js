@@ -1,8 +1,10 @@
 define(function(require, exports, module){
     var Backbone = require('backbone');
+    var config = require('app/config');
     var boardid = null;
     var local_thread_set = null;
-    
+    var template = require('text!template/board.tpl');
+        
     exports.thread = Backbone.Model.extend({
         url:function(){
 	        return config.server + '/thread';
@@ -17,7 +19,7 @@ define(function(require, exports, module){
     
     exports.thread_set = Backbone.Collection.extend({
         url:function(){
-	        return config.server + '/circle';
+	        return config.server + '/board';
 	    },
 	    model:exports.thread
     });
@@ -32,13 +34,13 @@ define(function(require, exports, module){
     };
     
     exports.get_thread_set = function(next){
-        if (local_thread_set = null)
+        if (local_thread_set == null)
         {
-            local_thread_set = new this.CircleManager();
+            local_thread_set = new this.thread_set;
             local_thread_set.fetch({
-		        boardid:boardid,
+		        data:{boardid:boardid},
                 success:function(collection, response, options){                                        
-                    console.log("Fetch thread set  success!");                    
+                    console.log("Fetch thread set  success!");                                                       
 		            next(local_thread_set);
 		        },
                 error:function (collection, xhr, options){

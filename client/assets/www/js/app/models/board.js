@@ -2,6 +2,7 @@ define(function(require, exports, module){
     var Backbone = require('backbone');
     var boardid = null;
     var local_board = null;
+    var template = require('text!template/board.tpl');
     
     //单个的帖子
     exports.thread = BackBone.Model.extend({
@@ -29,6 +30,10 @@ define(function(require, exports, module){
         local_board.fetch({
                 success:function(collection, response, options){                                        
                     console.log("Fetch CirlesManager success!");                    
+                    var tpl = new jSmart(template);
+                    var res = tpl.fetch({data:collection});
+                    $('#boardcontent').html(res);
+                    $('#boardcontent').listview('refresh');                    
                 },
                 error:function (collection, xhr, options){
                     console.log("Fetch CirlesManager failed!");

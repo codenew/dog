@@ -12,7 +12,10 @@ var express = require('express')
 , log = require('./lib/log')
 , restful = require('./lib/restful')
 , path = require('path')
-, template = require('./template/template');
+, template = require('./template/template')
+, board = require ('./routes/board_route');
+
+
 
 process.on("uncaughtException", function(err){
     log.error(null, 'uncaughtException:' + err.stack);
@@ -101,7 +104,8 @@ app.all('/position', position.rest);
 app.all('/chat', chat.rest);
 app.all('/chat/:id', chat.rest);
 
-app.all('/board/:id', circle.rest);
+restful.route(app, '/board',[checkAuth], require('./routes/board_route'));
+//app.all('/board/:id', board.rest);
 
 
 http.createServer(app).listen(app.get('port'), function(){
