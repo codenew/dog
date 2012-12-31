@@ -3,8 +3,7 @@ define(function(require, exports, module){
     var config = require('app/config');
     var boardid = null;
     var local_thread_set = null;
-    var template = require('text!template/board.tpl');
-        
+ 
     exports.thread = Backbone.Model.extend({
         url:function(){
 	        return config.server + '/thread';
