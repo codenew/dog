@@ -5,6 +5,9 @@
 
 1. node http://nodejs.org
 
+2. mongodb http://www.mongodb.org/downloads
+
+
 参考资料：
 
  客户端：

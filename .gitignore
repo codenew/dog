@@ -40,3 +40,4 @@ server/errorlog.txt
 npm-debug.log
 
 /vs2008/dog/Debug
+/mongodb
