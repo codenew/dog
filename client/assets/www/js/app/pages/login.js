@@ -1,14 +1,14 @@
 define(function(require, exports, module) {
     var $ = require('jquery');
     var DogServer = require('../api').DogServer;
-    var user = require('model/user');
+    var User = require('model/user').User;
     $(document).delegate("#loginPage", "pageinit", function(){
 	console.log('login pageinit');
 	$("form#login").submit(function(e){
 	    console.log('submit');
 	    e.preventDefault();
 	    e.stopPropagation();
-	    user.login(
+	    User.login(
 		$("#username", this).val(),
 		$("#password", this).val(),
 		function(err){

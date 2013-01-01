@@ -1,15 +1,12 @@
 ﻿define(function(require, exports, module) {
     var $ = require('jquery');
     var DogServer = require('../api').DogServer;
-    var user = require('model/user');
-    function log(info){
-	$('#log').prepend($('<p>').text(info));
-    }
+    var User = require('model/user').User;
+
     $(document).delegate("#optionPage", "pageshow", function() {		
-	var user = require('model/user');
 	console.log('option page show');
 	
-	user.getuserinfo(function(err, userinfo) {		
+	User.getuserinfo(function(err, userinfo) {		
 	    if (err){
 		    console.log(err);
 		    return;

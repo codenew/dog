@@ -1,7 +1,7 @@
 ﻿define(function(require, exports, module) {
     var $ = require('jquery');
     var DogServer = require('../api').DogServer;
-    var user = require('model/user');
+    var User = require('model/user').User;
     var CircleManager =  require('model/circle').CircleManager;
     var board = require('model/board');
     var template = require('text!template/position.tpl');
@@ -23,7 +23,7 @@
 	} else {
 	*/	
 	//get positions for the user						
-	user.getmyposition(/*userinfo.userid,*/1,
+	User.getmyposition(/*userinfo.userid,*/1,
     	    myposition_getpositionlist
 	);
 

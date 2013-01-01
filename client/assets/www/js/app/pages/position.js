@@ -4,7 +4,7 @@ define(function(require, exports, module) {
     , MapView = require('view/mapview').MapView
     , Circle = require('model/circle').Circle
     , CircleManager = require('model/circle').CircleManager
-    , User = require('model/user')
+    , User = require('model/user').User
     , DogServer = require('../api').DogServer;
     var map = null;
 

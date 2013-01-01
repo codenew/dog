@@ -1,6 +1,6 @@
 define(function(require, exports, module){
     var $ = require('jquery')
-    , User = require('model/user')
+    , User = require('model/user').User
     , Pet = require('model/pet')
     , ListView = require('view/listview').ListView
     , DogServer = require('app/api').DogServer
