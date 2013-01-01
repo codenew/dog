@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     , $ = require('jquery')
     , _ = require('underscore')
     , Circle = require('model/circle').Circle
-    , googlemap = require('googlemap');
+//    , googlemap = require('googlemap');
     var google = window.google;
 
     exports.MapView = Backbone.View.extend({
@@ -30,61 +30,63 @@ define(function(require, exports, module) {
 	        this.listenTo(this.collection, 'change add remove', this.refreshMarkers);
             }
 	    var coords = this.model.get('location');
-            var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-            var myOptions = {
-		zoom: 16,
-		center: latlng,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		panControl: false,
-		zoomControl: false,
-		zoomControlOptions: {
-		    style: google.maps.ZoomControlStyle.DEFAULT,
-		    position: google.maps.ControlPosition.RIGHT_BOTTOM,
-		},
-		mapTypeControl:false,
-		scaleControl: true,
-		streetViewControl: false,
-		overviewMapControl: false,
-            };
+            if (google){
+                var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+                var myOptions = {
+		    zoom: 16,
+		    center: latlng,
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
+		    panControl: false,
+		    zoomControl: false,
+		    zoomControlOptions: {
+		        style: google.maps.ZoomControlStyle.DEFAULT,
+		        position: google.maps.ControlPosition.RIGHT_BOTTOM,
+		    },
+		    mapTypeControl:false,
+		    scaleControl: true,
+		    streetViewControl: false,
+		    overviewMapControl: false,
+                };
 
-            var mapcontent = this.$el.find('#mapcontent').get(0);
-            this.map = new google.maps.Map(mapcontent,
-					   myOptions);
-	    var self = this;
-	    /*google.maps.event.addListener(this.map, 'click', function(event){
-		self.addCircle(event.latLng, null);
-	    });*/
+                var mapcontent = this.$el.find('#mapcontent').get(0);
+                this.map = new google.maps.Map(mapcontent,
+					       myOptions);
+	        var self = this;
+	        /*google.maps.event.addListener(this.map, 'click', function(event){
+		  self.addCircle(event.latLng, null);
+	          });*/
 
-	    this.markers = {};
-	    var color = '#0000ff';
-	    this.userSymbol = new google.maps.Marker({
-		clickable: false,
-		draggable: false,
-		flat: false,
-		icon: {
-		    fillColor: '#0000ff',
-		    fillOpacity: 0.5,
-		    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-		    rotation: 0,
-		    scale: 10,
-		    strokeColor: '#0000ff',
+	        this.markers = {};
+	        var color = '#0000ff';
+	        this.userSymbol = new google.maps.Marker({
+		    clickable: false,
+		    draggable: false,
+		    flat: false,
+		    icon: {
+		        fillColor: '#0000ff',
+		        fillOpacity: 0.5,
+		        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+		        rotation: 0,
+		        scale: 10,
+		        strokeColor: '#0000ff',
+		        strokeOpacity: 0.8,
+		        strokeWeight: 1,
+		    },
+		    title: 'I\'m here',
+		    map: this.map,
+	        });
+	        this.userCircle = new google.maps.Circle({
+		    clickable: true,
+		    strokeColor: color,
 		    strokeOpacity: 0.8,
-		    strokeWeight: 1,
-		},
-		title: 'I\'m here',
-		map: this.map,
-	    });
-	    this.userCircle = new google.maps.Circle({
-		clickable: true,
-		strokeColor: color,
-		strokeOpacity: 0.8,
-		strokeWeight: 2,
-		fillColor: color,
-		fillOpacity: 0.35,
-		map: this.map,
-		center: this.getUserLocation(),
-		radius: this.currentRadius,
-	    });
+		    strokeWeight: 2,
+		    fillColor: color,
+		    fillOpacity: 0.35,
+		    map: this.map,
+		    center: this.getUserLocation(),
+		    radius: this.currentRadius,
+	        });
+            }
             this.collection.fetch({
                 add: true,
                 remove: true,
@@ -98,7 +100,7 @@ define(function(require, exports, module) {
 	    this.render();
 	},
 	getLocation: function(coords){
-	    if (coords && typeof coords.latitude == "number" && typeof coords.longitude == "number"){
+	    if (google && coords && typeof coords.latitude == "number" && typeof coords.longitude == "number"){
 		var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
 		return latlng;		
 	    }else{
@@ -122,23 +124,29 @@ define(function(require, exports, module) {
 	    }
 	},
 	zoomIn: function(){
-	    if (this.map.getZoom() < 20){
+	    if (this.map && this.map.getZoom() < 20){
 		this.map.setZoom(this.map.getZoom() + 1);
 	    }
 	},
 	zoomOut: function(){
-	    if (this.map.getZoom() > 8){
+	    if (this.map && this.map.getZoom() > 8){
 		this.map.setZoom(this.map.getZoom() - 1);
 	    }
 	},
 	backCurrentPos: function(){
-	    this.map.panTo(this.getUserLocation());
+            if (this.map){
+	        this.map.panTo(this.getUserLocation());
+            }
 	},
 	refreshUser: function(){
 	    var latlng = this.getUserLocation();
-	    this.userSymbol.setPosition(latlng);
-	    this.userCircle.setCenter(latlng);
-	    this.userCircle.setRadius(this.currentRadius);
+            if (this.userSymbol){
+	        this.userSymbol.setPosition(latlng);
+            }
+            if (this.userCircle){
+	        this.userCircle.setCenter(latlng);
+	        this.userCircle.setRadius(this.currentRadius);
+            }
 	    this.$el.find('#radius_value').text(this.currentRadius + ' 米');
 	},
 	addCircle: function(latLng, id){
@@ -149,7 +157,9 @@ define(function(require, exports, module) {
 	deleteMarkers: function(){
 	    for (var cid in this.markers){
 		var circle = this.markers[cid];
-		google.maps.event.clearListeners(circle, 'click');
+                if (google){
+		    google.maps.event.clearListeners(circle, 'click');
+                }
 		circle.setMap(null);
 	    }
 	    this.markers = {};
@@ -168,7 +178,9 @@ define(function(require, exports, module) {
 	    });
 	    _.each(this.markers, function(marker, cid){
 		if (!self.collection.get(cid)){
-		    google.maps.event.clearListeners(marker, 'click');
+                    if (google){
+		        google.maps.event.clearListeners(marker, 'click');
+                    }
 		    marker.setMap(null);
 		}
 	    });
@@ -194,19 +206,27 @@ define(function(require, exports, module) {
 	    };
 	    var cid = circle.cid;
 	    if (cid in this.markers){
-		google.maps.event.clearListener(this.markers[cid], 'click');
+                if (google){
+		    google.maps.event.clearListener(this.markers[cid], 'click');
+                }
 		this.markers[cid].setMap(null);
 	    }
-	    var circle = new google.maps.Circle(options);
-	    this.markers[cid] = circle;
-	    var self = this;
-	    google.maps.event.addListener(circle, 'click', function(event){
-//		self.collection.get(cid).trigger
-		console.log(event, circle, cid);
-	    });
+            if (google){
+	        var circle = new google.maps.Circle(options);
+	        this.markers[cid] = circle;
+	        var self = this;
+
+	        google.maps.event.addListener(circle, 'click', function(event){
+                    //		self.collection.get(cid).trigger
+		    console.log(event, circle, cid);
+	        });
+
+            }
 	},
 	render:function(){
-	    this.map.panTo(this.getUserLocation());
+            if (this.map){
+	        this.map.panTo(this.getUserLocation());
+            }
 	    this.deleteMarkers();
 	    var selfUserId = this.model.get('userid');
 	    var self = this;
