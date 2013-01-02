@@ -7,6 +7,10 @@ var ObjectID = mongodb.ObjectID;
 _.extend(exports, {
     GetUser: function(req, userid, next){
 	globaldata.get('mongoPool').acquire(req, 'users', function(err, collection, release){
+            if (err){
+                next(err);
+                return;
+            }
             collection.findOne({_id: new ObjectID(userid)}, function(err, doc){
                 if (err){
                     next(err);
@@ -21,10 +25,20 @@ _.extend(exports, {
     
     Register: function(req, username, password, next){
 	globaldata.get('mongoPool').acquire(req, 'users', function(err, collection, release){
+            if (err){
+                next(err);
+                return;
+            }
             var user = {
                 name: username,
                 password: password,
                 nickname: username,
+                level: 1,
+                money: 100,
+                circleCount: 0,
+                maxCircleCount: 5,
+                petCount: 0,
+                maxPetCount: 10,
             };
             collection.insert(user, {w:1}, function(err, result){
                 if (err){
@@ -40,6 +54,10 @@ _.extend(exports, {
 
     Auth: function (req, username, password, next){
 	globaldata.get('mongoPool').acquire(req, 'users', function(err, collection, release){
+            if (err){
+                next(err);
+                return;
+            }
             collection.findOne({name: username}, function(err, docs){
                 if (err){
                     next(err);
@@ -59,6 +77,10 @@ _.extend(exports, {
     
     Logout: function(userid, logoutTime){
         globaldata.get('mongoPool').acquire(req, 'users', function(err, collection, release){
+            if (err){
+                console.log('logout failed to acquire db.users');
+                return;
+            }
             collection.update({
                 _id: new ObjectID(userid),
             }, {
@@ -76,9 +98,5 @@ _.extend(exports, {
         });
         
     },
-    init: function(mysqlPool){
-	mysql = mysqlPool;
-    }
-    
 
 });
