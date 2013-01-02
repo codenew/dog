@@ -2,8 +2,8 @@
 <img src="{$model.protrait}" width="200px" height="200px">
 <p>id: {$model._id}
 <p>name: {$model.name}
-<p>等级: {$model.level}
-<p>财富: {$model.money}
-<p>圈子: {$model.circleCount}/{$model.maxCircleCount}
-<p>宠物: {$model.petCount}/{$model.maxPetCount}
+<p>绛夌骇: {$model.level}
+<p>閲戦挶: {$model.money}
+<p>鍦堝瓙: {$model.circleCount}/{$model.maxCircleCount}
+<p>瀹犵墿: {$model.petCount}/{$model.maxPetCount}
 </div>
