@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     , $ = require('jquery')
     , _ = require('underscore')
     , Circle = require('model/circle').Circle
-//    , googlemap = require('googlemap');
+    , googlemap = require('googlemap');
     var google = window.google;
 
     exports.MapView = Backbone.View.extend({
