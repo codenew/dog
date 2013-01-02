@@ -23,7 +23,7 @@ define(function(require, exports, module){
         url:function(){
             return config.server + '/circle';
         },
-        model: exports.Circle,
+        model: Circle,
     }, {
         getSingleton: function(){
             if (!local_circleManager){

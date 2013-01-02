@@ -38,8 +38,8 @@
             success: function(){
                 var tpl = new jSmart(template);
                 var res = tpl.fetch({data:circleManager});
-                $('#positionlist').html(res);
-                $('#positionlist').listview('refresh');
+                $('#circlelist').html(res);
+                $('#circlelist').listview('refresh');
             }
         });
     };
