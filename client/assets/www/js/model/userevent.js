@@ -11,8 +11,9 @@ define(function(require, exports, module){
             return config.serve + '/userevent';
         },
         idAttribute: "_id",
-        userid: null,
-        
+        defaults:{
+            userid: null,
+        },
     });
 
     var UserEvents = Backbone.Collection.extend({

@@ -12,11 +12,13 @@ define(function(require, exports, module){
             return config.server + '/circle';
         },
         idAttribute: '_id',
-        location: null,
-        radius: null,
-        name:null,
-        user:null,
-        userid:0	    
+        defaults:{
+            location: {latitude: 0, longitude: 0},
+            radius: 10,
+            name: '新圈子',
+            user: null,
+            userid: null,
+        },	    
     });
     
     var CircleManager = Backbone.Collection.extend({

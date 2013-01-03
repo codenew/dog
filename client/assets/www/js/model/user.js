@@ -13,9 +13,16 @@ define(function(require, exports, module){
             return config.server + '/user';
         },
         idAttribute: "_id",
-        username:null,
-        nickname:null,
-        location: {latidude: 0, longitude: 0},
+        defaults:{
+            username: null,
+            nickname: null,
+            location: {latitude: 0, longitude: 0},
+            level: 1,
+            maxCircleCount: 5,
+            maxPetCount: 10,
+            petCount: 0,    // cached value, := db.pets.find({owner: ObjectID(this.id)}).count();
+            circleCount: 0, // cached value, := db.circles.find({userid: ObjectID(this.id)}).count();
+        },
 	
     },{
         getSelf: function(){
