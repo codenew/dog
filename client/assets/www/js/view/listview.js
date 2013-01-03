@@ -21,18 +21,23 @@ define(function(require, exports, module) {
         },
         onAdd: function(model){
             var n = $("<li>").html(this.templateObj.fetch({model: model.attributes})).attr("lid", model.id);
-            this.$el.append(n);
+            n.addClass('ui-li ui-li-static ui-btn-up-c');
+            if (this.$el.children('ul').length == 0){
+                this.$el.html('<ul>').children('ul').listview();
+            }
+            this.$el.children('ul').append(n);
+            this.$el.children('ul').listview('refresh');
         },
         onRemove: function(model){
             this.$el.find("[lid=" + model.id + "]").remove();
         },
         render: function(){
-            this.$el.html('');
+            this.$el.html('<ul>').children('ul').listview();
             var self = this;
             this.collection.forEach(function(item){
                 self.onAdd(item);
             });
-
+            //this.$el.children('ul').listview('refresh');
         },
 
     });
