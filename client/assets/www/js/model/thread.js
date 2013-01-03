@@ -1,13 +1,12 @@
 define(function(require, exports, module){
     var Backbone = require('backbone');
     var config = require('app/config');
-    var user = require('model/user').User;
     var boardid = null;
     var local_thread_set = null;
  
     exports.thread = Backbone.Model.extend({
         url:function(){
-	        return config.server + '/board';
+	        return config.server + '/thread';
 	    },
         boardid:null,
         authorid:null,
@@ -31,28 +30,6 @@ define(function(require, exports, module){
             local_thread_set = null;
         }
         console.log("new board id is set as",in_boardid);
-    };
-    
-    
-    
-    exports.add_thread = function(thread_text){
-        var userSelf = user.getSelf();
-        var new_thread = new this.thread({        
-            boardid : boardid,        
-            authorid : userSelf.get("_id"),
-            content : thread_text,
-            commentnumber : 0
-        });
-        
-        new_thread.save({},
-            {
-		success: function(model, response, options){
-		    console.log(response);		    		    
-		},
-		error: function(model, xhr, options){
-		    console.log(xhr);
-		},
-	    });        	    
     };
     
     exports.get_thread_set = function(next){

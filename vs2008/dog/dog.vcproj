@@ -264,10 +264,6 @@
 			Name="client"
 			>
 			<File
-				RelativePath="..\..\client\assets\www\board.html"
-				>
-			</File>
-			<File
 				RelativePath="..\..\client\assets\www\chat.html"
 				>
 			</File>
@@ -373,7 +369,7 @@
 						Name="pages"
 						>
 						<File
-							RelativePath="..\..\client\assets\www\js\app\pages\boardpage.js"
+							RelativePath="..\..\client\assets\www\js\app\pages\circle.js"
 							>
 						</File>
 						<File
@@ -507,6 +503,10 @@
 					</File>
 					<File
 						RelativePath="..\..\client\assets\www\js\model\circle.js"
+						>
+					</File>
+					<File
+						RelativePath="..\..\client\assets\www\js\model\pet.js"
 						>
 					</File>
 					<File

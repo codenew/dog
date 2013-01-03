@@ -39,8 +39,35 @@ exports = _.extend(exports, {
 
     
     
-    post: function(req, res){
-    
+    post_one: function(req, res){
+        var newData = {
+	    boardid: new ObjectID(req.param('boardid') || 1),
+	    authorid: new ObjectID(req.param('authorid') || 2),
+	    content: req.param('content') || '',
+	};
+	
+	globaldata.get('mongoPool').acquire(req, 'threads', function(err, collection, release){
+	    if (err){
+		res.send(500, err);
+		return;
+	    }
+	    collection.insert(newData, function(err, r){
+		if (err){
+		    res.send(500, err);
+		    release();
+		    return;
+		}
+		console.log(r);
+		if (r.length != 1){
+		    res.send(500, 'length not 1');
+		    release();
+		    return;
+		}
+		res.json({id: r[0]._id});
+		console.log("insert success");
+		release();
+	    });
+	});
     },
     
     delete: function(req, res){

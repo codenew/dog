@@ -15,5 +15,12 @@
             }
         });//get_thread_set
     });
+    
+    
+    $(document).delegate("#buttonSubmitThread","click", function(){
+        var posttext = $("#newThread").val();                
+        board.add_thread(posttext);
+     });
+        
 });
 
