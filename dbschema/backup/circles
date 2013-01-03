@@ -1,6 +1,11 @@
-{ "_id" : { "$oid" : "50d7c5138346aafd25bfd35b" }, "id" : "1", "name" : "ZhangJiang High-Tech", "user" : "yanhanning", "location" : { "latitude" : "1", "altitude" : "2" } }
-{ "_id" : { "$oid" : "50d7c5328346aafd25bfd35c" }, "id" : "2", "name" : "Snda Games", "user" : "yanhanning", "location" : { "latitude" : "2", "altitude" : "3" } }
-{ "from" : 1, "to" : 2, "message" : "", "name" : "", "user" : "", "userid" : "", "location" : { "latitude" : 31, "longitude" : 121 }, "loc" : [ 121, 31 ], "radius" : 10, "_id" : { "$oid" : "50dbb90ffc2e80f026000001" } }
-{ "from" : 1, "to" : 2, "message" : "", "name" : "", "user" : "", "userid" : "", "location" : { "latitude" : 31, "longitude" : 121 }, "loc" : [ 121, 31 ], "radius" : 10, "_id" : { "$oid" : "50dbe773a90f20bc25000001" } }
-{ "from" : 1, "to" : 2, "message" : "", "name" : "", "user" : "", "userid" : "", "location" : { "latitude" : 31, "longitude" : 121 }, "loc" : [ 121, 31 ], "radius" : 10, "_id" : { "$oid" : "50dbe7cea90f20bc25000002" } }
-{ "from" : 1, "to" : 2, "message" : "", "name" : "", "user" : "", "userid" : "", "location" : { "latitude" : 31.2054114, "longitude" : 121.5947345 }, "loc" : [ 121.5947345, 31.2054114 ], "radius" : 100, "_id" : { "$oid" : "50dc6bd5154c59393c000001" } }
+{ "_id" : { "$oid" : "50d7c5138346aafd25bfd35b" }, "loc" : [ 121.5, 31 ], "name" : "ZhangJiang High-Tech", "radius" : 20, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50d7c5328346aafd25bfd35c" }, "loc" : [ 121.5, 31 ], "name" : "Snda Games", "radius" : 20, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50dbb90ffc2e80f026000001" }, "loc" : [ 121, 31 ], "name" : "new circle", "radius" : 10, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50dbe773a90f20bc25000001" }, "loc" : [ 121, 31 ], "name" : "new circle", "radius" : 10, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50dbe7cea90f20bc25000002" }, "loc" : [ 121, 31 ], "name" : "new circle", "radius" : 10, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50dc6bd5154c59393c000001" }, "loc" : [ 121.5947345, 31.2054114 ], "name" : "new circle", "radius" : 100, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50e005277286ad4c4b000001" }, "loc" : [ 121.473704, 31.230393 ], "name" : "new circle", "radius" : 130, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50e18e7a503576d202000001" }, "loc" : [ 121.5788787, 31.1176546 ], "name" : "new circle", "radius" : 1000, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50e2f8b3503576d202000002" }, "loc" : [ 121.5788787, 31.1176546 ], "name" : "new circle", "radius" : 70, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50e45b1803eb4b5107000001" }, "loc" : [ 121.5947343, 31.2054226 ], "name" : "new circle", "radius" : 10, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }
+{ "_id" : { "$oid" : "50e50a022f1f418808000001" }, "loc" : [ 121.473704, 31.230393 ], "name" : "新圈子", "radius" : 160, "userid" : { "$oid" : "50d7c5778346aafd25bfd35e" } }

@@ -42,7 +42,15 @@ _.extend(exports, {
 		    console.log(docs);
 		    res.send(500, docs.errmsg);
 		}else{
-		    var ret = _.map(docs.results, function(item){return item.obj;});
+		    var ret = _.map(docs.results, function(item){
+                        var obj = item.obj;
+                        obj.location = {
+                            longitude:obj.loc[0],
+                            latitude:obj.loc[1],
+                        };
+                        obj.loc = undefined;
+                        return obj;
+                    });
 		    res.json(ret);
 		}
 		release();
@@ -74,13 +82,8 @@ _.extend(exports, {
     post_one: function(req, res){
 	var location = req.param('location') || {latitude: 31, longitude:121};
 	var newData = {
-	    from: req.param('from') || 1,
-	    to: req.param('to') || 2,
-	    message: req.param('message') || '',
 	    name:req.param('name')||'',
-	    user:req.param('user')||'',
-	    userid:req.param('userid')||'',
-	    location: location,	    
+	    userid:req.session.userid,
 	    loc: [location.longitude, location.latitude], // NOTE: mongo use [long,lat] pair
 	    radius: req.param('radius') || 10, // in meter
 	};

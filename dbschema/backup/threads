@@ -1,3 +1,3 @@
-{ "_id" : { "$oid" : "50d977fcc225433c58e5f55b" }, "authorid" : 1, "authorname" : "ann", "boardid" : { "$oid" : "50dbb90ffc2e80f026000001" }, "commentnumber" : 0, "content" : "hello world!", "id" : 1, "publishtime" : 111 }
+{ "_id" : { "$oid" : "50d977fcc225433c58e5f55b" }, "boardid" : 1, "id" : 1, "authorid" : 1, "authorname" : "ann", "publishtime" : 111, "content" : "hello world!", "commentnumber" : 0 }
 { "_id" : { "$oid" : "50d977fcc225433c58e5f55c" }, "authorid" : 2, "authorname" : "ann", "boardid" : { "$oid" : "50dbb90ffc2e80f026000001" }, "commentnumber" : 0, "content" : "hello world!", "publishtime" : 222 }
-{ "_id" : { "$oid" : "50d97827c225433c58e5f55c" }, "authorid" : 2, "authorname" : "kaikai", "boardid" : { "$oid" : "50dbb90ffc2e80f026000001" }, "commentnumber" : 1, "content" : "hello, i am kaikai!", "id" : 2, "publishtime" : 222 }
+{ "_id" : { "$oid" : "50d97827c225433c58e5f55c" }, "boardid" : 1, "id" : 2, "authorid" : 2, "authorname" : "kaikai", "publishtime" : 222, "content" : "hello, i am kaikai!", "commentnumber" : 1 }

@@ -13,8 +13,15 @@ _.extend(exports, {
 	        res.send(500, err);
                 return;
             }
+            var pet = {
+                owner: new ObjectID(userid),
+                hp: 100,
+                attack: 5,
+                defence: 5,
+                speed: 5,
+            };
             
-            collection.insert({owner: new ObjectID(userid)}, function(err, docs){
+            collection.insert(pet, function(err, docs){
                 if (err){
                     res.send(404, err);
                 }else{

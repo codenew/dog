@@ -1,2 +1,0 @@
-{ "from" : 1, "to" : 2, "message" : "", "location" : { "latitude" : 31, "longitude" : 121 }, "loc" : [ 121, 31 ], "radius" : 10, "_id" : { "$oid" : "50dbb1a75afd17f822000001" } }
-{ "from" : 1, "to" : 2, "message" : "", "location" : { "latitude" : 31, "longitude" : 121 }, "loc" : [ 121, 31 ], "radius" : 10, "_id" : { "$oid" : "50dbb8355afd17f822000002" } }

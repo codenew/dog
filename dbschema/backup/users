@@ -1,2 +1,2 @@
-{ "_id" : { "$oid" : "50d7c5638346aafd25bfd35d" }, "id" : 1, "name" : "yanhanning", "password" : "1234", "nickname" : "Ann" }
-{ "_id" : { "$oid" : "50d7c5778346aafd25bfd35e" }, "id" : 2, "name" : "zhangzikai", "password" : "1234", "nickname" : "kaikai" }
+{ "_id" : { "$oid" : "50d7c5638346aafd25bfd35d" }, "circleCount" : 0, "experience" : 0, "id" : 1, "level" : 1, "maxCircleCount" : 5, "maxPetCount" : 10, "money" : 1000, "name" : "yanhanning", "nickname" : "Ann", "password" : "1234", "petCount" : 0 }
+{ "_id" : { "$oid" : "50d7c5778346aafd25bfd35e" }, "circleCount" : 0, "experience" : 0, "id" : 2, "level" : 1, "maxCircleCount" : 5, "maxPetCount" : 10, "money" : 980, "name" : "zhangzikai", "nickname" : "kaikai", "password" : "1234", "petCount" : 0 }
