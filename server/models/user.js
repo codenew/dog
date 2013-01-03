@@ -58,13 +58,15 @@ _.extend(exports, {
                 next(err);
                 return;
             }
-            collection.findOne({name: username}, function(err, docs){
+            collection.findOne({name: username}, function(err, doc){
                 if (err){
                     next(err);
+                }else if (!doc){
+                    next('user not found');
                 }else{
-                    console.log(docs);
-                    if (docs.password == password){
-                        next(null, docs._id);
+                    console.log(doc);
+                    if (doc.password == password){
+                        next(null, doc._id);
                     }else{
                         next('password mismatch');
                     }
@@ -75,7 +77,7 @@ _.extend(exports, {
 
     },
     
-    Logout: function(userid, logoutTime){
+    Logout: function(req, userid, logoutTime){
         globaldata.get('mongoPool').acquire(req, 'users', function(err, collection, release){
             if (err){
                 console.log('logout failed to acquire db.users');
