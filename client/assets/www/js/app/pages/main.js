@@ -11,6 +11,7 @@ define(function(require, exports, module) {
         el: '#mainPage',
         events:{
             //"click #rename": "do_rename" 
+            "click #logout": "logout",
         },
         initialize: function(){
             this.listenTo(this.model, "change", this.render);
@@ -26,48 +27,55 @@ define(function(require, exports, module) {
                 }
             });
             this.templateObj = new jSmart(this.options.template);
+
+	    User.getuserinfo(function(err, userinfo){
+	        if (err){
+                    console.log('getuserinfo', err);
+	        }else{
+		    if (null == userinfo){
+		        // auto switch to login page
+		        $.mobile.changePage('login.html');
+		        return;
+		    }
+	        }
+	    });
+            /*
+	      var canvas = document.getElementById('test');
+	      var context = canvas.getContext('2d');
+	      var bodyImg = new Image();
+	      
+	      bodyImg.src = '../../../img/pet0-arm.png';
+
+	      bodyImg.onload = function(){
+	      context.drawImage(bodyImg, 0,0, bodyImg.width, bodyImg.height);
+	      }
+            */
         },
         render: function(){
             this.$el.find('#userinfo').html(
                 this.templateObj.fetch({model: this.model.attributes})
             );
         },
-    });
-    var mainView = new MainView({
-        model: User.getSelf(),
-        collection: new UserEvents(),
-        template: template,
-    });
-    
-    $(document).delegate("#mainPage", "pageinit", function(){
-	console.log('main page init');
-	$("#mainPage #logout").click(function(){
+
+        logout: function(){
 	    User.logout(function(){
 		$.mobile.changePage('login.html');
 	    });
-	});
-
-	
+        },
+    });
+    var page = null;    
+    $(document).delegate("#mainPage", "pageinit", function(){
+	console.log('main page init');
     }).delegate("#mainPage", "pageshow", function(){
 	console.log('main page show');
-	User.getuserinfo(function(err, userinfo){
-	    if (err){
-	    }else{
-		if (null == userinfo){
-		    // auto switch to login page
-		    $.mobile.changePage('login.html');
-		    return;
-		}
-	    }
-	});
-	var canvas = document.getElementById('test');
-	var context = canvas.getContext('2d');
-	var bodyImg = new Image();	
-	
-	bodyImg.src = '../../../img/pet0-arm.png';
-
-	bodyImg.onload = function(){
-	    context.drawImage(bodyImg, 0,0, bodyImg.width, bodyImg.height);
-	}
+        page = new MainView({
+            el: '#mainPage',
+            model: User.getSelf(),
+            collection: new UserEvents(),
+            template: template,
+        });
+    }).delegate("#mainPage", "pagehide", function(){
+        page.remove();
+        page = null;
     });
 });

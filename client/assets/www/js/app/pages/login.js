@@ -1,32 +1,50 @@
 define(function(require, exports, module) {
-    var $ = require('jquery');
+    var $ = require('jquery')
+    , Backbone = require('backbone')
     var DogServer = require('../api').DogServer;
     var User = require('model/user').User;
+
+    var LoginPage = Backbone.View.extend({
+        events:{
+            "submit form#login": "login",
+            "click #register": "register",
+        },
+
+        initialize: function(){
+        },
+
+        login: function(e){
+            console.log('submit');
+            e.preventDefault();
+            e.stopPropagation();
+            User.login(
+                this.$el.find("#username").val(),
+                this.$el.find("#password").val(),
+                function(err){
+                    console.log('user.login with:' + err);
+                    if (err){
+                        //$("#messageWindow #messageString").text('login failed');
+                        //$("#messageWindow").popup("open");
+                    }else{
+                        $.mobile.changePage('index.html');
+                    }
+                });
+        },
+        register: function(e){
+            e.stopPropagation();
+        },
+    });
+
+    var page = null;
     $(document).delegate("#loginPage", "pageinit", function(){
-	console.log('login pageinit');
-	$("form#login").submit(function(e){
-	    console.log('submit');
-	    e.preventDefault();
-	    e.stopPropagation();
-	    User.login(
-		$("#username", this).val(),
-		$("#password", this).val(),
-		function(err){
-		    console.log('user.login with:' + err);
-		    if (err){
-			//$("#messageWindow #messageString").text('login failed');
-			//$("#messageWindow").popup("open");
-		    }else{
-			$.mobile.changePage('index.html');
-		    }
-		});
-	});
-	$("#register").click(function(e){
-	    e.stopPropagation();
-	    
-	});
-	console.log('sent.');
+        console.log('login pageinit');
     }).delegate("#loginPage", "pageshow", function(){
-	console.log('login pageshow');
+        console.log('login pageshow');
+        page = new LoginPage({
+            el: $("#loginPage"),
+        });
+    }).delegate("#loginPage", "pagehide", function(){
+        page.remove();
+        page = null;
     });
 });

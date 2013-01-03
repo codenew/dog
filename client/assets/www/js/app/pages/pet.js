@@ -4,34 +4,51 @@ define(function(require, exports, module){
     , Pet = require('model/pet')
     , ListView = require('view/listview').ListView
     , DogServer = require('app/api').DogServer
+    , Backbone = require('backbone')
     , petTemplate = require('text!template/petview.tpl');
 
-    var petManager = null;
-    $(document).delegate("#petpage", "pageshow", function(){
-        petManager = Pet.getPetManager(User.getSelf());
-        var petView = new ListView({
-            el: $("#petList"),
-            //model: User.getSelf(),
-            collection: petManager,
-            template: petTemplate,
-        });
-       // petView.render();
-    });
-    $(document).delegate("#petpage", "pageinit", function(){
-        $("#adopt", $(this)).click(function(){
+    var PetPage = Backbone.View.extend({
+        events:{
+            "click #adopt": "adopt",
+        },
+
+        initialize: function(){
+            this.petView = new ListView({
+                el: $("#petList"),
+                collection: this.collection,
+                template: this.options.template,
+            });
+            this.petView.render();
+        },
+
+        adopt: function(){
+            var self = this;
             DogServer.rpc('pet/adopt', {}, function(err, result){
                 if (err){
                     console.log('adpot:', err);
                     return;
                 }
-                if (petManager){
-                    petManager.fetch({
+                if (self.collection){
+                    self.collection.fetch({
                         add:true,
                         update:true,
                         remove:true,
                     });
                 }
             });
+        },
+
+    });
+
+    var page = null;
+    $(document).delegate("#petpage", "pageshow", function(){
+        page = new PetPage({
+            el: $("#petpage"),
+            collection: Pet.getPetManager(User.getSelf()),
+            template: petTemplate,
         });
+    }).delegate("#petpage", "pagehide", function(){
+        page.remove();
+        page = null;
     });
 });
