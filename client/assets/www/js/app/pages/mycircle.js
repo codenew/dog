@@ -25,6 +25,7 @@
                 add: true,
                 remove: true
             });
+            this.render();
         },
 
         render: function(){

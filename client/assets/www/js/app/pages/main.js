@@ -50,6 +50,7 @@ define(function(require, exports, module) {
 	      context.drawImage(bodyImg, 0,0, bodyImg.width, bodyImg.height);
 	      }
             */
+            this.render();
         },
         render: function(){
             this.$el.find('#userinfo').html(

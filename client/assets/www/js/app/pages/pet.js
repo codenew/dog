@@ -19,6 +19,7 @@ define(function(require, exports, module){
                 template: this.options.template,
             });
             this.petView.render();
+            this.render();
         },
 
         adopt: function(){

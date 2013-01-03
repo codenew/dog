@@ -11,6 +11,7 @@ define(function(require, exports, module) {
         },
 
         initialize: function(){
+            this.render();
         },
 
         login: function(e){

@@ -17,6 +17,7 @@
                 template: this.options.template,
             });
             this.threadView.render();
+            this.render();
         },
 
         addThread: function(){

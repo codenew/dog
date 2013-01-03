@@ -42,6 +42,7 @@ define(function(require, exports, module) {
 	        collection: this.collection,
 	        model: this.model,
 	    });
+            this.render();
         },
 	addCircle: function(){
             this.collection.create({
