@@ -190,7 +190,7 @@ define(function(require, exports, module) {
 	},
 	addCircle: function(circle, selfUserId){
 	    var color = '#ff0000';
-	    if (circle.get('owner') == selfUserId){
+	    if (circle.get('userid') == selfUserId){
 		color = '#00ff00';
 	    }
             var options = {
@@ -228,7 +228,7 @@ define(function(require, exports, module) {
                 this.map.panTo(this.getUserLocation());
             }
             this.deleteMarkers();
-            var selfUserId = this.model.get('userid');
+            var selfUserId = this.model.id;
             var self = this;
             this.collection.each(function(circle, index){
                 self.addCircle(circle, selfUserId);
