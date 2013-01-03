@@ -53,18 +53,24 @@ define(function(require, exports, module) {
         },
         viewCircleDetail: function(circle_id){
             // maybe use route in the future
-            board.setboardid(circle_id);            
-            $.mobile.changePage('circle.html#id=' + circle_id);
+            board.setboardid(circle_id);
+            setTimeout(function(){
+                $.mobile.changePage('circle.html#id=' + circle_id);
+            }, 0);
         },
 
     });
 
+    var page = null;
     $(document).delegate("#mappage", "pageshow", function(){
-        var page = new PositionPage({
+        page = new PositionPage({
             el: '#mappage',
             model: User.getSelf(),
             collection: CircleManager.getSingleton(),
         });
+    }).delegate("#mappage", "pagehide", function(){
+        page.remove();
+        page = null;
     });
 });
 
