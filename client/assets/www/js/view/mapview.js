@@ -16,8 +16,8 @@ define(function(require, exports, module) {
 	userCircle: null, // blue circle, for create circle
 	currentRadius: 10, // in meter
 	events:{
-//	    "click #confirm": "createCircle",
-//	    "click #createCircle": "createCircle",
+            //	    "click #confirm": "createCircle",
+            //	    "click #createCircle": "createCircle",
 	    "click #bigCircle": "bigCircle",
 	    "click #smallCircle": "smallCircle",
 	    "click #zoomIn": "zoomIn",
@@ -95,7 +95,7 @@ define(function(require, exports, module) {
                     location: this.model.get('location')
                 },
             });
-	
+	    
 	    this.refreshUser();
 	    this.render();
 	},
@@ -193,46 +193,46 @@ define(function(require, exports, module) {
 	    if (circle.get('owner') == selfUserId){
 		color = '#00ff00';
 	    }
-	    var options = {
-		clickable: true,
-		strokeColor: color,
-		strokeOpacity: 0.8,
-		strokeWeight: 2,
-		fillColor: color,
-		fillOpacity: 0.35,
-		map: this.map,
-		center: this.getLocation(circle.get('location')),
-		radius: circle.get('radius')
+            var options = {
+                clickable: true,
+                strokeColor: color,
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: color,
+                fillOpacity: 0.35,
+                map: this.map,
+                center: this.getLocation(circle.get('location')),
+                radius: circle.get('radius')
 	    };
-	    var cid = circle.cid;
-	    if (cid in this.markers){
+            var cid = circle.cid;
+            if (cid in this.markers){
                 if (google){
-		    google.maps.event.clearListener(this.markers[cid], 'click');
+                    google.maps.event.clearListener(this.markers[cid], 'click');
                 }
-		this.markers[cid].setMap(null);
-	    }
+                this.markers[cid].setMap(null);
+            }
             if (google){
-	        var circle = new google.maps.Circle(options);
-	        this.markers[cid] = circle;
-	        var self = this;
+                var circleMarker = new google.maps.Circle(options);
+                this.markers[cid] = circleMarker;
+                var self = this;
 
-	        google.maps.event.addListener(circle, 'click', function(event){
-                    //		self.collection.get(cid).trigger
-		    console.log(event, circle, cid);
-	        });
+                google.maps.event.addListener(circleMarker, 'click', function(event){
+                    self.collection.trigger('select', circle.id);
+                    console.log(event, circle, cid);
+                });
 
             }
-	},
-	render:function(){
+        },
+        render:function(){
             if (this.map){
-	        this.map.panTo(this.getUserLocation());
+                this.map.panTo(this.getUserLocation());
             }
-	    this.deleteMarkers();
-	    var selfUserId = this.model.get('userid');
-	    var self = this;
-	    this.collection.each(function(circle, index){
-		self.addCircle(circle, selfUserId);
-	    });
-	}
+            this.deleteMarkers();
+            var selfUserId = this.model.get('userid');
+            var self = this;
+            this.collection.each(function(circle, index){
+                self.addCircle(circle, selfUserId);
+            });
+        }
     });
 });

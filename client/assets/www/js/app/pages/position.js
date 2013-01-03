@@ -4,6 +4,7 @@ define(function(require, exports, module) {
     , MapView = require('view/mapview').MapView
     , Circle = require('model/circle').Circle
     , CircleManager = require('model/circle').CircleManager
+    , board = require('model/board')
     , User = require('model/user').User;
 
 
@@ -35,6 +36,7 @@ define(function(require, exports, module) {
             "click #confirm": "addCircle",
         },
         initialize: function(){
+            this.listenTo(this.collection, 'select', this.viewCircleDetail);
             this.mapView = new MapView({
 	        el: this.$el.find('#mapview'),
 	        collection: this.collection,
@@ -48,7 +50,13 @@ define(function(require, exports, module) {
 		userid: this.model.id,
 		username: this.model.get('name')
 	    });
-        }
+        },
+        viewCircleDetail: function(circle_id){
+            // maybe use route in the future
+            board.setboardid(circle_id);            
+            $.mobile.changePage('circle.html#id=' + circle_id);
+        },
+
     });
 
     $(document).delegate("#mappage", "pageshow", function(){
