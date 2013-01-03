@@ -4,9 +4,8 @@ define(function(require, exports, module) {
     , MapView = require('view/mapview').MapView
     , Circle = require('model/circle').Circle
     , CircleManager = require('model/circle').CircleManager
-    , User = require('model/user').User
-    , DogServer = require('../api').DogServer;
-    var map = null;
+    , User = require('model/user').User;
+
 
     var Device = Backbone.Model.extend({
         getLocation: function(next){
@@ -18,8 +17,6 @@ define(function(require, exports, module) {
         },
     });
     var device = new Device;
-    //    Device.on('ready', function(){
-    //  });
     device.getLocation(function(err, coords){
 	if (err){
 	    console.log(err);
@@ -30,39 +27,36 @@ define(function(require, exports, module) {
 	    longitude: coords.longitude
 	});
     });
+    //    Device.on('ready', function(){
+    //  });
 
-    function initialize() {	
-	var userSelf = User.getSelf();
+    var PositionPage = Backbone.View.extend({
+        events:{
+            "click #confirm": "addCircle",
+        },
+        initialize: function(){
+            this.mapView = new MapView({
+	        el: this.$el.find('#mapview'),
+	        collection: this.collection,
+	        model: this.model,
+	    });
+        },
+	addCircle: function(){
+            this.collection.create({
+		location: this.model.get('location'),
+		radius: this.mapView.currentRadius,
+		userid: this.model.id,
+		username: this.model.get('name')
+	    });
+        }
+    });
 
-        var circleManager = CircleManager.getSingleton();
-        var mapView = new MapView({
-	    el: $('#mappage #mapview'),
-	    collection: circleManager,
-	    model: userSelf
-	});
-	$("#mappage").delegate("#confirm", "click", function(){
-	    var newCircle = new Circle({
-		location: userSelf.get('location'),
-		radius: mapView.currentRadius,
-		userid: userSelf.get('id'),
-		username:userSelf.get('name')
-	    });
-	    newCircle.save({}, {
-		success: function(model, response, options){
-		    console.log(response);
-		    circleManager.push(newCircle);
-		},
-		error: function(model, xhr, options){
-		    console.log(xhr);
-		},
-	    });
-	    /*DogServer.rpc('addCircle', {
-	      location: userSelf.get('location')
-	      }, function(json){
-	      });*/
-	});
-    }
-    
-    $(document).delegate("#mappage", "pageshow", initialize);
+    $(document).delegate("#mappage", "pageshow", function(){
+        var page = new PositionPage({
+            el: '#mappage',
+            model: User.getSelf(),
+            collection: CircleManager.getSingleton(),
+        });
+    });
 });
 
