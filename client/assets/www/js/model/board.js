@@ -37,22 +37,16 @@ define(function(require, exports, module){
     
     exports.add_thread = function(thread_text){
         var userSelf = user.getSelf();
-        var new_thread = new this.thread({        
+        var new_thread = local_thread_set.create({        
             boardid : boardid,        
-            authorid : userSelf.get("_id"),
+            authorid : userSelf.id,
             content : thread_text,
             commentnumber : 0
-        });
-        
-        new_thread.save({},
-            {
-		success: function(model, response, options){
-		    console.log(response);		    		    
-		},
-		error: function(model, xhr, options){
-		    console.log(xhr);
-		},
-	    });        	    
+        },{
+            update:true,
+            add:true,
+            remove:true
+        }); 
     };
     
     exports.get_thread_set = function(next){
