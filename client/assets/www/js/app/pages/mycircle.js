@@ -1,55 +1,51 @@
 ﻿define(function(require, exports, module) {
-    var $ = require('jquery');
+    var $ = require('jquery')
+    , Backbone = require('backbone')
+    , ListView = require('view/listview').ListView
     var DogServer = require('../api').DogServer;
     var User = require('model/user').User;
     var CircleManager =  require('model/circle').CircleManager;
     var board = require('model/board');
     var template = require('text!template/position.tpl');
     
-    function myposition_getpositionlist(data){
-        
-    };
+    var MyCirclePage = Backbone.View.extend({
+        events:{
+            "click a[circle_id]": "setBoardId",
+        },
 
-    function myposition_getlocaluser(err, userinfo) {
-	if (err){ 
-	    console.log(err);
-	    return;
-	}
-        console.log('local user getted');
-	/*	if (null == userinfo){
-	// auto switch to login page
-	$.mobile.changePage('login.html');
-	return;
-	} else {
-	*/	
-	//get positions for the user						
-	User.getmyposition(/*userinfo.userid,*/1,
-    	    myposition_getpositionlist
-	);
+        initialize: function(){
+            this.circleList = new ListView({
+                el: this.$el.find("#circleList"),
+                collection: this.collection,
+                template: this.options.template,
+            });
+            this.circleList.render();
+            this.collection.fetch({
+                update: true,
+                add: true,
+                remove: true
+            });
+        },
 
-	/*
-		    }	
-	*/
-    };
-
-    function myposition_pageinit(){
-        var circleManager = CircleManager.getSingleton();
-        circleManager.fetch({
-            success: function(){
-                var tpl = new jSmart(template);
-                var res = tpl.fetch({data:circleManager});
-                $('#circleList').html(res);
-                $('#circleList').listview('refresh');
-            }
-        });
-    };
-
-    $(document).delegate("#myCirclePage", "pageshow", 
-			 myposition_pageinit
-			);
-    
-    $(document).delegate("a[circle_id]", "click", function(){       
-        board.setboardid($(this).attr('circle_id'));
+        render: function(){
+        },
+        setBoardId: function(e){
+            var btn = $(e.currentTarget);
+            board.setboardid(btn.attr('circle_id'));
+        },
     });			
+
+    var page = null;
+    $(document).delegate("#myCirclePage", "pageshow", function(){
+        page = new MyCirclePage({
+            el: '#myCirclePage',
+            collection: CircleManager.getSingleton(),
+            template: template,
+        });
+    }).delegate("#myCirclePage", "pagehide", function(){
+        page.remove();
+        page = null;
+    });
+
 });
 

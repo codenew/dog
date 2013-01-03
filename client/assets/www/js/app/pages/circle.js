@@ -1,34 +1,45 @@
 ﻿define(function(require, exports, module) {
-    var $ = require('jquery');
+    var $ = require('jquery')
+    , Backbone = require('backbone')
     var board = require('model/board');
     var template = require('text!template/board.tpl');
     var ListView = require('view/listview').ListView;
     
+    var CirclePage = Backbone.View.extend({
+        events:{
+            "click #buttonSubmitThread": "addThread",
+        },
+
+        initialize: function(){
+            this.threadView = new ListView({
+                el: this.$el.find("#threadlist"),                
+                collection: this.collection,
+                template: this.options.template,
+            });
+            this.threadView.render();
+        },
+
+        addThread: function(){
+            var posttext = this.$el.find("#newThread").val();                
+            board.add_thread(posttext);
+        },
+    });
+
+    var page = null;
     $(document).delegate("#circleDetailPage", "pageshow", function(){
         board.get_thread_set( function(thread_set){
-              
-            var threadView = new ListView({
-                el: $("#threadlist"),                
+            page = new CirclePage({
+                el: '#circleDetailPage',
                 collection: thread_set,
                 template: template,
             });
-            threadView.render();
-//            if (thread_set == null){
-//                console.log("Fetch thread set error");
-//            } else {
-//                var tpl = new jSmart(template);
-//                var res = tpl.fetch({data:thread_set});
-//                $('#threadlist').html(res);
-//                $('#threadlist').listview('refresh');
-//            }
         });//get_thread_set
+    }).delegate("#circleDetailPage", "pagehide", function(){
+        if (page){
+            page.remove();
+            page = null;
+        }
     });
     
-    
-    $(document).delegate("#buttonSubmitThread","click", function(){
-        var posttext = $("#newThread").val();                
-        board.add_thread(posttext);
-     });
-        
 });
 

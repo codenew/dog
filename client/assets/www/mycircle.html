@@ -1,41 +1,39 @@
 <!doctype html>
 <html>
-<body>
+  <body>
     <div data-role="page" id="myCirclePage" style="position: absolute; bottom: 0px;">
-        <div data-role="header" data-position="fixed">
-            <h1>
-                <a href="#menuPosition" data-rel="popup">我的圈子</a>[切换]
-                <div data-role="popup" id="menuPosition">
-                    <ul data-role="listview">
-                        <li><a href="myroute.html">我的足迹</a></li>
-                        <li><a href="position.html">我的位置</a></li>
-                    </ul>
-                </div>
-            </h1>
-        </div>
-        <div data-role="content" style="position: absolute; left: 0px; right: 0px; top: 2em;
-            bottom: 2em; padding: 0px;">
-            <input type="search" id="search-my-circle-filter" name="search" value="" />       
-        </div>
-        <div data-role="content" id="mypositioncontent">
-        <div class="content-primary">
-            <ul data-role="listview" id="circleList">
+      <div data-role="header" data-position="fixed">
+        <h1>
+          <a href="#menuPosition" data-rel="popup">我的圈子</a>[切换]
+          <div data-role="popup" id="menuPosition">
+            <ul data-role="listview">
+              <li><a href="myroute.html">我的足迹</a></li>
+              <li><a href="position.html">我的位置</a></li>
             </ul>
+          </div>
+        </h1>
+      </div>
+      <div data-role="content" style="position: absolute; left: 0px; right: 0px; top: 2em;
+                                      bottom: 2em; padding: 0px;">
+        <input type="search" id="search-my-circle-filter" name="search" value="" />       
+        <div class="content-primary">
+          <div id="circleList">
+          </div>
         </div>
+      </div>
+      <div data-role="footer" data-id="foo1" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="position.html" class="ui-btn-active">圈子</a></li>
+            <li><a href="pet.html">宠物</a></li>
+            <li><a href="chat.html">信息</a></li>
+            <li><a href="options.html">设置</a></li>
+          </ul>
         </div>
-        <div data-role="footer" data-id="foo1" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="position.html" class="ui-btn-active">圈子</a></li>
-                    <li><a href="pet.html">宠物</a></li>
-                    <li><a href="chat.html">信息</a></li>
-                    <li><a href="options.html">设置</a></li>
-                </ul>
-            </div>
-            <!-- /navbar -->
-        </div>
-        <!-- /footer -->
+        <!-- /navbar -->
+      </div>
+      <!-- /footer -->
     </div>
-</body>
+  </body>
 </html>

@@ -1,11 +1,6 @@
-{foreach $data.models as $i => $position}
-<li>
-  <a href="circle.html?id={$position.attributes.id}" circle_id="{$position.attributes._id}">
-    <br>{$position.attributes.name} </br>
-    {$position.attributes.user}{$position.attributes._id}
-  </a>
-</li>
-{foreachelse}
-No data
-{/foreach}
+<a href="circle.html?id={$model._id}" circle_id="{$model._id}">
+  <br>{$model.name} </br>
+  {$model.user}{$model._id}
+</a>
+
 
