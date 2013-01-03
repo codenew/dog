@@ -4,8 +4,32 @@ define(function(require, exports, modules){
     , config = require('app/config');
 
     var Chat = Backbone.Model.extend({
-//	url: config.server + 'chat',
-	urlRoot: '/chat'
+        url: function(){
+            if (this.id){
+                return config.server + '/chat/' + this.id;
+            }
+            return config.server + '/chat';
+        },
+        defaults:{
+            from: null,
+            to: null,
+            text: '',
+        },
     });
-    exports.Chat = Chat;
+
+    var ChatManager = Backbone.Model.extend({
+        url: function(){
+            return config.server + '/chat';
+        },
+        model: Chat,
+    }, {
+        addChat: function(from, to, text){
+            this.create({from: from, to: to, text: text});
+        }
+    });
+
+    _.extend(exports, {
+        Chat: Chat,
+        ChatManager: ChatManager,
+    });
 });
