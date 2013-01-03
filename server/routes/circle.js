@@ -128,6 +128,7 @@ _.extend(exports, {
 	        });
             },
             function(next){
+                console.log('insert into circles');
                 pool.acquire(req, 'circles', function(err, collection, release){
 	            if (err){
 		        next(err);
@@ -145,7 +146,7 @@ _.extend(exports, {
 		            release();
 		            return;
 		        }
-                        next({id: r[0]._id});
+                        next(null, {id: r[0]._id});
 		        release();
 	            });
 	        });
