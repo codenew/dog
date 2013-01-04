@@ -19,7 +19,6 @@
                 collection: this.collection,
                 template: this.options.template,
             });
-            this.circleList.render();
             this.collection.fetch({
                 update: true,
                 add: true,
@@ -29,6 +28,7 @@
         },
 
         render: function(){
+            this.circleList.render();
         },
         
         setBoardId: function(e){

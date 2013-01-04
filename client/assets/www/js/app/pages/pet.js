@@ -18,10 +18,13 @@ define(function(require, exports, module){
                 collection: this.collection,
                 template: this.options.template,
             });
-            this.petView.render();
+
             this.render();
         },
 
+        render: function(){
+            this.petView.render();
+        },
         adopt: function(){
             var self = this;
             DogServer.rpc('pet/adopt', {}, function(err, result){

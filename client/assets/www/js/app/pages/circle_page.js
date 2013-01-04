@@ -18,10 +18,11 @@
                 collection: this.collection,
                 template: this.options.template,
             });
-            this.threadView.render();
             this.render();
         },
-
+        render: function(){
+            this.threadView.render();
+        },
         addThread: function(){
             var posttext = this.$el.find("#newThread").val();                
             board.add_thread(posttext);
@@ -66,13 +67,13 @@
     var page = null;
     var pageThread = null;
     $(document).delegate("#threadPage", "pageshow",function(){
-            board.get_reply_set( function(thread_set){
-                pageThread = new ReplyPage({
-                    el:'#threadPage',
-                    collection: thread_set,
-                    template:template,
-                });//CirclePage
-              });        
+        board.get_reply_set( function(thread_set){
+            pageThread = new ReplyPage({
+                el:'#threadPage',
+                collection: thread_set,
+                template:template,
+            });//CirclePage
+        });        
     }).delegate("#threadPage", "pagehide", function(){
         if (pageThread){
             pageThread.remove();

@@ -44,6 +44,9 @@ define(function(require, exports, module) {
 	    });
             this.render();
         },
+        render: function(){
+            this.mapView.render();
+        },
 	addCircle: function(){
             this.collection.create({
 		location: this.model.get('location'),
