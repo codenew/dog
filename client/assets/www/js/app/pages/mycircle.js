@@ -5,7 +5,7 @@
     var DogServer = require('../api').DogServer;
     var User = require('model/user').User;
     var CircleManager =  require('model/circle').CircleManager;
-    var board = require('model/board');
+    var board = require('model/circleboard');
     var template = require('text!template/position.tpl');
     
     var MyCirclePage = Backbone.View.extend({

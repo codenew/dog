@@ -35,7 +35,7 @@ requirejs.config({
 		"app/pages/options",
 		"app/pages/mycircle",
 		"app/pages/position",
-                "app/pages/circle",
+                "app/pages/circle_page",
                 "app/pages/pet",
 	    ],
 	}

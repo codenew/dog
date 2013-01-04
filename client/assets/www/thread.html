@@ -1,26 +1,23 @@
 ﻿<!doctype html>
 <html>
   <body>
-    <div data-role="page" id="circleDetailPage" style="position:absolute; bottom: 0px;">
+    <div data-role="page" id="threadPage" style="position:absolute; bottom: 0px;">
       <div data-role="header" data-position="fixed">
 	<a href="#" data-rel="back">返回</a>
 	<h1>
-          <span id="circleName">{圈子名称}</span>
+          <span id="circleName">回复帖子</span>
 	</h1>
       </div>
       
       <div data-role="content" style="position:absolute; left:0px; right: 0px; top: 2em; bottom: 2em; padding: 0px;">
-        <div id="circleDetail">
-        </div>
-        <div class="content-primary">
-          <div id="threadlist">
-          </div>
-       </div>
-      
+        <div id="threadcontent>
+        </div>        
+        <div id="replyList">
+        </div>      
       </div>
       <div data-role="footer" data-position="fixed"  style="position:absolute; right:0px; left:0px; bottom: 0px;" >
-        <input type="text" name="name" id="newThread" data-mini="true"/>
-        <a href="#" data-role="button" id="buttonSubmitThread" >发帖</a> 
+        <input type="text" name="name" id="newReply" data-mini="true"/>
+        <a href="#" data-role="button" id="buttonReplyThread" >回复</a> 
       </div>
       
 

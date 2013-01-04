@@ -4,7 +4,7 @@ define(function(require, exports, module) {
     , MapView = require('view/mapview').MapView
     , Circle = require('model/circle').Circle
     , CircleManager = require('model/circle').CircleManager
-    , board = require('model/board')
+    , board = require('model/circleboard')
     , User = require('model/user').User;
 
 

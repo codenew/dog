@@ -320,6 +320,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\client\assets\www\thread.html"
+				>
+			</File>
+			<File
 				RelativePath="..\..\client\assets\www\userlist.html"
 				>
 			</File>
@@ -369,7 +373,7 @@
 						Name="pages"
 						>
 						<File
-							RelativePath="..\..\client\assets\www\js\app\pages\circle.js"
+							RelativePath="..\..\client\assets\www\js\app\pages\circle_page.js"
 							>
 						</File>
 						<File
@@ -398,10 +402,6 @@
 						>
 						<File
 							RelativePath="..\..\client\assets\www\js\app\models\template.js"
-							>
-						</File>
-						<File
-							RelativePath="..\..\client\assets\www\js\app\models\user.js"
 							>
 						</File>
 					</Filter>
@@ -494,15 +494,15 @@
 					Name="model"
 					>
 					<File
-						RelativePath="..\..\client\assets\www\js\model\board.js"
-						>
-					</File>
-					<File
 						RelativePath="..\..\client\assets\www\js\model\chat.js"
 						>
 					</File>
 					<File
 						RelativePath="..\..\client\assets\www\js\model\circle.js"
+						>
+					</File>
+					<File
+						RelativePath="..\..\client\assets\www\js\model\circleboard.js"
 						>
 					</File>
 					<File
