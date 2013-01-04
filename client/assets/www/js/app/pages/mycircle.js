@@ -35,6 +35,12 @@
             var btn = $(e.currentTarget);
             board.setboardid(btn.attr('circle_id'));
         },
+        remove: function(){
+            this.circleList.remove();
+            this.circleList = undefined;
+            Backbone.View.prototype.remove.call(this);
+        },
+
     });			
 
     var page = null;
@@ -51,4 +57,3 @@
     
     
 });
-

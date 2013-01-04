@@ -39,6 +39,11 @@ define(function(require, exports, module){
             });
         },
 
+        remove: function(){
+            this.petView.remove();
+            this.petView = undefined;
+            Backbone.View.prototype.remove.call(this);
+        },
     });
 
     var page = null;

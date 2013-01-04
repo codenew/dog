@@ -31,7 +31,14 @@
             var btn = $(e.currentTarget);
             board.setthreadid(btn.attr('threadid'));
             $.mobile.changePage("thread.html");
-        }
+        },
+
+        remove: function(){
+            this.threadView.remove();
+            this.threadView = undefined;
+            Backbone.View.prototype.remove.call(this);
+        },
+
     });
     
         
@@ -47,21 +54,31 @@
             this.threadView.render();
             this.render();
         },
+        remove: function(){
+            this.threadView.remove();
+            this.threadView = undefined;
+            Backbone.View.prototype.remove.call(this);
+        },
 
     });
     
 
     var page = null;
-    
+    var pageThread = null;
     $(document).delegate("#threadPage", "pageshow",function(){
             board.get_reply_set( function(thread_set){
-                page = new ReplyPage({
+                pageThread = new ReplyPage({
                     el:'#threadPage',
                     collection: thread_set,
                     template:template,
                 });//CirclePage
               });        
-        }); 
+    }).delegate("#threadPage", "pagehide", function(){
+        if (pageThread){
+            pageThread.remove();
+            pageThread = null;
+        }
+    }); 
     
     $(document).delegate("#circleDetailPage", "pageshow", function(){
         board.get_thread_set( function(thread_set){
@@ -79,4 +96,3 @@
     });
     
 });
-

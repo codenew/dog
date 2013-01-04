@@ -59,6 +59,11 @@ define(function(require, exports, module) {
                 $.mobile.changePage('circle.html#id=' + circle_id);
             }, 0);
         },
+        remove: function(){
+            this.mapView.remove();
+            this.mapView = undefined;
+            Backbone.View.prototype.remove.call(this);
+        },
 
     });
 

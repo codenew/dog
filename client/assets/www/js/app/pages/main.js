@@ -63,6 +63,12 @@ define(function(require, exports, module) {
 		$.mobile.changePage('login.html');
 	    });
         },
+
+        remove: function(){
+            
+            Backbone.View.prototype.remove.call(this);
+        },
+
     });
     var page = null;    
     $(document).delegate("#mainPage", "pageinit", function(){

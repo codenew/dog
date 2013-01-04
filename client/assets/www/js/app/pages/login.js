@@ -34,6 +34,12 @@ define(function(require, exports, module) {
         register: function(e){
             e.stopPropagation();
         },
+
+        remove: function(){
+            
+            Backbone.View.prototype.remove.call(this);
+        },
+
     });
 
     var page = null;
