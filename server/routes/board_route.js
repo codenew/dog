@@ -10,32 +10,50 @@ exports = _.extend(exports, {
     
     },
     
-    get_all: function(req, res){
+   get_all: function(req, res){
         var connection = null;        
         var boardid = req.param('boardid');
-        console.log("start to get threads , boarid ="+boardid);
+        var threadid = req.param('threadid');
         
+        console.log("start to get threads , boarid ="+boardid+" threadid = "+threadid);
+                
         globaldata.get('mongoPool').acquire(req, 'threads', function(err, collection, release){
 	        if (err){
 		        res.send(404, err);
 		        return;
 	        }
-	        collection.find({"boardid":new ObjectID(boardid)}).toArray(
-	            function(err, docs){	            
-	                if (err == null){                        
-	                    res.json(docs);
-	                    console.log("get thread for board "+boardid+" success!");	                    
-	                }
-	                else{
-	                    res.send(404, err);
-	                    return;
-	                }	                
-                }
-            );
+	        if (boardid != null){
+	            collection.find({"boardid":new ObjectID(boardid)}).toArray(
+	                function(err, docs){	            
+	                    if (err == null){                        
+	                        res.json(docs);
+	                        console.log("get thread for board "+boardid+" success!");	                    
+	                    }
+	                    else{
+	                        res.send(404, err);
+	                        return;
+	                    }	                
+                    }
+                );
+            }else{
+	            collection.find({"replythreadid":new ObjectID(threadid)}).toArray(
+	                function(err, docs){	            
+	                    if (err == null){                        
+	                        res.json(docs);
+	                        console.log("get reply thread for thread "+threadid+" success!");	                    
+	                    }
+	                    else{
+	                        res.send(404, err);
+	                        return;
+	                    }	                
+                    }
+                );                        
+            }
 		    release();
 	    });
 	    console.log("get thread list finish!");
 	},
+
 
     
     

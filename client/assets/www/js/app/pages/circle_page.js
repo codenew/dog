@@ -53,7 +53,7 @@
 
     var page = null;
     
-    $(document).delegate("#threadPgae", "pageshow",function(){
+    $(document).delegate("#threadPage", "pageshow",function(){
             board.get_reply_set( function(thread_set){
                 page = new ReplyPage({
                     el:'#threadPage',
