@@ -1,2 +1,2 @@
-<a href="thread.html" threadid="{$model._id}"></a><br>{$model.content} </br>
+<a href="thread.html" threadid="{$model._id}"><br>{$model.content} </br>
 {$model.user}{$model._id}</a>
