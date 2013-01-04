@@ -63,12 +63,12 @@ define(function(require, exports, module) {
 		    draggable: false,
 		    flat: false,
 		    icon: {
-		        fillColor: '#0000ff',
+		        fillColor: color,
 		        fillOpacity: 0.5,
 		        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
 		        rotation: 0,
 		        scale: 10,
-		        strokeColor: '#0000ff',
+		        strokeColor: color,
 		        strokeOpacity: 0.8,
 		        strokeWeight: 1,
 		    },
@@ -166,7 +166,7 @@ define(function(require, exports, module) {
 	},
 	refreshMarkers: function(){
 	    var self = this;
-	    var selfUserId = this.model.get('userid');
+	    var selfUserId = this.model.id;
 	    this.collection.each(function(circle, index){
 		var cid = circle.cid;
 		if (cid in self.markers){
@@ -190,8 +190,10 @@ define(function(require, exports, module) {
 	},
 	addCircle: function(circle, selfUserId){
 	    var color = '#ff0000';
+            //console.log('circle.userid=', circle.get('userid'), 'selfUserId=', selfUserId);
 	    if (circle.get('userid') == selfUserId){
 		color = '#00ff00';
+
 	    }
             var options = {
                 clickable: true,
