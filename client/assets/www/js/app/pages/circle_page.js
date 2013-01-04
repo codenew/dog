@@ -9,7 +9,7 @@
     var CirclePage = Backbone.View.extend({
         events:{
             "click #buttonSubmitThread": "addThread",
-            "click a[threadid]": "showThread",
+            "click a": "showThread",
         },
 
         initialize: function(){

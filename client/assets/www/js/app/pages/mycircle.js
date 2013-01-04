@@ -10,7 +10,7 @@
     
     var MyCirclePage = Backbone.View.extend({
         events:{
-            "click a[circle_id]": "setBoardId",
+            "click a": "setBoardId",            
         },
 
         initialize: function(){
@@ -30,6 +30,7 @@
 
         render: function(){
         },
+        
         setBoardId: function(e){
             var btn = $(e.currentTarget);
             board.setboardid(btn.attr('circle_id'));
@@ -47,6 +48,7 @@
         page.remove();
         page = null;
     });
-
+    
+    
 });
 
