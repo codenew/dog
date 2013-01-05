@@ -25,7 +25,7 @@
         },
         addThread: function(){
             var posttext = this.$el.find("#newThread").val();                
-            board.add_thread(posttext);
+            board.add_thread(posttext,0);
         },
         
         showThread:function(e){
@@ -45,21 +45,31 @@
         
     var ReplyPage = Backbone.View.extend({
         events:{
+            "click #buttonReplyThread": "addReply",
         },
         initialize: function(){
             this.threadView = new ListView({
-                el: this.$el.find("#reply"),                
+                el: this.$el.find("#replyList"),                
                 collection: this.collection,
                 template: this.options.template,
             });
-            this.threadView.render();
+        
             this.render();
+        },
+        render: function(){
+            this.threadView.render();
         },
         remove: function(){
             this.threadView.remove();
             this.threadView = undefined;
             Backbone.View.prototype.remove.call(this);
         },
+        
+        addReply: function(){
+            var posttext = this.$el.find("#newReply").val();                
+            board.add_thread(posttext,1);
+        },
+        
 
     });
     

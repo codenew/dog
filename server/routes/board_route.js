@@ -41,6 +41,7 @@ exports = _.extend(exports, {
 	                    if (err == null){                        
 	                        res.json(docs);
 	                        console.log("get reply thread for thread "+threadid+" success!");	                    
+                            console.log(docs);	                        
 	                    }
 	                    else{
 	                        res.send(404, err);
@@ -62,6 +63,7 @@ exports = _.extend(exports, {
 	    boardid: new ObjectID(req.param('boardid') || 1),
 	    authorid: new ObjectID(req.param('authorid') || 2),
 	    content: req.param('content') || '',
+	    replythreadid: new ObjectID(req.param('replythreadid'))||'',
 	};
 	
 	globaldata.get('mongoPool').acquire(req, 'threads', function(err, collection, release){

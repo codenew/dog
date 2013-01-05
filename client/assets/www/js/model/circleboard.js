@@ -15,6 +15,7 @@ define(function(require, exports, module){
         publishtime:null,
         content:null,
         commentnumber:0,
+        replythreadid:null
         }
      );
     
@@ -26,37 +27,42 @@ define(function(require, exports, module){
     });
     
     exports.setboardid = function(in_boardid){
-        if (boardid != in_boardid)
-        {
-            boardid = in_boardid;
-            local_thread_set = null;
-        }
+        
+        boardid = in_boardid;
+        local_thread_set = null;        
         console.log("new board id is set as",in_boardid);
     };
     
     exports.setthreadid = function(in_threadid){
-        if (threadid != in_threadid){
-            threadid = in_threadid;
-            local_reply_set = null;               
-        }
+        
+        threadid = in_threadid;
+        local_reply_set = null;                       
         console.log("new thread id is set as", in_threadid);
     };
     
     
     
-    exports.add_thread = function(thread_text){
+    exports.add_thread = function(thread_text, isReply){
         var userSelf = user.getSelf();
-        var new_thread = local_thread_set.create({        
+        var replythreadid = null;
+        if (isReply >0){
+            replythreadid = threadid;
+        }
+        
+        var new_thread = local_reply_set.create({        
             boardid : boardid,        
             authorid : userSelf.id,
             content : thread_text,
-            commentnumber : 0
+            commentnumber : 0,
+            replythreadid : replythreadid,
         },{
             update:true,
             add:true,
             remove:true
         }); 
     };
+    
+    
     
     exports.get_thread_set = function(next){
         if (local_thread_set == null)
