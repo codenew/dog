@@ -49,17 +49,34 @@ define(function(require, exports, module){
             replythreadid = threadid;
         }
         
-        var new_thread = local_reply_set.create({        
-            boardid : boardid,        
-            authorid : userSelf.id,
-            content : thread_text,
-            commentnumber : 0,
-            replythreadid : replythreadid,
-        },{
-            update:true,
-            add:true,
-            remove:true
-        }); 
+        if (isReply>0)
+        {
+            var new_thread = local_thread_set.create({        
+                boardid : boardid,        
+                authorid : userSelf.id,
+                content : thread_text,
+                commentnumber : 0,
+                replythreadid : replythreadid,
+            },{
+                update:true,
+                add:true,
+                remove:true
+            }); 
+       }
+       else
+       {
+            var new_thread = local_reply_set.create({        
+                boardid : boardid,        
+                authorid : userSelf.id,
+                content : thread_text,
+                commentnumber : 0,
+                replythreadid : replythreadid,
+            },{
+                update:true,
+                add:true,
+                remove:true
+            }); 
+       }
     };
     
     

@@ -30,8 +30,10 @@
         
         showThread:function(e){
             var btn = $(e.currentTarget);
-            board.setthreadid(btn.attr('threadid'));
-            $.mobile.changePage("thread.html");
+            if (btn != null){
+                board.setthreadid(btn.attr('threadid'));
+                $.mobile.changePage("thread.html");
+            }
         },
 
         remove: function(){
@@ -47,7 +49,7 @@
         events:{
             "click #buttonReplyThread": "addReply",
         },
-        initialize: function(){
+        initialize: function(){            
             this.threadView = new ListView({
                 el: this.$el.find("#replyList"),                
                 collection: this.collection,
