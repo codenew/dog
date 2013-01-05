@@ -51,20 +51,6 @@ define(function(require, exports, module){
         
         if (isReply>0)
         {
-            var new_thread = local_thread_set.create({        
-                boardid : boardid,        
-                authorid : userSelf.id,
-                content : thread_text,
-                commentnumber : 0,
-                replythreadid : replythreadid,
-            },{
-                update:true,
-                add:true,
-                remove:true
-            }); 
-       }
-       else
-       {
             var new_thread = local_reply_set.create({        
                 boardid : boardid,        
                 authorid : userSelf.id,
@@ -76,11 +62,23 @@ define(function(require, exports, module){
                 add:true,
                 remove:true
             }); 
-       }
+        }
+        else
+        {
+            var new_thread = local_thread_set.create({        
+                boardid : boardid,        
+                authorid : userSelf.id,
+                content : thread_text,
+                commentnumber : 0,
+                replythreadid : replythreadid,
+            },{
+                update:true,
+                add:true,
+                remove:true
+            }); 
+        }
     };
-    
-    
-    
+        
     exports.get_thread_set = function(next){
         if (local_thread_set == null)
         {

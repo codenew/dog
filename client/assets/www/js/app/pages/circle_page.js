@@ -30,7 +30,7 @@
         
         showThread:function(e){
             var btn = $(e.currentTarget);
-            if (btn != null){
+            if (btn != null && btn.attr('threadid') != null){
                 board.setthreadid(btn.attr('threadid'));
                 $.mobile.changePage("thread.html");
             }
