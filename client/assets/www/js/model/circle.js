@@ -5,12 +5,6 @@ define(function(require, exports, module){
 
     var local_circleManager = null;
     var Circle = Backbone.Model.extend({
-        url:function(){
-            if (this.id){
-                return config.server + '/circle/' + id;
-            }
-            return config.server + '/circle';
-        },
         idAttribute: '_id',
         defaults:{
             location: {latitude: 0, longitude: 0},

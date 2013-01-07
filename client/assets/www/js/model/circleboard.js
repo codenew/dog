@@ -7,9 +7,6 @@ define(function(require, exports, module){
     var local_thread_set = null;
     var local_reply_set = null;
     exports.thread = Backbone.Model.extend({
-        url:function(){
-	        return config.server + '/board';
-	    },
         boardid:null,
         authorid:null,
         publishtime:null,

@@ -4,12 +4,6 @@ define(function(require, exports, module){
     , config = require('app/config');
 
     var UserEvent = Backbone.Model.extend({
-        url: function(){
-            if (this.id){
-                return config.server + '/userevent/' + this.id;
-            }
-            return config.serve + '/userevent';
-        },
         idAttribute: "_id",
         defaults:{
             userid: null,

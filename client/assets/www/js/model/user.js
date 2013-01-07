@@ -6,7 +6,7 @@ define(function(require, exports, module){
    
     var local_user = null;
     var User = Backbone.Model.extend({
-        url:function(){
+        url: function(){
             if (this.id){
                 return config.server + '/user/' + this.id;
             }

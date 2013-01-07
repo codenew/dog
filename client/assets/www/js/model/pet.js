@@ -3,12 +3,6 @@ define(function(require, exports, module){
     , config = require('app/config');
 
     exports.Pet = Backbone.Model.extend({
-        url:function(){
-            if (this.id){
-                return config.server + '/pet/' + this.id;
-            }
-            return config.server + '/pet';
-        },
         idAttribute: '_id',
         location: null,
         radius: null,	    
