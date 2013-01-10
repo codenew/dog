@@ -8,6 +8,7 @@ var express = require('express')
 , pet = require('./routes/pet')
 , chat = require('./routes/chat')
 , circle = require('./routes/circle')
+, userevent = require('./routes/userevent')
 , http = require('http')
 , log = require('./lib/log')
 , restful = require('./lib/restful')
@@ -96,7 +97,8 @@ restful.route(app, '/circle', [checkAuth], require('./routes/circle'));
 app.get('/pet/adopt', [checkAuth], require('./routes/pet').adopt);
 restful.route(app, '/pet', [checkAuth], require('./routes/pet'));
 
-
+// user event routers
+restful.route(app, '/userevent', [checkAuth], require('./routes/userevent'));
 
 
 app.all('/position', position.rest);
