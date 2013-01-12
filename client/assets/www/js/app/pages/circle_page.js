@@ -1,8 +1,8 @@
 ﻿define(function(require, exports, module) {
     var $ = require('jquery')
     , Backbone = require('backbone')
+    , global = require('model/global').global
     var board = require('model/circleboard');
-    var thread = require('model/thread');
     var template = require('text!template/board.tpl');
     var ListView = require('view/listview').ListView;
     
@@ -13,6 +13,7 @@
         },
 
         initialize: function(){
+            this.listenTo(this.model, "change:name", this.updateName);
             this.threadView = new ListView({
                 el: this.$el.find("#threadlist"),                
                 collection: this.collection,
@@ -20,7 +21,11 @@
             });
             this.render();
         },
+        updateName: function(){
+            this.$el.find('#circleName').text(this.model.get('name'));
+        },
         render: function(){
+            this.updateName();
             this.threadView.render();
         },
         addThread: function(){
@@ -94,10 +99,12 @@
     }); 
     
     $(document).delegate("#circleDetailPage", "pageshow", function(){
+        var circle = global.get('currentCircle');
         board.get_thread_set( function(thread_set){
             page = new CirclePage({
                 el: '#circleDetailPage',
                 collection: thread_set,
+                model: circle,
                 template: template,
             });
         });//get_thread_set

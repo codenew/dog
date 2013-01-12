@@ -2,6 +2,7 @@
     var $ = require('jquery')
     , Backbone = require('backbone')
     , ListView = require('view/listview').ListView
+    , global = require('model/global').global
     var DogServer = require('../api').DogServer;
     var User = require('model/user').User;
     var CircleManager =  require('model/circle').CircleManager;
@@ -33,7 +34,11 @@
         
         setBoardId: function(e){
             var btn = $(e.currentTarget);
-            board.setboardid(btn.attr('circle_id'));
+            var circleId = btn.attr('circle_id');
+            var circle = this.collection.get(circleId);
+            global.set('currentCircle', circle);
+
+            board.setboardid(circleId);
         },
         remove: function(){
             this.circleList.remove();

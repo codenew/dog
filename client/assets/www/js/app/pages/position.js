@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     , Circle = require('model/circle').Circle
     , CircleManager = require('model/circle').CircleManager
     , board = require('model/circleboard')
+    , global = require('model/global').global
     , User = require('model/user').User;
 
 
@@ -55,11 +56,14 @@ define(function(require, exports, module) {
 		username: this.model.get('name')
 	    });
         },
-        viewCircleDetail: function(circle_id){
+        viewCircleDetail: function(circleId){
             // maybe use route in the future
-            board.setboardid(circle_id);
+            var circle = this.collection.get(circleId);
+            global.set('currentCircle', circle);
+
+            board.setboardid(circleId);
             setTimeout(function(){
-                $.mobile.changePage('circle.html#id=' + circle_id);
+                $.mobile.changePage('circle.html#id=' + circleId);
             }, 0);
         },
         remove: function(){

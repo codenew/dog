@@ -1,12 +1,16 @@
 define(function(require, exports, module){
-    var Backbone = require('backbone');
-    var config = require('app/config');
-    var user = require('model/user').User;
+    var Backbone = require('backbone')
+    , config = require('app/config')
+    , user = require('model/user').User
+    , _ = require('underscore');
+    
     var boardid = null;
     var threadid = null;
     var local_thread_set = null;
     var local_reply_set = null;
-    exports.thread = Backbone.Model.extend({
+
+    //单个的帖子
+    var Thread = Backbone.Model.extend({
         boardid:null,
         authorid:null,
         publishtime:null,
@@ -16,13 +20,16 @@ define(function(require, exports, module){
         }
      );
     
-    exports.thread_set = Backbone.Collection.extend({
+    var ThreadSet = Backbone.Collection.extend({
         url:function(){
-	        return config.server + '/board';
-	    },
-	    model:exports.thread
+	    return config.server + '/board';
+	},
+	model: Thread,
     });
-    
+    _.extend(exports, {
+        Thread: Thread,
+        ThreadSet: ThreadSet,
+    });
     exports.setboardid = function(in_boardid){
         
         boardid = in_boardid;
@@ -79,7 +86,7 @@ define(function(require, exports, module){
     exports.get_thread_set = function(next){
         if (local_thread_set == null)
         {
-            local_thread_set = new this.thread_set;
+            local_thread_set = new this.ThreadSet;
             local_thread_set.fetch({
 		        data:{boardid:boardid},
                 success:function(collection, response, options){                                        
@@ -101,7 +108,7 @@ define(function(require, exports, module){
     
     exports.get_reply_set = function(next){
         if (local_reply_set == null){
-            local_reply_set = new this.thread_set;
+            local_reply_set = new this.ThreadSet;
             local_reply_set.fetch({
 		        data:{threadid:threadid},
                 success:function(collection, response, options){                                        
