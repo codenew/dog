@@ -32,6 +32,7 @@ requirejs.config({
 	    deps:[
 		"app/pages/main",
 		"app/pages/login",
+		"app/pages/register",
 		"app/pages/options",
 		"app/pages/mycircle",
 		"app/pages/position",

@@ -20,7 +20,24 @@ _.extend(exports, {
             }
         });
     },
-
+    register: function(req, res){
+        if (req.session && req.session.userid){
+            //this.logout(req, res);
+            req.session = null;
+            console.log('logout(register):'); 
+        }
+        var username = req.param('username')
+        , password = req.param('password')
+        , checkcode = req.param('checkcode');
+        console.log('register from(remoteip):', req.connection.remoteAddress, 'with(username,password,checkcode):', username, password, checkcode);
+        user.Register(req, username, password, function(err, userid){
+            if (err){
+                res.json({result: 'failed', err: err});
+            }else{
+                res.json({result:'ok',userid: userid});
+            }
+        });
+    },
     logout: function(req, res){
         var userid = req.session && req.session.userid || null;
         req.session = null;

@@ -1,31 +1,32 @@
-define(function(require, exports, module) {
+﻿define(function(require, exports, module) {
     var $ = require('jquery')
     , Backbone = require('backbone')
+    , _ = require('underscore')
     , User = require('model/user').User;
 
-    var LoginPage = Backbone.View.extend({
+    var RegisterPage = Backbone.View.extend({
         events:{
-            "submit form#login": "login",
+            "submit form#register": "register",
         },
 
         initialize: function(){
             this.render();
         },
 
-        login: function(e){
+        register: function(e){
             console.log('submit');
             e.preventDefault();
             e.stopPropagation();
-            User.login(
+            User.register(
                 this.$el.find("#username").val(),
                 this.$el.find("#password").val(),
                 function(err){
-                    console.log('user.login with:' + err);
+                    console.log('user.register with:' + err);
                     if (err){
                         //$("#messageWindow #messageString").text('login failed');
                         //$("#messageWindow").popup("open");
                     }else{
-                        $.mobile.changePage('index.html');
+                        $.mobile.changePage('login.html');
                     }
                 });
         },
@@ -38,15 +39,16 @@ define(function(require, exports, module) {
     });
 
     var page = null;
-    $(document).delegate("#loginPage", "pageinit", function(){
-        console.log('login pageinit');
-    }).delegate("#loginPage", "pageshow", function(){
-        console.log('login pageshow');
-        page = new LoginPage({
-            el: $("#loginPage"),
+    $(document).delegate("#registerPage", "pageinit", function(){
+        console.log('register pageinit');
+    }).delegate("#registerPage", "pageshow", function(){
+        console.log('register pageshow');
+        page = new RegisterPage({
+            el: $("#registerPage"),
         });
-    }).delegate("#loginPage", "pagehide", function(){
+    }).delegate("#registerPage", "pagehide", function(){
         page.remove();
         page = null;
     });
 });
+

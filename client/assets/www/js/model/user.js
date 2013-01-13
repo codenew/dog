@@ -78,6 +78,15 @@ define(function(require, exports, module){
             });
             next(null);
         },
+
+        register: function(username, password, next){
+            DogServer.rpc('user/register', {
+                username: username,
+                password: password
+            }, function(err, json){
+                next(err);
+            });
+        },
     });
 
     local_user = new User({

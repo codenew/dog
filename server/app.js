@@ -88,6 +88,7 @@ function checkAuth(req, res, next){
 // user routers
 app.get('/user/login', user.login);
 app.get('/user/logout', user.logout);
+app.get('/user/register', user.register);
 restful.route(app, '/user', [checkAuth], require('./routes/user'));
 
 // circle routers
