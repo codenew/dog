@@ -38,7 +38,7 @@
             var circle = this.collection.get(circleId);
             global.set('currentCircle', circle);
 
-            board.setboardid(circleId);
+//            board.setboardid(circleId);
         },
         remove: function(){
             this.circleList.remove();
