@@ -17,8 +17,8 @@ define(function(require, exports, module) {
         },
         onChange: function(model){
             var html = this.templateObj.fetch({model: model.attributes});
-            this.$el.find("[lid=" + model.id + "]").replaceWith(
-                $('<li>').html(html).attr("lid", model.id)
+            this.$el.find("[lid=" + model.cid + "]").replaceWith(
+                $('<li>').html(html).attr("lid", model.cid)
             );
             this.refreshListView();
             this.$el.children('ul').listview('refresh');
@@ -26,14 +26,14 @@ define(function(require, exports, module) {
         onAdd: function(model){
             var n = $("<li>").html(
                 this.templateObj.fetch({model: model.attributes})
-            ).attr("lid", model.id);
+            ).attr("lid", model.cid);
             //n.addClass('ui-li ui-li-static ui-btn-up-c');
             this.refreshListView();
             this.$el.children('ul').append(n);
             this.$el.children('ul').listview('refresh');
         },
         onRemove: function(model){
-            this.$el.find("[lid=" + model.id + "]").remove();
+            this.$el.find("[lid=" + model.cid + "]").remove();
         },
         refreshListView: function(){
             if (this.$el.children('ul').length == 0){
@@ -44,6 +44,7 @@ define(function(require, exports, module) {
         },
         render: function(){
             this.refreshListView();
+            this.$el.children('ul').html('');
             var self = this;
             this.collection.forEach(function(item){
                 self.onAdd(item);
