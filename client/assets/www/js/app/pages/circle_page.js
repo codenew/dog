@@ -12,7 +12,8 @@
     var CirclePage = Backbone.View.extend({
         events:{
             "click #buttonSubmitThread": "addThread",
-            "click a": "showThread",
+            "click li > a": "showThread",
+            "click #buttonOccupyCircle": "occupyCircle",
         },
 
         initialize: function(){
@@ -44,6 +45,9 @@
                 global.set('currentThread', this.collection.get(threadId));
                 $.mobile.changePage("thread.html");
             }
+        },
+        occupyCircle: function(){
+//            $.mobile.changePage("fight.html");
         },
 
         remove: function(){

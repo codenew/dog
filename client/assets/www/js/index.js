@@ -13,6 +13,7 @@ requirejs.config({
 	model: '../model',
 	async: 'require.async',
         template: '../../template',
+        anim: '../anim',
     },
     map:{
 	"*": {
@@ -21,6 +22,7 @@ requirejs.config({
 	    'soundjs': 'soundjs-0.3.0.min',
 	    'soundjs.flashplugin': 'soundjs.flashplugin-0.3.0.min',
 	    'tweenjs': 'tweenjs-0.3.0.min',
+            'movieclip': 'movieclip-0.5.0.min',
             'googlemap': 'async!https://maps.google.com/maps/api/js?v=3&sensor=false',//key=AIzaSyC9b9WVCC9ML8FRXdb3GZC-LSzaGupBCr4&
 	    'smart': 'smart-2.9.min',
 	},
@@ -34,12 +36,18 @@ requirejs.config({
 		"app/pages/login",
 		"app/pages/register",
 		"app/pages/options",
+                "app/pages/fight",
 		"app/pages/mycircle",
 		"app/pages/position",
                 "app/pages/circle_page",
                 "app/pages/pet",
 	    ],
-	}
+	},
+        "easeljs":{exports: "createjs"},
+        "tweenjs":{deps:["easeljs"], exports: "createjs"},
+        "movieclip":{deps:["easeljs", "tweenjs"],exports: "createjs"},
+        "soundjs": {deps:["easeljs"],exports: "createjs"},
+        "anim":{deps:["movieclip", "easeljs", "tweenjs"],exports: "createjs"},
     }
 });
 requirejs(['underscore', 'smart-2.9.min'], function(_,s){
