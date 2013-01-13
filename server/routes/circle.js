@@ -146,7 +146,7 @@ _.extend(exports, {
 		            release();
 		            return;
 		        }
-                        next(null, {id: r[0]._id});
+                        next(null, {_id: r[0]._id});
 		        release();
 	            });
 	        });

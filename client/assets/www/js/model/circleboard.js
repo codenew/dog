@@ -1,7 +1,6 @@
 define(function(require, exports, module){
     var Backbone = require('backbone')
     , config = require('app/config')
-    , user = require('model/user').User
     , _ = require('underscore');
     
     var boardid = null;
@@ -11,20 +10,35 @@ define(function(require, exports, module){
 
     //单个的帖子
     var Thread = Backbone.Model.extend({
-        boardid:null,
+        idAttribute: "_id",
+        boardid:null,// boardid is circleid
         authorid:null,
         publishtime:null,
         content:null,
         commentnumber:0,
         replythreadid:null
-        }
-     );
+    });
     
     var ThreadSet = Backbone.Collection.extend({
         url:function(){
 	    return config.server + '/board';
 	},
 	model: Thread,
+
+        addThread: function(thread_text, circleid, threadid){
+            var new_thread = this.create({        
+                boardid : boardid,
+                //authorid : userSelf.id, authorid should be decided on the server side
+                content : thread_text,
+                commentnumber : 0,
+                replythreadid : threadid,
+            },{
+                update:true,
+                add:true,
+                remove:true
+            }); 
+        },
+
     });
     _.extend(exports, {
         Thread: Thread,
@@ -46,57 +60,20 @@ define(function(require, exports, module){
     
     
     
-    exports.add_thread = function(thread_text, isReply){
-        var userSelf = user.getSelf();
-        var replythreadid = null;
-        if (isReply >0){
-            replythreadid = threadid;
-        }
-        
-        if (isReply>0)
-        {
-            var new_thread = local_reply_set.create({        
-                boardid : boardid,        
-                authorid : userSelf.id,
-                content : thread_text,
-                commentnumber : 0,
-                replythreadid : replythreadid,
-            },{
-                update:true,
-                add:true,
-                remove:true
-            }); 
-        }
-        else
-        {
-            var new_thread = local_thread_set.create({        
-                boardid : boardid,        
-                authorid : userSelf.id,
-                content : thread_text,
-                commentnumber : 0,
-                replythreadid : replythreadid,
-            },{
-                update:true,
-                add:true,
-                remove:true
-            }); 
-        }
-    };
-        
     exports.get_thread_set = function(next){
         if (local_thread_set == null)
         {
             local_thread_set = new this.ThreadSet;
             local_thread_set.fetch({
-		        data:{boardid:boardid},
+		data:{boardid:boardid},
                 success:function(collection, response, options){                                        
                     console.log("Fetch thread set  success!");                                                       
-		            next(local_thread_set);
-		        },
+		    next(local_thread_set);
+		},
                 error:function (collection, xhr, options){
                     console.log("Fetch thread set failed!");
                     local_thread_set = null;
-		            next(null);
+		    next(null);
                 },
             });//fetch
         } 
@@ -110,15 +87,15 @@ define(function(require, exports, module){
         if (local_reply_set == null){
             local_reply_set = new this.ThreadSet;
             local_reply_set.fetch({
-		        data:{threadid:threadid},
+		data:{threadid:threadid},
                 success:function(collection, response, options){                                        
                     console.log("Fetch thread set  success!");                                                       
-		            next(local_reply_set);
-		        },
+		    next(local_reply_set);
+		},
                 error:function (collection, xhr, options){
                     console.log("Fetch thread set failed!");
                     local_reply_set = null;
-		            next(null);
+		    next(null);
                 },
             });//fetch     
         }

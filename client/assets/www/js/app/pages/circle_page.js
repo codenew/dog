@@ -2,9 +2,11 @@
     var $ = require('jquery')
     , Backbone = require('backbone')
     , global = require('model/global').global
-    var board = require('model/circleboard');
-    var template = require('text!template/board.tpl');
-    var ListView = require('view/listview').ListView;
+    , user = require('model/user')
+    , board = require('model/circleboard')
+    , listTemplate = require('text!template/board.tpl')
+    , threadTemplate = require('text!template/thread.tpl')
+    , ListView = require('view/listview').ListView;
     
     var CirclePage = Backbone.View.extend({
         events:{
@@ -14,8 +16,9 @@
 
         initialize: function(){
             this.listenTo(this.model, "change:name", this.updateName);
+            //this.listenTo(this.collection, "change add remove", this.render);
             this.threadView = new ListView({
-                el: this.$el.find("#threadlist"),                
+                el: this.$el.find("#threadlist"),
                 collection: this.collection,
                 template: this.options.template,
             });
@@ -30,13 +33,15 @@
         },
         addThread: function(){
             var posttext = this.$el.find("#newThread").val();                
-            board.add_thread(posttext,0);
+            this.collection.addThread(posttext, global.get('currentCircle').id, 0);
         },
         
         showThread:function(e){
             var btn = $(e.currentTarget);
             if (btn != null && btn.attr('threadid') != null){
-                board.setthreadid(btn.attr('threadid'));
+                var threadId = btn.attr('threadid');
+                board.setthreadid(threadId);
+                global.set('currentThread', this.collection.get(threadId));
                 $.mobile.changePage("thread.html");
             }
         },
@@ -49,7 +54,7 @@
 
     });
     
-        
+    
     var ReplyPage = Backbone.View.extend({
         events:{
             "click #buttonReplyThread": "addReply",
@@ -58,12 +63,13 @@
             this.threadView = new ListView({
                 el: this.$el.find("#replyList"),                
                 collection: this.collection,
-                template: this.options.template,
+                template: this.options.listTemplate,
             });
-        
+            this.template = new jSmart(this.options.threadTemplate);
             this.render();
         },
         render: function(){
+            this.$el.find("#threadcontent").html(this.template.fetch({model: this.model.attributes}));
             this.threadView.render();
         },
         remove: function(){
@@ -73,8 +79,13 @@
         },
         
         addReply: function(){
-            var posttext = this.$el.find("#newReply").val();                
-            board.add_thread(posttext,1);
+            var posttext = this.$el.find("#newReply").val();
+            if (posttext.length > 0){
+                this.collection.addThread(
+                    posttext, 
+                    global.get('currentCircle').id,
+                    global.get('currentThread').id);
+            }
         },
         
 
@@ -88,7 +99,9 @@
             pageThread = new ReplyPage({
                 el:'#threadPage',
                 collection: thread_set,
-                template:template,
+                model: global.get('currentThread'),
+                listTemplate:listTemplate,
+                threadTemplate:threadTemplate,
             });//CirclePage
         });        
     }).delegate("#threadPage", "pagehide", function(){
@@ -105,7 +118,7 @@
                 el: '#circleDetailPage',
                 collection: thread_set,
                 model: circle,
-                template: template,
+                template: listTemplate,
             });
         });//get_thread_set
     }).delegate("#circleDetailPage", "pagehide", function(){

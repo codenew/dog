@@ -85,7 +85,7 @@ _.extend(exports, {
                     release();
                     return;
                 }
-                res.json({id: r[0]._id});
+                res.json({_id: r[0]._id});
                 console.log("insert success");
                 release();
             });
