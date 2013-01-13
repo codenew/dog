@@ -4,6 +4,7 @@
     , global = require('model/global').global
     , user = require('model/user')
     , board = require('model/circleboard')
+    , ThreadSet = require('model/circleboard').ThreadSet
     , listTemplate = require('text!template/board.tpl')
     , threadTemplate = require('text!template/thread.tpl')
     , ListView = require('view/listview').ListView;
@@ -33,14 +34,13 @@
         },
         addThread: function(){
             var posttext = this.$el.find("#newThread").val();                
-            this.collection.addThread(posttext, global.get('currentCircle').id, 0);
+            this.collection.addThread(posttext);
         },
         
         showThread:function(e){
             var btn = $(e.currentTarget);
             if (btn != null && btn.attr('threadid') != null){
                 var threadId = btn.attr('threadid');
-                board.setthreadid(threadId);
                 global.set('currentThread', this.collection.get(threadId));
                 $.mobile.changePage("thread.html");
             }
@@ -83,7 +83,6 @@
             if (posttext.length > 0){
                 this.collection.addThread(
                     posttext, 
-                    global.get('currentCircle').id,
                     global.get('currentThread').id);
             }
         },
@@ -95,15 +94,15 @@
     var page = null;
     var pageThread = null;
     $(document).delegate("#threadPage", "pageshow",function(){
-        board.get_reply_set( function(thread_set){
-            pageThread = new ReplyPage({
-                el:'#threadPage',
-                collection: thread_set,
-                model: global.get('currentThread'),
-                listTemplate:listTemplate,
-                threadTemplate:threadTemplate,
-            });//CirclePage
-        });        
+        var currentThread = global.get('currentThread');
+        var threadSet = ThreadSet.GetReplySet(currentThread);
+        pageThread = new ReplyPage({
+            el:'#threadPage',
+            collection: threadSet,
+            model: currentThread,
+            listTemplate:listTemplate,
+            threadTemplate:threadTemplate,
+        });
     }).delegate("#threadPage", "pagehide", function(){
         if (pageThread){
             pageThread.remove();
@@ -113,14 +112,13 @@
     
     $(document).delegate("#circleDetailPage", "pageshow", function(){
         var circle = global.get('currentCircle');
-        board.get_thread_set( function(thread_set){
-            page = new CirclePage({
-                el: '#circleDetailPage',
-                collection: thread_set,
-                model: circle,
-                template: listTemplate,
-            });
-        });//get_thread_set
+        var threadSet = ThreadSet.GetBoardSet(circle.id);
+        page = new CirclePage({
+            el: '#circleDetailPage',
+            collection: threadSet,
+            model: circle,
+            template: listTemplate,
+        });
     }).delegate("#circleDetailPage", "pagehide", function(){
         if (page){
             page.remove();

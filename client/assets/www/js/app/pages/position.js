@@ -60,8 +60,6 @@ define(function(require, exports, module) {
             // maybe use route in the future
             var circle = this.collection.get(circleId);
             global.set('currentCircle', circle);
-
-            board.setboardid(circleId);
             setTimeout(function(){
                 $.mobile.changePage('circle.html#id=' + circleId);
             }, 0);

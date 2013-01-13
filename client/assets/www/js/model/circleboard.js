@@ -24,10 +24,22 @@ define(function(require, exports, module){
 	    return config.server + '/board';
 	},
 	model: Thread,
-
-        addThread: function(thread_text, circleid, threadid){
+        initialize: function(models, options){
+            this.options = options;
+        },
+        addThread: function(thread_text, threadid){
+            if (this.mode == 'boardSet'){
+                if (threadid){
+                    console.log('no need to pass threadid in boardSet');
+                }
+            }else if (this.mode == 'replySet'){
+                if (!threadid){
+                    console.log('should pass threadid in replySet');
+                    return;
+                }
+            }
             var new_thread = this.create({        
-                boardid : boardid,
+                boardid : this.options.boardid,
                 //authorid : userSelf.id, authorid should be decided on the server side
                 content : thread_text,
                 commentnumber : 0,
@@ -38,74 +50,39 @@ define(function(require, exports, module){
                 remove:true
             }); 
         },
-
+    },{
+        GetReplySet: function(replyToThread){
+            var threadSet = new ThreadSet([], {
+                mode: 'replySet',
+                threadid: replyToThread.id,
+                boardid: replyToThread.get('boardid'),
+            });
+            threadSet.fetch({
+                data:{threadid: replyToThread.id},
+                update: true,
+                add: true,
+                remove: true,
+            });
+            return threadSet;
+        },
+        GetBoardSet: function(boardid){
+            var threadSet = new ThreadSet([], {
+                mode: 'boardSet',
+                boardid: boardid,
+            });
+            threadSet.fetch({
+                data:{boardid: boardid},
+                update: true,
+                add: true,
+                remove: true,
+            });
+            return threadSet;
+        }
     });
     _.extend(exports, {
         Thread: Thread,
         ThreadSet: ThreadSet,
     });
-    exports.setboardid = function(in_boardid){
-        
-        boardid = in_boardid;
-        local_thread_set = null;        
-        console.log("new board id is set as",in_boardid);
-    };
-    
-    exports.setthreadid = function(in_threadid){
-        
-        threadid = in_threadid;
-        local_reply_set = null;                       
-        console.log("new thread id is set as", in_threadid);
-    };
-    
-    
-    
-    exports.get_thread_set = function(next){
-        if (local_thread_set == null)
-        {
-            local_thread_set = new this.ThreadSet;
-            local_thread_set.fetch({
-		data:{boardid:boardid},
-                success:function(collection, response, options){                                        
-                    console.log("Fetch thread set  success!");                                                       
-		    next(local_thread_set);
-		},
-                error:function (collection, xhr, options){
-                    console.log("Fetch thread set failed!");
-                    local_thread_set = null;
-		    next(null);
-                },
-            });//fetch
-        } 
-        else
-        {
-            next(local_thread_set);
-        }      
-    };
-    
-    exports.get_reply_set = function(next){
-        if (local_reply_set == null){
-            local_reply_set = new this.ThreadSet;
-            local_reply_set.fetch({
-		data:{threadid:threadid},
-                success:function(collection, response, options){                                        
-                    console.log("Fetch thread set  success!");                                                       
-		    next(local_reply_set);
-		},
-                error:function (collection, xhr, options){
-                    console.log("Fetch thread set failed!");
-                    local_reply_set = null;
-		    next(null);
-                },
-            });//fetch     
-        }
-        else{
-            next(local_reply_set);
-        }
-    };
-    
-
-
 });
 
 
