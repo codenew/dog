@@ -45,9 +45,10 @@ requirejs.config({
 	},
         "easeljs":{exports: "createjs"},
         "tweenjs":{deps:["easeljs"], exports: "createjs"},
-        "movieclip":{deps:["easeljs", "tweenjs"],exports: "createjs"},
+        "movieclip-0.5.0.min":{deps:["easeljs", "tweenjs"],exports: "createjs"},
         "soundjs": {deps:["easeljs"],exports: "createjs"},
-        "anim":{deps:["movieclip", "easeljs", "tweenjs"],exports: "createjs"},
+        "anim/A":{deps:["movieclip", "easeljs", "tweenjs"],exports: "lib"},
+        "anim/B":{deps:["movieclip", "easeljs", "tweenjs"],exports: "lib"},
     }
 });
 requirejs(['underscore', 'smart-2.9.min'], function(_,s){

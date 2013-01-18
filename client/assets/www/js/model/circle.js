@@ -1,7 +1,8 @@
 define(function(require, exports, module){
     var Backbone = require('backbone')
     , _ = require('underscore')
-    , config = require('app/config');
+    , config = require('app/config')
+    , DogServer = require('app/api').DogServer;
 
     var local_circleManager = null;
     var Circle = Backbone.Model.extend({
@@ -32,5 +33,10 @@ define(function(require, exports, module){
     _.extend(exports, {
         Circle: Circle,
         CircleManager: CircleManager,
+        fight: function(circle, next){
+            DogServer.rpc('circle/fight', {
+                circleId: circle.id
+            }, next);
+        },
     });
 });

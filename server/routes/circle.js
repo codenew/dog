@@ -6,6 +6,39 @@ var _ = require('underscore')
 var ObjectID = mongodb.ObjectID;
 
 _.extend(exports, {
+    fight: function(req, res){
+        var circleId = req.param('circleId');
+        var userId = req.session.userid;
+        if (Math.random() > 0.5){
+            res.json({result: 'lose'});
+        }else{
+            globaldata.get('mongoPool').acquire(req, 'circles', function(err, collection, release){
+                if (err){
+                    console.log(err);
+                    res.send(500, err);
+                    return;
+                }
+                collection.update({
+                    _id: new mongodb.ObjectID(circleId)
+                }, {
+                    userid: userId
+                }, function(err, modifyCount){
+                    if (err){
+                        console.log('circle.fight update failed', err);
+                        res.send(500, err);
+                    }else{
+                        if (modifyCount == 1){
+                            res.json({result: 'ok'});
+                        }else{
+                            res.send(500, 'modify count not 1, which is:' + modifyCount);
+                        }
+                    }
+		    release();
+                });
+            });
+        }
+    },
+
     // update
     put_one: function(id, req, res){
 	_.each(data, function(c){

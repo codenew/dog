@@ -3,12 +3,12 @@
  */
 var express = require('express')
 , routes = require('./routes')
-, user = require('./routes/user')
+
 , position = require('./routes/position')
-, pet = require('./routes/pet')
+
 , chat = require('./routes/chat')
 , circle = require('./routes/circle')
-, userevent = require('./routes/userevent')
+
 , http = require('http')
 , log = require('./lib/log')
 , restful = require('./lib/restful')
@@ -86,20 +86,25 @@ function checkAuth(req, res, next){
 }
 
 // user routers
+var user = require('./routes/user');
 app.get('/user/login', user.login);
 app.get('/user/logout', user.logout);
 app.get('/user/register', user.register);
-restful.route(app, '/user', [checkAuth], require('./routes/user'));
+restful.route(app, '/user', [checkAuth], user);
 
 // circle routers
-restful.route(app, '/circle', [checkAuth], require('./routes/circle'));
+var circle = require('./routes/circle');
+app.get('/circle/fight', [checkAuth], circle.fight);
+restful.route(app, '/circle', [checkAuth], circle);
 
 // pet routers
-app.get('/pet/adopt', [checkAuth], require('./routes/pet').adopt);
-restful.route(app, '/pet', [checkAuth], require('./routes/pet'));
+var pet = require('./routes/pet');
+app.get('/pet/adopt', [checkAuth], pet.adopt);
+restful.route(app, '/pet', [checkAuth], pet);
 
 // user event routers
-restful.route(app, '/userevent', [checkAuth], require('./routes/userevent'));
+var userevent = require('./routes/userevent');
+restful.route(app, '/userevent', [checkAuth], userevent);
 
 
 app.all('/position', position.rest);
