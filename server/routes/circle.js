@@ -21,7 +21,9 @@ _.extend(exports, {
                 collection.update({
                     _id: new mongodb.ObjectID(circleId)
                 }, {
-                    userid: userId
+                    $set:{
+                        userid: new mongodb.ObjectID(userId)
+                    }
                 }, function(err, modifyCount){
                     if (err){
                         console.log('circle.fight update failed', err);
