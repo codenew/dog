@@ -127,6 +127,12 @@
             nextAnim.gotoAndPlay(0);
         },
         remove: function(){
+            createjs.Ticker.removeListener(this.stage);
+            this.stage.removeAllChildren();
+            this.stage = null;
+            this.animA = null;
+            this.animB = null;
+
             Backbone.View.prototype.remove.call(this);
         },
 
