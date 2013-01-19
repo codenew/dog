@@ -18,10 +18,16 @@
 
   * http://docs.phonegap.com/en/2.2.0/index.html
 
+  * 框架 http://backbonejs.org/
+
+  * 动画播放 http://createjs.com/
+
  服务器：
 
   * http://nodejs.org/api/
 
   * http://expressjs.com/api.html
 
-
+  * http://docs.mongodb.org/manual/applications/read/#crud-read-find
+ 
+  
