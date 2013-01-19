@@ -2,10 +2,11 @@
     var $ = require('jquery')
     , Backbone = require('backbone')
     , global = require('model/global').global
-    , user = require('model/user')
+    , User = require('model/user').User
     , board = require('model/circleboard')
     , ThreadSet = require('model/circleboard').ThreadSet
     , listTemplate = require('text!template/board.tpl')
+    , circleInfoTemplate = require('text!template/circleInfo.tpl')
     , threadTemplate = require('text!template/thread.tpl')
     , ListView = require('view/listview').ListView;
     
@@ -24,13 +25,35 @@
                 collection: this.collection,
                 template: this.options.template,
             });
+            var self = this;
+            this.listenTo(this.model, "change:owner", function(){
+                self.owner.set('_id', self.model.get('userid'));
+                self.owner.fetch();
+            });
+            this.owner = new User({_id: this.model.get('userid')});
+            this.owner.fetch();
+            this.listenTo(this.owner, "change", this.updateCircleInfo);
+            this.template = new jSmart(this.options.circleInfoTemplate);
             this.render();
         },
         updateName: function(){
             this.$el.find('#circleName').text(this.model.get('name'));
         },
+        updateCircleInfo: function(){
+            this.$el.find('#circleInfo').html(this.template.fetch({
+                model: this.model.attributes,
+                owner: this.owner.attributes,
+                runtime: {
+                    activeUserCount: 0
+                },
+                board: {
+                    topicCount: this.collection.length,
+                },
+            }));
+        },
         render: function(){
             this.updateName();
+            this.updateCircleInfo();
             this.threadView.render();
         },
         addThread: function(){
@@ -122,6 +145,7 @@
             collection: threadSet,
             model: circle,
             template: listTemplate,
+            circleInfoTemplate: circleInfoTemplate,
         });
     }).delegate("#circleDetailPage", "pagehide", function(){
         if (page){
