@@ -1,0 +1,17 @@
+.board-face, .board-content,
+.user-portrait, .user-content,
+.circle-portrait, .user-info,
+.attr-info {
+    display: inline-block;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.circle-portrait, .user-portrait {
+    float:left;
+    width:40%;
+}
+.circle-info {
+}

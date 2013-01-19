@@ -1,7 +1,7 @@
-<span style="float:left; width:40%;">
+<span class="circle-portrait">
   <img width="100%" height="100%" src="{$model.imgsrc}" />
 </span>
-<span style="">
+<span class="circle-info">
   <div>圈主：
     <span id="circleOwner">{$owner.name}</span>
     <span><a href="#" id="mailToCircleOwner">私信</a></span>

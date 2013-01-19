@@ -21,7 +21,9 @@ define(function(require, exports, module) {
                 $('<li>').html(html).attr("lid", model.cid)
             );
             this.refreshListView();
-            this.$el.children('ul').listview('refresh');
+            if (this.options.mobileListView){
+                this.$el.children('ul').listview('refresh');
+            }
         },
         onAdd: function(model){
             var n = $("<li>").html(
@@ -30,15 +32,20 @@ define(function(require, exports, module) {
             //n.addClass('ui-li ui-li-static ui-btn-up-c');
             this.refreshListView();
             this.$el.children('ul').append(n);
-            this.$el.children('ul').listview('refresh');
+            if (this.options.mobileListView){
+                this.$el.children('ul').listview('refresh');
+            }
         },
         onRemove: function(model){
             this.$el.find("[lid=" + model.cid + "]").remove();
         },
         refreshListView: function(){
             if (this.$el.children('ul').length == 0){
-                this.$el.html('<ul>').children('ul').attr('data-role', 'listview').listview();
-            }else if (!this.$el.children('ul').data('listview')){
+                var ul = this.$el.html('<ul>').children('ul');
+                if (this.options.mobileListView){                    
+                    ul.attr('data-role', 'listview').listview();
+                }
+            }else if (this.options.mobileListView && !this.$el.children('ul').data('listview')){
                 this.$el.children('ul').listview();
             }
         },
