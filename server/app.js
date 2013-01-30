@@ -67,6 +67,7 @@ app.configure(function(){
     app.use(app.router);
     //app.use(express.static(path.join(__dirname, 'public')));
     app.use(express.static(path.join(__dirname, '../client/assets/www')));
+    app.use(express.static(path.join(__dirname, '../client/bin')));
 });
 
 app.configure('development', function(){
